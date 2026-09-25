@@ -189,20 +189,33 @@
       background-color: #0369a1;
     }
 
-    /* DESKTOP VIEW: Left = Logo+Menu, Center = Search Bar, Right = Cart */
+    /* DESKTOP VIEW: Taller Height, Proper Spacing & Premium Look */
     @media (min-width: 769px) {
       header {
         grid-template-columns: auto 1fr auto;
         grid-template-areas: "brand search cart";
         gap: 28px;
-        padding: 12px 6%;
+        padding: 20px 6%;
+        min-height: 80px;
       }
       .search-container {
-        max-width: 480px;
+        max-width: 520px;
         margin: 0 auto;
       }
+      .search-container input {
+        padding: 12px 18px;
+        font-size: 15px;
+      }
+      .search-container button {
+        padding: 12px 22px;
+        font-size: 15px;
+      }
+      .cart-icon {
+        padding: 11px 18px;
+        font-size: 15px;
+      }
       .brand-main-title {
-        font-size: 21px;
+        font-size: 22px;
       }
     }
 
@@ -1212,9 +1225,7 @@
     </div>
   </header>
 
-  <!-- ==============================================
-       SIDEBAR NAVIGATION DRAWER (SLIDES FROM LEFT)
-       ============================================== -->
+  <!-- SIDEBAR NAVIGATION DRAWER (SLIDES FROM LEFT) -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
   <div class="sidebar-drawer" id="sidebarDrawer">
