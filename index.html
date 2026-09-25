@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Veku Collections</title>
   
-  <!-- Modern Vector Favicon (Automatic Browser Tab Icon) -->
+  <!-- Modern Vector Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%' y1='0%' x2='100%' y2='100%'><stop offset='0%' stop-color='%230284c7'/><stop offset='100%' stop-color='%2338bdf8'/></linearGradient></defs><rect width='100' height='100' rx='25' fill='url(%23g)'/><path d='M28 32 L50 74 L72 32 H58 L50 52 L42 32 H28 Z' fill='%23ffffff'/><circle cx='50' cy='19' r='5' fill='%23ffffff'/></svg>">
   
   <!-- FontAwesome Icons -->
@@ -25,43 +25,59 @@
       color: #0f172a;
     }
 
-    /* Premium Header */
+    /* =======================================================
+       HEADER - MOBILE & DESKTOP PERFECT LAYOUT (CSS GRID)
+       ======================================================= */
     header {
       background-color: #0f172a;
       color: #ffffff;
-      padding: 12px 6%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 15px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
       position: sticky;
       top: 0;
       z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.15);
+      display: grid;
+      /* Mobile default: Row 1 = Left + Cart, Row 2 = Search */
+      grid-template-columns: 1fr auto;
+      grid-template-areas: 
+        "brand cart"
+        "search search";
+      gap: 12px 10px;
+      padding: 12px 4%;
+      align-items: center;
     }
 
+    /* Left Group: Hamburger + Logo */
     .header-left {
+      grid-area: brand;
       display: flex;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
     }
 
-    .mobile-menu-btn {
-      display: none;
+    /* Clean Hamburger Icon */
+    .menu-icon-btn {
       background: none;
       border: none;
       color: #ffffff;
-      font-size: 22px;
+      font-size: 24px;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2px;
+      transition: color 0.2s;
     }
 
-    /* Brand Logo & Typography */
+    .menu-icon-btn:hover {
+      color: #38bdf8;
+    }
+
+    /* Brand Logo & Text */
     .brand-logo {
       text-decoration: none;
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       cursor: pointer;
     }
 
@@ -70,11 +86,6 @@
       align-items: center;
       justify-content: center;
       filter: drop-shadow(0 2px 8px rgba(2, 132, 199, 0.45));
-      transition: transform 0.25s ease;
-    }
-
-    .brand-logo:hover .logo-badge {
-      transform: scale(1.06) rotate(-2deg);
     }
 
     .brand-text-wrap {
@@ -84,33 +95,37 @@
     }
 
     .brand-main-title {
-      font-size: 21px;
+      font-size: 19px;
       font-weight: 900;
-      letter-spacing: 1.5px;
+      letter-spacing: 1.2px;
       color: #ffffff;
     }
 
     .brand-subtitle {
-      font-size: 9.5px;
+      font-size: 9px;
       font-weight: 700;
-      letter-spacing: 3.5px;
+      letter-spacing: 3px;
       color: #38bdf8;
       text-transform: uppercase;
     }
 
+    /* Cart Button */
     .cart-icon {
+      grid-area: cart;
+      justify-self: end;
       position: relative;
       font-size: 14px;
       cursor: pointer;
       color: #ffffff;
       background-color: #1e293b;
-      padding: 9px 16px;
+      padding: 8px 14px;
       border-radius: 8px;
-      transition: background 0.2s;
       display: flex;
       align-items: center;
       gap: 8px;
       font-weight: 600;
+      transition: background 0.2s;
+      white-space: nowrap;
     }
 
     .cart-icon:hover {
@@ -126,10 +141,11 @@
       font-weight: 700;
     }
 
+    /* Search Bar */
     .search-container {
+      grid-area: search;
       display: flex;
-      flex: 1;
-      max-width: 380px;
+      width: 100%;
     }
 
     .search-container input {
@@ -162,111 +178,205 @@
       cursor: pointer;
       font-size: 14px;
       font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
       transition: background 0.2s;
+      white-space: nowrap;
     }
 
     .search-container button:hover {
       background-color: #0369a1;
     }
 
+    /* DESKTOP VIEW: Left = Logo+Menu, Center = Search Bar, Right = Cart */
     @media (min-width: 769px) {
-      .search-container { order: 2; }
-      .cart-icon { order: 3; }
+      header {
+        grid-template-columns: auto 1fr auto;
+        grid-template-areas: "brand search cart";
+        gap: 28px;
+        padding: 12px 6%;
+      }
+      .search-container {
+        max-width: 480px;
+        margin: 0 auto;
+      }
+      .brand-main-title {
+        font-size: 21px;
+      }
     }
 
-    nav {
+    /* =========================================
+       SIDEBAR NAVIGATION DRAWER (LEFT SIDE)
+       ========================================= */
+    .sidebar-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(3px);
+      z-index: 2500;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .sidebar-overlay.open {
+      display: block;
+      opacity: 1;
+    }
+
+    .sidebar-drawer {
+      position: fixed;
+      top: 0;
+      left: -320px;
+      width: 300px;
+      height: 100%;
       background-color: #ffffff;
-      border-bottom: 1px solid #e2e8f0;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.02);
-    }
-
-    .menu-bar {
-      list-style: none;
+      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+      z-index: 2600;
       display: flex;
-      padding: 0 6%;
-      align-items: center;
+      flex-direction: column;
+      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .menu-item {
-      position: relative;
+    .sidebar-drawer.open {
+      left: 0;
     }
 
-    .menu-item > a {
+    .sidebar-header {
+      background-color: #0f172a;
+      color: #ffffff;
+      padding: 18px 20px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      padding: 13px 18px;
+      align-items: center;
+      border-bottom: 1px solid #1e293b;
+    }
+
+    .sidebar-title {
+      font-size: 16px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .sidebar-close-btn {
+      background: none;
+      border: none;
+      color: #94a3b8;
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .sidebar-close-btn:hover {
+      color: #ffffff;
+    }
+
+    .sidebar-body {
+      flex: 1;
+      overflow-y: auto;
+      padding: 12px 0;
+    }
+
+    .sidebar-menu-list {
+      list-style: none;
+    }
+
+    .sidebar-menu-item {
+      border-bottom: 1px solid #f1f5f9;
+    }
+
+    .sidebar-menu-link {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 20px;
       color: #334155;
       text-decoration: none;
       font-weight: 600;
       font-size: 14px;
       transition: all 0.2s;
+      cursor: pointer;
     }
 
-    .menu-item > a:hover {
+    .sidebar-menu-link:hover {
+      background-color: #f0f9ff;
       color: #0284c7;
-      background-color: #f8fafc;
+      padding-left: 24px;
     }
 
-    .admin-btn-nav {
-      margin-left: auto;
-      background-color: #ef4444;
-      color: #ffffff !important;
-      border-radius: 6px;
-      padding: 7px 14px !important;
-    }
-
-    .admin-btn-nav:hover {
-      background-color: #dc2626 !important;
-      color: #ffffff !important;
-    }
-
-    .submenu {
+    .sidebar-submenu {
       display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background-color: #ffffff;
-      min-width: 210px;
-      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+      background-color: #f8fafc;
       list-style: none;
-      z-index: 1000;
-      border-radius: 0 0 8px 8px;
-      border: 1px solid #e2e8f0;
       padding: 6px 0;
+      border-top: 1px solid #e2e8f0;
     }
 
-    .submenu li a {
-      color: #475569;
-      padding: 9px 16px;
-      text-decoration: none;
+    .sidebar-submenu.open {
       display: block;
+    }
+
+    .sidebar-submenu li a {
+      display: block;
+      padding: 10px 20px 10px 36px;
+      color: #64748b;
+      text-decoration: none;
       font-size: 13px;
       font-weight: 500;
       transition: all 0.2s;
     }
 
-    .submenu li a:hover {
-      background-color: #f0f9ff;
+    .sidebar-submenu li a:hover {
       color: #0284c7;
-      padding-left: 20px;
+      background-color: #e0f2fe;
+      padding-left: 42px;
     }
 
-    @media (min-width: 769px) {
-      .menu-item:hover .submenu {
-        display: block;
-      }
+    .sidebar-footer {
+      padding: 16px 20px;
+      border-top: 1px solid #e2e8f0;
+      background-color: #f8fafc;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .sidebar-admin-btn {
+      width: 100%;
+      padding: 11px;
+      background-color: #ef4444;
+      color: #ffffff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s;
+    }
+
+    .sidebar-admin-btn:hover {
+      background-color: #dc2626;
     }
 
     /* Main Products Section */
     .main-content {
-      padding: 30px 6%;
+      padding: 24px 5%;
       min-height: 80vh;
     }
 
     .section-title {
       font-size: 20px;
-      margin-bottom: 24px;
+      margin-bottom: 20px;
       color: #0f172a;
       font-weight: 700;
       position: relative;
@@ -1047,14 +1157,8 @@
       font-size: 12px;
     }
 
-    /* Mobile Responsive */
+    /* Mobile Responsive Grid */
     @media (max-width: 768px) {
-      .mobile-menu-btn { display: block; }
-      header { padding: 12px 4%; }
-      .search-container { order: 3; width: 100%; max-width: 100%; margin-top: 6px; }
-      nav { display: none; }
-      nav.active { display: block; }
-      .menu-bar { flex-direction: column; align-items: stretch; padding: 0; }
       .main-content { padding: 16px 3%; }
       .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
       .product-detail-container { flex-direction: column; }
@@ -1064,32 +1168,29 @@
 </head>
 <body>
 
-  <!-- Header with Custom Luxury Vector Logo -->
+  <!-- Perfectly Responsive Header (Grid Layout) -->
   <header>
+    <!-- Left: Hamburger + Logo -->
     <div class="header-left">
-      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
-        <i class="fa-solid fa-bars" id="menuIcon"></i>
+      <button class="menu-icon-btn" onclick="openSidebar()" aria-label="Open Menu">
+        <i class="fa-solid fa-bars"></i>
       </button>
       
       <a href="#" class="brand-logo" onclick="resetFilter()">
-        <!-- Vector Badge -->
         <div class="logo-badge">
-          <svg width="42" height="42" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg width="38" height="38" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <linearGradient id="vekuGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                 <stop offset="0%" stop-color="#0284c7" />
                 <stop offset="100%" stop-color="#38bdf8" />
               </linearGradient>
             </defs>
-            <!-- Badge Shape -->
             <rect width="100" height="100" rx="26" fill="url(#vekuGrad)" />
-            <!-- Luxury V Stylized Icon -->
             <path d="M26 32 L50 76 L74 32 H59 L50 54 L41 32 H26 Z" fill="#ffffff" />
             <circle cx="50" cy="19" r="5" fill="#ffffff" />
             <path d="M45 13 C45 10 55 10 55 13" stroke="#ffffff" stroke-width="3.5" stroke-linecap="round" fill="none" />
           </svg>
         </div>
-        <!-- Brand Typography -->
         <div class="brand-text-wrap">
           <span class="brand-main-title">VEKU</span>
           <span class="brand-subtitle">COLLECTIONS</span>
@@ -1097,11 +1198,13 @@
       </a>
     </div>
 
+    <!-- Center (Desktop) / Row 2 (Mobile): Search Bar -->
     <div class="search-container">
       <input type="text" id="searchInput" placeholder="Search Suit, Saree, Kurta..." onkeyup="searchProducts()">
       <button onclick="searchProducts()"><i class="fa-solid fa-magnifying-glass"></i> Search</button>
     </div>
 
+    <!-- Right: Cart Button -->
     <div class="cart-icon" onclick="toggleCart()">
       <i class="fa-solid fa-cart-shopping"></i>
       <span>Cart</span>
@@ -1109,10 +1212,30 @@
     </div>
   </header>
 
-  <!-- Navigation Menu Bar -->
-  <nav id="navbar">
-    <ul class="menu-bar" id="mainMenuBar"></ul>
-  </nav>
+  <!-- ==============================================
+       SIDEBAR NAVIGATION DRAWER (SLIDES FROM LEFT)
+       ============================================== -->
+  <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+  <div class="sidebar-drawer" id="sidebarDrawer">
+    <div class="sidebar-header">
+      <div class="sidebar-title">
+        <i class="fa-solid fa-bag-shopping" style="color: #38bdf8;"></i>
+        <span>Categories & Menu</span>
+      </div>
+      <button class="sidebar-close-btn" onclick="closeSidebar()">&times;</button>
+    </div>
+
+    <div class="sidebar-body">
+      <ul class="sidebar-menu-list" id="sidebarMenuList"></ul>
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="sidebar-admin-btn" onclick="closeSidebar(); openAdminLoginModal();">
+        <i class="fa-solid fa-user-lock"></i> Admin Panel
+      </button>
+    </div>
+  </div>
 
   <!-- Main Content Catalog -->
   <div class="main-content">
@@ -1695,18 +1818,27 @@
       });
     }
 
-    function toggleMobileMenu() {
-      const nav = document.getElementById('navbar');
-      const icon = document.getElementById('menuIcon');
-      nav.classList.toggle('active');
-      icon.className = nav.classList.contains('active') ? "fa-solid fa-xmark" : "fa-solid fa-bars";
+    /* SIDEBAR DRAWER CONTROLS */
+    function openSidebar() {
+      document.getElementById('sidebarOverlay').classList.add('open');
+      document.getElementById('sidebarDrawer').classList.add('open');
     }
 
-    function toggleSubmenu(event, subMenuId) {
-      if (window.innerWidth <= 768) {
-        event.preventDefault();
-        const submenu = document.getElementById(subMenuId);
-        if (submenu) submenu.classList.toggle('open');
+    function closeSidebar() {
+      document.getElementById('sidebarOverlay').classList.remove('open');
+      document.getElementById('sidebarDrawer').classList.remove('open');
+    }
+
+    function toggleSidebarSubmenu(event, subMenuId) {
+      event.preventDefault();
+      event.stopPropagation();
+      const submenu = document.getElementById(subMenuId);
+      const icon = event.currentTarget.querySelector('.submenu-arrow');
+      if (submenu) {
+        submenu.classList.toggle('open');
+        if (icon) {
+          icon.style.transform = submenu.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0deg)';
+        }
       }
     }
 
@@ -1824,24 +1956,33 @@
       if (document.getElementById('footTerms')) document.getElementById('footTerms').value = footerData.termsPolicy || '';
     }
 
+    /* RENDER SIDEBAR DRAWER MENU */
     function renderMenu() {
-      const navContainer = document.getElementById('mainMenuBar');
-      let navHTML = `<li class="menu-item"><a href="#" onclick="handleCategoryClick('all')">Home</a></li>`;
+      const sidebarContainer = document.getElementById('sidebarMenuList');
+      if (!sidebarContainer) return;
+
+      let navHTML = `
+        <li class="sidebar-menu-item">
+          <a href="#" class="sidebar-menu-link" onclick="handleCategoryClick('all')">
+            <span><i class="fa-solid fa-house" style="margin-right: 8px; color:#0284c7;"></i> Home</span>
+          </a>
+        </li>
+      `;
 
       menuData.forEach((mainMenu, index) => {
         const hasSubmenu = mainMenu.submenus && mainMenu.submenus.length > 0;
-        const subMenuId = `sub_menu_${index}`;
+        const subMenuId = `side_sub_menu_${index}`;
         
         navHTML += `
-          <li class="menu-item">
-            <a href="#" onclick="handleCategoryClick('${mainMenu.category}', event, '${subMenuId}')">
+          <li class="sidebar-menu-item">
+            <div class="sidebar-menu-link" onclick="handleCategoryClick('${mainMenu.category}')">
               <span>${mainMenu.title}</span> 
-              ${hasSubmenu ? '<i class="fa-solid fa-chevron-down" style="font-size: 10px; margin-left: 4px;"></i>' : ''}
-            </a>
+              ${hasSubmenu ? `<span onclick="toggleSidebarSubmenu(event, '${subMenuId}')" style="padding: 4px 8px; cursor:pointer;"><i class="fa-solid fa-chevron-down submenu-arrow" style="font-size: 11px; transition: transform 0.2s;"></i></span>` : ''}
+            </div>
         `;
 
         if (hasSubmenu) {
-          navHTML += `<ul class="submenu" id="${subMenuId}">`;
+          navHTML += `<ul class="sidebar-submenu" id="${subMenuId}">`;
           mainMenu.submenus.forEach(sub => {
             navHTML += `<li><a href="#" onclick="handleCategoryClick('${sub.category}')">${sub.title}</a></li>`;
           });
@@ -1850,31 +1991,19 @@
         navHTML += `</li>`;
       });
 
-      navHTML += `
-        <li class="menu-item" style="margin-left: auto;">
-          <a href="#" class="admin-btn-nav" onclick="openAdminLoginModal()"><i class="fa-solid fa-user-lock"></i> Admin Panel</a>
-        </li>
-      `;
-
-      navContainer.innerHTML = navHTML;
+      sidebarContainer.innerHTML = navHTML;
       populateAdminCategoryOptions();
       populateMenuManagerUI();
       populateProductManagerUI();
     }
 
-    function handleCategoryClick(categorySlug, event = null, subMenuId = null) {
-      if (event && window.innerWidth <= 768 && subMenuId) {
-        toggleSubmenu(event, subMenuId);
-      }
+    function handleCategoryClick(categorySlug) {
       if (categorySlug === 'all') {
         resetFilter();
       } else {
         filterProducts(categorySlug);
       }
-      if (window.innerWidth <= 768 && (!subMenuId || categorySlug !== 'all')) {
-        document.getElementById('navbar').classList.remove('active');
-        document.getElementById('menuIcon').className = "fa-solid fa-bars";
-      }
+      closeSidebar();
     }
 
     function filterProducts(categorySlug) {
