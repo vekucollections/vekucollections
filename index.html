@@ -109,6 +109,53 @@
       text-transform: uppercase;
     }
 
+    /* =========================================
+       BRAND LETTER ANIMATION (ONE BY ONE & FLOAT)
+       ========================================= */
+    .animated-title span,
+    .animated-subtitle span {
+      display: inline-block;
+      opacity: 0;
+      animation: 
+        letterDropIn 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) forwards,
+        letterFloatWave 2.4s ease-in-out infinite;
+      animation-delay: 
+        calc(var(--i) * 0.07s), 
+        calc(1.2s + (var(--i) * 0.12s));
+      transform-origin: center bottom;
+    }
+
+    @keyframes letterDropIn {
+      0% {
+        opacity: 0;
+        transform: translateY(-16px) scale(0.6);
+        filter: blur(3px);
+      }
+      60% {
+        opacity: 1;
+        transform: translateY(2px) scale(1.1);
+        filter: blur(0);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+      }
+    }
+
+    @keyframes letterFloatWave {
+      0%, 100% {
+        transform: translateY(0) rotate(0deg);
+      }
+      30% {
+        transform: translateY(-3.5px) rotate(-1.5deg);
+        color: #38bdf8;
+      }
+      70% {
+        transform: translateY(2px) rotate(1.5deg);
+      }
+    }
+
     /* Cart Button */
     .cart-icon {
       grid-area: cart;
@@ -1205,8 +1252,12 @@
           </svg>
         </div>
         <div class="brand-text-wrap">
-          <span class="brand-main-title">VEKU</span>
-          <span class="brand-subtitle">COLLECTIONS</span>
+          <span class="brand-main-title animated-title">
+            <span style="--i:1">V</span><span style="--i:2">E</span><span style="--i:3">K</span><span style="--i:4">U</span>
+          </span>
+          <span class="brand-subtitle animated-subtitle">
+            <span style="--i:5">C</span><span style="--i:6">O</span><span style="--i:7">L</span><span style="--i:8">L</span><span style="--i:9">E</span><span style="--i:10">C</span><span style="--i:11">T</span><span style="--i:12">I</span><span style="--i:13">O</span><span style="--i:14">N</span><span style="--i:15">S</span>
+          </span>
         </div>
       </a>
     </div>
