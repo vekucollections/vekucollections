@@ -2586,12 +2586,11 @@
     renderFooter();
     populateFooterManagerUI();
   </script>
-
-  <!-- FIREBASE REALTIME SYNC MODULE -->
+<!-- FIREBASE REALTIME SYNC MODULE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCS9h8aHNu7P7gnSm830a_aP1BUCmYwb_M",
@@ -2637,14 +2636,24 @@
       populateFooterManagerUI();
     });
 
-    // 4. Sync Orders
-    onSnapshot(collection(window.db, "orders"), (snapshot) => {
-      let ordersList = [];
-      snapshot.forEach(d => ordersList.push({ ...d.data(), docId: d.id }));
-      if (ordersList.length > 0) {
-        customerOrders = ordersList;
-        localStorage.setItem('veku_orders', JSON.stringify(ordersList));
-        renderOrdersTable();
+    // 4. Sync Orders (सिर्फ तब लोड होगा जब Admin vekucollections@gmail.com लॉगिन होगा)
+    let unsubscribeOrders = null;
+    onAuthStateChanged(window.auth, (user) => {
+      if (user && user.email === 'vekucollections@gmail.com') {
+        unsubscribeOrders = onSnapshot(collection(window.db, "orders"), (snapshot) => {
+          let ordersList = [];
+          snapshot.forEach(d => ordersList.push({ ...d.data(), docId: d.id }));
+          customerOrders = ordersList;
+          localStorage.setItem('veku_orders', JSON.stringify(ordersList));
+          renderOrdersTable();
+        }, (error) => {
+          console.warn("Orders sync permission restricted:", error.message);
+        });
+      } else {
+        if (unsubscribeOrders) {
+          unsubscribeOrders();
+          unsubscribeOrders = null;
+        }
       }
     });
 
