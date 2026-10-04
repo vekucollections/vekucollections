@@ -599,7 +599,20 @@
       max-height: 440px; 
       overflow-y: auto; 
     }
-    .libas-grid-item { width: 100%; aspect-ratio: 3/4; background: #f8fafc; border-radius: 8px; overflow: hidden; }
+    .libas-grid-item { 
+      width: 100%; 
+      aspect-ratio: 3/4; 
+      background: #f8fafc; 
+      border-radius: 8px; 
+      overflow: hidden; 
+      cursor: pointer;
+      position: relative;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .libas-grid-item:hover { 
+      opacity: 0.92; 
+      transform: scale(0.99);
+    }
     .libas-grid-item img { width: 100%; height: 100%; object-fit: cover; }
     
     .product-detail-info { flex: 1; display: flex; flex-direction: column; }
@@ -637,6 +650,96 @@
     }
     .delivery-perks-box div { display: flex; align-items: center; gap: 8px; }
     .delivery-perks-box i { color: #0284c7; font-size: 14px; }
+
+    /* ========================================================
+       LIBAS FULLSCREEN IMAGE LIGHTBOX / VIEWER STYLES
+       ======================================================== */
+    .image-lightbox-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: #ffffff;
+      z-index: 3500;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      touch-action: pan-y;
+      animation: fadeInLightbox 0.2s ease-out;
+    }
+    .image-lightbox-overlay.open {
+      display: flex;
+    }
+    @keyframes fadeInLightbox {
+      from { opacity: 0; transform: scale(0.98); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .lightbox-img-wrapper {
+      flex: 1;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 15px 90px 15px;
+      overflow: hidden;
+      user-select: none;
+    }
+    .lightbox-img-wrapper img {
+      max-height: 84vh;
+      max-width: 95vw;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border-radius: 4px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    /* Floating Controls: Left, Close, Right */
+    .lightbox-controls {
+      position: absolute;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      z-index: 3600;
+    }
+    .lightbox-btn {
+      width: 46px;
+      height: 46px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #0f172a;
+      font-size: 15px;
+      transition: all 0.2s ease;
+      outline: none;
+    }
+    .lightbox-btn.close-btn {
+      width: 52px;
+      height: 52px;
+      font-size: 18px;
+    }
+    .lightbox-btn:hover {
+      background: #f8fafc;
+      border-color: #cbd5e1;
+      transform: scale(1.08);
+    }
+    .lightbox-btn:active {
+      transform: scale(0.94);
+    }
 
     /* SIZE CHART MODAL */
     .size-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
@@ -966,6 +1069,24 @@
           <div id="reviewsList"></div>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- LIBAS STYLE FULLSCREEN IMAGE LIGHTBOX VIEWER -->
+  <div class="image-lightbox-overlay" id="imageLightboxOverlay">
+    <div class="lightbox-img-wrapper" id="lightboxImgWrapper" ontouchstart="handleLightboxTouchStart(event)" ontouchend="handleLightboxTouchEnd(event)">
+      <img src="" id="lightboxActiveImage" alt="Product Full View">
+    </div>
+    <div class="lightbox-controls">
+      <button class="lightbox-btn" onclick="prevLightboxImage()" aria-label="Previous Image">
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+      <button class="lightbox-btn close-btn" onclick="closeImageLightbox()" aria-label="Close Lightbox">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <button class="lightbox-btn" onclick="nextLightboxImage()" aria-label="Next Image">
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
     </div>
   </div>
 
@@ -1418,6 +1539,12 @@
     let currentlyViewingProductId = null;
     let currentCategoryFilter = 'all';
 
+    // Lightbox / Image Viewer State
+    let currentModalImages = [];
+    let currentLightboxIndex = 0;
+    let touchStartX = 0;
+    let touchEndX = 0;
+
     const defaultMenuData = [
       {
         id: "m1",
@@ -1841,8 +1968,14 @@
       document.getElementById('detailModalDesc').innerText = prod.desc || prod.description || "Handcrafted with premium fabric and comfort fit.";
 
       const images = prod.images && prod.images.length > 0 ? prod.images : [prod.image];
+      currentModalImages = images; // Lightbox ke liye store kiya
+
       const grid = document.getElementById('detailModalGrid');
-      grid.innerHTML = images.map(img => `<div class="libas-grid-item"><img src="${img}"></div>`).join('');
+      grid.innerHTML = images.map((img, idx) => `
+        <div class="libas-grid-item" onclick="openImageLightbox(${idx})" title="Click to view full photo">
+          <img src="${img}" alt="${prod.name}">
+        </div>
+      `).join('');
 
       selectedVariants[prod.id] = { size: prod.variants?.[0]?.size || 'Standard', price: prod.variants?.[0]?.price || 0 };
       document.getElementById('detailModalPrice').innerText = `₹${selectedVariants[prod.id].price.toLocaleString()}`;
@@ -1861,6 +1994,67 @@
       document.getElementById('productDetailModalOverlay').classList.add('open');
     }
 
+    /* ========================================================
+       LIBAS FULLSCREEN LIGHTBOX FUNCTIONS
+       ======================================================== */
+    function openImageLightbox(index) {
+      if (!currentModalImages || currentModalImages.length === 0) return;
+      currentLightboxIndex = index;
+      updateLightboxImage();
+      document.getElementById('imageLightboxOverlay').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeImageLightbox() {
+      document.getElementById('imageLightboxOverlay').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function prevLightboxImage() {
+      if (!currentModalImages || currentModalImages.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex - 1 + currentModalImages.length) % currentModalImages.length;
+      updateLightboxImage();
+    }
+
+    function nextLightboxImage() {
+      if (!currentModalImages || currentModalImages.length === 0) return;
+      currentLightboxIndex = (currentLightboxIndex + 1) % currentModalImages.length;
+      updateLightboxImage();
+    }
+
+    function updateLightboxImage() {
+      const imgElement = document.getElementById('lightboxActiveImage');
+      if (imgElement && currentModalImages[currentLightboxIndex]) {
+        imgElement.style.opacity = '0.3';
+        imgElement.src = currentModalImages[currentLightboxIndex];
+        imgElement.onload = () => { imgElement.style.opacity = '1'; };
+      }
+    }
+
+    // Touch Swipe Handlers (Mobile Left/Right Swipe)
+    function handleLightboxTouchStart(e) {
+      touchStartX = e.changedTouches[0].screenX;
+    }
+
+    function handleLightboxTouchEnd(e) {
+      touchEndX = e.changedTouches[0].screenX;
+      if (touchStartX - touchEndX > 50) {
+        nextLightboxImage(); // Swiped Left -> Agli photo
+      } else if (touchEndX - touchStartX > 50) {
+        prevLightboxImage(); // Swiped Right -> Pichhli photo
+      }
+    }
+
+    // Keyboard Shortcuts (Arrow Left, Arrow Right, Esc)
+    window.addEventListener('keydown', (e) => {
+      const overlay = document.getElementById('imageLightboxOverlay');
+      if (overlay && overlay.classList.contains('open')) {
+        if (e.key === 'ArrowLeft') prevLightboxImage();
+        else if (e.key === 'ArrowRight') nextLightboxImage();
+        else if (e.key === 'Escape') closeImageLightbox();
+      }
+    });
+
     function selectModalSize(prodId, size, price, btn) {
       document.querySelectorAll('#detailModalSizes .size-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
@@ -1870,6 +2064,7 @@
 
     function closeProductDetailModal() {
       document.getElementById('productDetailModalOverlay').classList.remove('open');
+      closeImageLightbox();
     }
 
     function shareProductOnWhatsApp() {
@@ -2586,7 +2781,8 @@
     renderFooter();
     populateFooterManagerUI();
   </script>
-<!-- FIREBASE REALTIME SYNC MODULE -->
+
+  <!-- FIREBASE REALTIME SYNC MODULE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
