@@ -549,7 +549,7 @@
     .cart-item-img { width: 65px; height: 80px; border-radius: 6px; object-fit: cover; }
     .cart-item-details { flex: 1; min-width: 0; }
     .qty-controls { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-    .qty-btn { width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 5px; cursor: font-weight: bold; }
+    .qty-btn { width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 5px; cursor: pointer; font-weight: bold; }
     .remove-btn { color: #ef4444; background: none; border: none; cursor: pointer; font-size: 15px; padding: 6px; }
 
     .cart-footer { padding: 16px; border-top: 1px solid #e2e8f0; background-color: #f8fafc; }
@@ -571,9 +571,7 @@
     }
     .whatsapp-btn:hover { background-color: #1da851; }
 
-    /* ========================================================
-       PRODUCT DETAIL MODAL & LIBAS STYLE 2-COLUMN GALLERY
-       ======================================================== */
+    /* PRODUCT DETAIL MODAL & LIBAS STYLE 2-COLUMN GALLERY */
     .admin-modal {
       background-color: #ffffff; 
       border-radius: 12px; 
@@ -1321,9 +1319,45 @@
     </div>
   </div>
 
+  <!-- EDIT REVIEW MODAL FOR ADMIN -->
+  <div class="admin-modal-overlay" id="editReviewModalOverlay" style="z-index: 2300;">
+    <div class="admin-modal" style="max-width: 480px;">
+      <div class="admin-header">
+        <h3><i class="fa-solid fa-pen-to-square"></i> Edit Customer Review</h3>
+        <button class="close-cart-btn" onclick="closeEditReviewModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="admin-body">
+        <form id="editReviewForm" onsubmit="handleEditReviewSubmit(event)">
+          <input type="hidden" id="editReviewProdId">
+          <input type="hidden" id="editReviewIndex">
+          <input type="hidden" id="editReviewDocId">
+          <div class="form-group">
+            <label>Customer Name</label>
+            <input type="text" id="editReviewAuthor" required>
+          </div>
+          <div class="form-group">
+            <label>Rating (1 to 5 Stars)</label>
+            <select id="editReviewRating" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px; font-weight:600;">
+              <option value="5">⭐⭐⭐⭐⭐ (5 Star)</option>
+              <option value="4">⭐⭐⭐⭐ (4 Star)</option>
+              <option value="3">⭐⭐⭐ (3 Star)</option>
+              <option value="2">⭐⭐ (2 Star)</option>
+              <option value="1">⭐ (1 Star)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Review Comment / Feedback</label>
+            <textarea id="editReviewComment" rows="3" required></textarea>
+          </div>
+          <button type="submit" class="submit-product-btn" style="background-color: #0284c7;">Update Review</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
   <!-- ADMIN DASHBOARD -->
   <div class="admin-modal-overlay" id="adminModalOverlay">
-    <div class="admin-modal" style="max-width: 950px;">
+    <div class="admin-modal" style="max-width: 980px;">
       <div class="admin-header">
         <h3><i class="fa-solid fa-sliders"></i> Store Administration</h3>
         <button class="close-cart-btn" onclick="closeAdminPanel()"><i class="fa-solid fa-xmark"></i></button>
@@ -1335,6 +1369,7 @@
         <button class="admin-tab-btn" onclick="switchAdminTab('manageProductsTab', this)"><i class="fa-solid fa-boxes-stacked"></i> Products</button>
         <button class="admin-tab-btn" onclick="switchAdminTab('menuManagerTab', this)"><i class="fa-solid fa-bars"></i> Menus</button>
         <button class="admin-tab-btn" onclick="switchAdminTab('couponManagerTab', this)"><i class="fa-solid fa-tags"></i> Coupons</button>
+        <button class="admin-tab-btn" onclick="switchAdminTab('reviewsManagerTab', this)"><i class="fa-solid fa-comments"></i> Reviews</button>
         <button class="admin-tab-btn" onclick="switchAdminTab('footerManagerTab', this)"><i class="fa-solid fa-gear"></i> Manage Footer</button>
       </div>
 
@@ -1495,7 +1530,30 @@
           </table>
         </div>
 
-        <!-- TAB 6: SETTINGS & FOOTER -->
+        <!-- TAB 6: CUSTOMER REVIEWS & RATINGS MANAGER -->
+        <div id="reviewsManagerTab" class="admin-tab-content">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
+            <h4 style="font-size:15px; font-weight:800; color:#0f172a;"><i class="fa-solid fa-comments"></i> Ratings & Customer Reviews</h4>
+            <span style="font-size:12px; color:#64748b;">Delete or edit negative/spam reviews here</span>
+          </div>
+          <div style="overflow-x:auto;">
+            <table class="menu-manager-table">
+              <thead>
+                <tr>
+                  <th>Product</th>
+                  <th>Customer</th>
+                  <th>Rating</th>
+                  <th>Comment</th>
+                  <th>Date</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody id="adminReviewsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 7: SETTINGS & FOOTER -->
         <div id="footerManagerTab" class="admin-tab-content">
           <form id="footerForm" onsubmit="handleFooterSubmit(event)">
             <div class="form-group">
@@ -2067,7 +2125,6 @@
       }
     }
 
-    // Touch Swipe Handlers (Mobile Left/Right Swipe)
     function handleLightboxTouchStart(e) {
       touchStartX = e.changedTouches[0].screenX;
     }
@@ -2081,7 +2138,6 @@
       }
     }
 
-    // Keyboard Shortcuts
     window.addEventListener('keydown', (e) => {
       const overlay = document.getElementById('imageLightboxOverlay');
       if (overlay && overlay.classList.contains('open')) {
@@ -2320,6 +2376,7 @@
         document.getElementById('adminModalOverlay').classList.add('open');
         renderOrdersTable();
         populateFooterManagerUI();
+        renderAdminReviewsTable();
       } catch (err) {
         document.getElementById('loginErrorMsg').style.display = 'block';
       }
@@ -2334,6 +2391,7 @@
       if (tabId === 'couponManagerTab') renderCouponsTable();
       if (tabId === 'menuManagerTab') populateMenuManagerUI();
       if (tabId === 'manageProductsTab') populateProductManagerUI();
+      if (tabId === 'reviewsManagerTab') renderAdminReviewsTable();
       if (tabId === 'footerManagerTab') populateFooterManagerUI();
     }
 
@@ -2612,7 +2670,6 @@
         previewBox.innerHTML = `<span style="font-size:12px; color:#94a3b8;">No photos uploaded</span>`;
         return;
       }
-      // Existing URLs
       editBase64Images.forEach((imgSrc, idx) => {
         const wrapper = document.createElement('div');
         wrapper.className = "preview-thumb-wrapper";
@@ -2622,7 +2679,6 @@
         `;
         previewBox.appendChild(wrapper);
       });
-      // Newly chosen files
       editNewFiles.forEach((file, idx) => {
         const blobUrl = URL.createObjectURL(file);
         const wrapper = document.createElement('div');
@@ -2753,13 +2809,126 @@
       productReviews[pId].unshift(newRev);
 
       localStorage.setItem('aligarh_reviews', JSON.stringify(productReviews));
-      if (window.saveReviewToFirestore) await window.saveReviewToFirestore(pId, newRev);
+      if (window.saveReviewToFirestore) {
+        const docRef = await window.saveReviewToFirestore(pId, newRev);
+        if (docRef && docRef.id) {
+          newRev.docId = docRef.id;
+          localStorage.setItem('aligarh_reviews', JSON.stringify(productReviews));
+        }
+      }
 
       renderModalReviews(pId);
       renderProducts(products);
       showToast("Review submitted!");
       document.getElementById('reviewForm').reset();
       setRating(5);
+    }
+
+    /* ========================================================
+       ADMIN REVIEWS MANAGER (EDIT & DELETE NEGATIVE REVIEWS)
+       ======================================================== */
+    function renderAdminReviewsTable() {
+      const tbody = document.getElementById('adminReviewsTableBody');
+      if (!tbody) return;
+      let rows = [];
+
+      Object.keys(productReviews).forEach(pId => {
+        const revs = productReviews[pId] || [];
+        const prod = products.find(p => String(p.id) === String(pId));
+        const prodName = prod ? prod.name : ('Product #' + pId);
+
+        revs.forEach((r, idx) => {
+          const ratingStars = '★'.repeat(Math.round(r.rating || 5));
+          rows.push(`
+            <tr>
+              <td><strong>${prodName}</strong></td>
+              <td>${r.author || 'Anonymous'}</td>
+              <td><span style="color:#eab308; font-weight:700;">${ratingStars} (${r.rating || 5})</span></td>
+              <td style="max-width: 250px; word-break: break-word;">${r.comment || ''}</td>
+              <td style="font-size:12px; color:#64748b;">${r.date || '-'}</td>
+              <td>
+                <div style="display:flex; gap:6px;">
+                  <button type="button" class="edit-menu-btn" title="Edit Review" onclick="openEditReviewModal('${pId}', ${idx}, '${r.docId || ''}')"><i class="fa-solid fa-pen"></i></button>
+                  <button type="button" class="delete-menu-btn" title="Delete Review" onclick="deleteReview('${pId}', ${idx}, '${r.docId || ''}')"><i class="fa-solid fa-trash"></i></button>
+                </div>
+              </td>
+            </tr>
+          `);
+        });
+      });
+
+      if (rows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; padding:24px; color:#64748b;">No customer reviews found.</td></tr>`;
+      } else {
+        tbody.innerHTML = rows.join('');
+      }
+    }
+
+    function openEditReviewModal(pId, index, docId) {
+      const rev = productReviews[pId]?.[index];
+      if (!rev) return;
+      document.getElementById('editReviewProdId').value = pId;
+      document.getElementById('editReviewIndex').value = index;
+      document.getElementById('editReviewDocId').value = docId || rev.docId || '';
+      document.getElementById('editReviewAuthor').value = rev.author || '';
+      document.getElementById('editReviewRating').value = Math.round(rev.rating || 5);
+      document.getElementById('editReviewComment').value = rev.comment || '';
+      document.getElementById('editReviewModalOverlay').classList.add('open');
+    }
+
+    function closeEditReviewModal() {
+      document.getElementById('editReviewModalOverlay').classList.remove('open');
+    }
+
+    async function handleEditReviewSubmit(e) {
+      e.preventDefault();
+      const pId = document.getElementById('editReviewProdId').value;
+      const index = parseInt(document.getElementById('editReviewIndex').value);
+      const docId = document.getElementById('editReviewDocId').value;
+      const author = document.getElementById('editReviewAuthor').value.trim();
+      const rating = Number(document.getElementById('editReviewRating').value);
+      const comment = document.getElementById('editReviewComment').value.trim();
+
+      if (productReviews[pId] && productReviews[pId][index]) {
+        productReviews[pId][index].author = author;
+        productReviews[pId][index].rating = rating;
+        productReviews[pId][index].comment = comment;
+        localStorage.setItem('aligarh_reviews', JSON.stringify(productReviews));
+      }
+
+      if (docId && window.updateReviewInFirestore) {
+        await window.updateReviewInFirestore(docId, { author, rating, comment });
+      }
+
+      renderAdminReviewsTable();
+      renderProducts(products);
+      if (currentlyViewingProductId === pId) {
+        renderModalReviews(pId);
+      }
+      closeEditReviewModal();
+      showToast("Review updated successfully!");
+    }
+
+    async function deleteReview(pId, index, docId) {
+      if (!confirm("Are you sure you want to delete this customer review?")) return;
+      if (productReviews[pId]) {
+        productReviews[pId].splice(index, 1);
+        if (productReviews[pId].length === 0) {
+          delete productReviews[pId];
+        }
+        localStorage.setItem('aligarh_reviews', JSON.stringify(productReviews));
+      }
+
+      if (docId && window.deleteReviewFromFirestore) {
+        await window.deleteReviewFromFirestore(docId);
+      }
+
+      renderAdminReviewsTable();
+      renderProducts(products);
+      if (currentlyViewingProductId === pId) {
+        renderModalReviews(pId);
+      }
+      showToast("Review deleted!", "error");
     }
 
     function populateFooterManagerUI() {
@@ -2860,7 +3029,7 @@
   <!-- FIREBASE REALTIME SYNC MODULE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -2936,11 +3105,43 @@
       }
     });
 
-    // Realtime Save Helpers
+    // 6. Realtime Customer Reviews Sync
+    onSnapshot(collection(window.db, "reviews"), (snapshot) => {
+      let revMap = {};
+      snapshot.forEach(d => {
+        const data = d.data();
+        const pId = data.productId;
+        if (!revMap[pId]) revMap[pId] = [];
+        revMap[pId].push({ ...data, docId: d.id });
+      });
+      if (snapshot.size > 0) {
+        productReviews = revMap;
+        localStorage.setItem('aligarh_reviews', JSON.stringify(productReviews));
+        if (currentlyViewingProductId) renderModalReviews(currentlyViewingProductId);
+        renderProducts(products);
+        renderAdminReviewsTable();
+      }
+    });
+
+    // Realtime Save & Update Helpers
     window.saveProductToDatabase = async (p) => await setDoc(doc(window.db, "products", String(p.id)), p);
     window.saveMenuToDatabase = async (m) => await setDoc(doc(window.db, "settings", "menu_config"), { menuData: m });
     window.saveOrderToFirestore = async (order) => await addDoc(collection(window.db, "orders"), order);
     window.saveReviewToFirestore = async (prodId, rev) => await addDoc(collection(window.db, "reviews"), { productId: prodId, ...rev });
+    window.updateReviewInFirestore = async (docId, revData) => {
+      try {
+        await updateDoc(doc(window.db, "reviews", docId), revData);
+      } catch (err) {
+        console.error("Review update in Firestore failed:", err);
+      }
+    };
+    window.deleteReviewFromFirestore = async (docId) => {
+      try {
+        await deleteDoc(doc(window.db, "reviews", docId));
+      } catch (err) {
+        console.error("Review deletion from Firestore failed:", err);
+      }
+    };
     window.saveCouponsToFirestore = async (coupons) => await setDoc(doc(window.db, "settings", "coupons_config"), { coupons });
     window.saveFooterToFirestore = async (f) => await setDoc(doc(window.db, "settings", "footer_config"), { footerData: f });
     window.updateOrderStatusInFirestore = async (docId, status) => {
