@@ -11,6 +11,9 @@
   <!-- FontAwesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   
+  <!-- RAZORPAY CHECKOUT SDK -->
+  <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
   <style>
     /* Reset & Base Styles */
     * {
@@ -279,7 +282,6 @@
       margin: 0 auto; 
     }
 
-    /* Products Grid: Responsive Columns */
     .products-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
@@ -349,13 +351,10 @@
     .product-price-row { display: flex; align-items: baseline; gap: 6px; margin-bottom: 5px; flex-wrap: wrap; }
     .product-price { font-size: 17px; color: #0f172a; font-weight: 900; }
     
-    /* MRP & DISCOUNT CUT PRICE STYLES */
     .product-mrp { font-size: 12px; color: #94a3b8; text-decoration: line-through; font-weight: 600; }
     .product-discount-badge { font-size: 11px; color: #16a34a; font-weight: 700; }
-
     .product-sizes-preview { font-size: 11px; color: #64748b; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
 
-    /* DESKTOP RESPONSIVE UPGRADE */
     @media (min-width: 768px) {
       header {
         grid-template-columns: auto 1fr auto;
@@ -366,56 +365,26 @@
       .brand-main-title { font-size: 22px; letter-spacing: 1px; }
       .brand-subtitle { font-size: 10px; letter-spacing: 2.6px; }
       .logo-badge svg { width: 38px; height: 38px; }
-      
-      .search-container { 
-        max-width: 580px; 
-        margin: 0 auto; 
-      }
-      .search-container input {
-        padding: 10px 16px;
-        font-size: 14px;
-      }
-      .search-container button {
-        padding: 10px 20px;
-        font-size: 15px;
-      }
-
-      .action-badge-btn { 
-        padding: 9px 16px; 
-        font-size: 14px; 
-        border-radius: 8px;
-        gap: 8px;
-      }
+      .search-container { max-width: 580px; margin: 0 auto; }
+      .search-container input { padding: 10px 16px; font-size: 14px; }
+      .search-container button { padding: 10px 20px; font-size: 15px; }
+      .action-badge-btn { padding: 9px 16px; font-size: 14px; border-radius: 8px; gap: 8px; }
       .badge-count { font-size: 11px; min-width: 20px; }
-
-      .hero-banner {
-        padding: 12px 32px;
-        font-size: 14px;
-      }
+      .hero-banner { padding: 12px 32px; font-size: 14px; }
       .hero-banner-content h3 { font-size: 15px; }
       .hero-banner-content p { font-size: 13px; }
       .hero-pill { font-size: 12px; padding: 5px 12px; }
-
-      .main-content {
-        padding: 24px 32px;
-      }
+      .main-content { padding: 24px 32px; }
       .section-title { font-size: 22px; letter-spacing: 0.8px; }
       .sort-select { padding: 9px 14px; font-size: 13px; }
-
-      .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-        gap: 20px;
-      }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 20px; }
       .product-title { font-size: 15px; }
       .product-price { font-size: 18px; }
       .product-sizes-preview { font-size: 12px; }
     }
 
     @media (min-width: 1024px) {
-      .products-grid {
-        grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
-        gap: 24px;
-      }
+      .products-grid { grid-template-columns: repeat(auto-fill, minmax(270px, 1fr)); gap: 24px; }
       .product-card { border-radius: 14px; }
       .product-info { padding: 14px 14px 16px 14px; }
       .product-title { font-size: 16px; margin-bottom: 6px; }
@@ -425,54 +394,29 @@
     }
 
     @media (min-width: 1280px) {
-      .products-grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 26px;
-      }
+      .products-grid { grid-template-columns: repeat(4, 1fr); gap: 26px; }
     }
 
-    /* SIDEBAR NAVIGATION DRAWER */
+    /* SIDEBAR DRAWER */
     .sidebar-overlay {
-      position: fixed;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background-color: rgba(15, 23, 42, 0.65);
-      backdrop-filter: blur(3px);
-      z-index: 2500;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.3s;
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(3px);
+      z-index: 2500; display: none; opacity: 0; transition: opacity 0.3s;
     }
     .sidebar-overlay.open { display: block; opacity: 1; }
 
     .sidebar-drawer {
-      position: fixed;
-      top: 0; left: -340px; width: 310px; max-width: 85vw; height: 100%;
-      background-color: #ffffff;
-      box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
-      z-index: 2600;
-      display: flex;
-      flex-direction: column;
-      transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      position: fixed; top: 0; left: -340px; width: 310px; max-width: 85vw; height: 100%;
+      background-color: #ffffff; box-shadow: 10px 0 30px rgba(0, 0, 0, 0.25);
+      z-index: 2600; display: flex; flex-direction: column; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .sidebar-drawer.open { left: 0; }
 
     .sidebar-header {
-      background-color: #0f172a;
-      color: #ffffff;
-      padding: 18px 20px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
+      background-color: #0f172a; color: #ffffff; padding: 18px 20px;
+      display: flex; justify-content: space-between; align-items: center;
     }
-
-    .sidebar-title {
-      font-size: 16px;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
+    .sidebar-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
     .sidebar-close-btn { background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; }
     .sidebar-close-btn:hover { color: #ffffff; }
 
@@ -481,40 +425,20 @@
     .sidebar-menu-item { border-bottom: 1px solid #f1f5f9; }
 
     .sidebar-menu-link {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 14px 20px;
-      color: #334155;
-      text-decoration: none;
-      font-weight: 600;
-      font-size: 14px;
-      transition: all 0.2s;
-      cursor: pointer;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 14px 20px; color: #334155; text-decoration: none;
+      font-weight: 600; font-size: 14px; transition: all 0.2s; cursor: pointer;
     }
-    .sidebar-menu-link:hover {
-      background-color: #f0f9ff;
-      color: #0284c7;
-    }
+    .sidebar-menu-link:hover { background-color: #f0f9ff; color: #0284c7; }
 
     .sidebar-submenu {
-      display: none;
-      background-color: #f8fafc;
-      list-style: none;
-      border-top: 1px solid #e2e8f0;
-      border-bottom: 1px solid #e2e8f0;
+      display: none; background-color: #f8fafc; list-style: none;
+      border-top: 1px solid #e2e8f0; border-bottom: 1px solid #e2e8f0;
     }
     .sidebar-submenu.open { display: block; }
-
     .sidebar-submenu li a {
-      display: flex;
-      align-items: center;
-      padding: 11px 20px 11px 36px;
-      color: #475569;
-      text-decoration: none;
-      font-size: 13px;
-      font-weight: 600;
-      transition: all 0.2s;
+      display: flex; align-items: center; padding: 11px 20px 11px 36px;
+      color: #475569; text-decoration: none; font-size: 13px; font-weight: 600; transition: all 0.2s;
     }
 
     .sidebar-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; background: #f8fafc; }
@@ -570,314 +494,117 @@
     .cart-total { display: flex; justify-content: space-between; font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 14px; padding-top: 8px; border-top: 1px solid #e2e8f0; }
 
     .whatsapp-btn {
-      width: 100%; padding: 13px; background-color: #25d366; color: #ffffff; border: none;
+      width: 100%; padding: 13px; background-color: #0284c7; color: #ffffff; border: none;
       border-radius: 8px; font-weight: 700; font-size: 15px; cursor: pointer; display: flex;
       align-items: center; justify-content: center; gap: 8px; transition: background 0.2s;
     }
-    .whatsapp-btn:hover { background-color: #1da851; }
+    .whatsapp-btn:hover { background-color: #0369a1; }
 
-    /* PRODUCT DETAIL MODAL & LIBAS STYLE 2-COLUMN GALLERY */
+    /* DETAIL MODAL */
     .admin-modal {
-      background-color: #ffffff; 
-      border-radius: 12px; 
-      width: 100%; 
-      max-width: 980px;
-      overflow: hidden; 
-      box-shadow: 0 24px 38px -12px rgba(0,0,0,0.28);
-      max-height: 94vh; 
-      display: flex; 
-      flex-direction: column;
+      background-color: #ffffff; border-radius: 12px; width: 100%; max-width: 980px;
+      overflow: hidden; box-shadow: 0 24px 38px -12px rgba(0,0,0,0.28);
+      max-height: 94vh; display: flex; flex-direction: column;
     }
-    .admin-body { 
-      padding: 16px 20px 24px 20px; 
-      overflow-y: auto; 
-      flex: 1; 
-      -webkit-overflow-scrolling: touch;
-    }
-    
-    .product-detail-container { 
-      display: flex; 
-      flex-direction: column; 
-      gap: 20px; 
-    }
+    .admin-body { padding: 16px 20px 24px 20px; overflow-y: auto; flex: 1; -webkit-overflow-scrolling: touch; }
+    .product-detail-container { display: flex; flex-direction: column; gap: 20px; }
     @media (min-width: 769px) {
-      .product-detail-container { 
-        flex-direction: row; 
-        gap: 28px; 
-        align-items: flex-start;
-      }
+      .product-detail-container { flex-direction: row; gap: 28px; align-items: flex-start; }
     }
-
-    .product-detail-gallery { 
-      flex: 1.25; 
-      width: 100%; 
-    }
-
-    /* Libas Authentic 2-Column Product Gallery */
-    .libas-image-grid { 
-      display: grid; 
-      grid-template-columns: repeat(2, 1fr); 
-      gap: 8px; 
-      width: 100%;
-    }
+    .product-detail-gallery { flex: 1.25; width: 100%; }
+    .libas-image-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; width: 100%; }
     .libas-grid-item { 
-      width: 100%; 
-      aspect-ratio: 2 / 3; 
-      background: #f8fafc; 
-      border-radius: 4px; 
-      overflow: hidden; 
-      cursor: zoom-in;
-      position: relative;
-      transition: transform 0.25s ease, opacity 0.2s ease, box-shadow 0.25s ease;
-      border: 1px solid #f1f5f9;
+      width: 100%; aspect-ratio: 2 / 3; background: #f8fafc; border-radius: 4px; overflow: hidden; 
+      cursor: zoom-in; position: relative; transition: transform 0.25s ease, opacity 0.2s ease, box-shadow 0.25s ease; border: 1px solid #f1f5f9;
     }
-    .libas-grid-item:hover { 
-      opacity: 0.96; 
-      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.09);
-      transform: translateY(-2px);
-    }
-    .libas-grid-item img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      object-position: top center;
-      display: block; 
-    }
-    .libas-grid-item:only-child {
-      grid-column: span 2;
-    }
-    
-    .product-detail-info { 
-      flex: 1; 
-      display: flex; 
-      flex-direction: column; 
-    }
-    @media (min-width: 769px) {
-      .product-detail-info {
-        position: sticky;
-        top: 0;
-      }
-    }
-
+    .libas-grid-item:hover { opacity: 0.96; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.09); transform: translateY(-2px); }
+    .libas-grid-item img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+    .libas-grid-item:only-child { grid-column: span 2; }
+    .product-detail-info { flex: 1; display: flex; flex-direction: column; }
+    @media (min-width: 769px) { .product-detail-info { position: sticky; top: 0; } }
     .detail-category-badge { font-size: 12px; color: #64748b; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
     .detail-title { font-size: 22px; font-weight: 800; color: #0f172a; margin: 4px 0 8px 0; }
-    
-    /* MODAL PRICE BOX WITH MRP & DISCOUNT */
-    .detail-price-box { 
-      font-size: 26px; 
-      font-weight: 900; 
-      color: #0f172a; 
-      margin: 6px 0 12px 0; 
-      display: flex;
-      align-items: baseline;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+    .detail-price-box { font-size: 26px; font-weight: 900; color: #0f172a; margin: 6px 0 12px 0; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
     .detail-mrp { font-size: 16px; color: #94a3b8; text-decoration: line-through; font-weight: 600; }
     .detail-discount-badge { font-size: 14px; color: #16a34a; font-weight: 800; background: #dcfce7; padding: 2px 8px; border-radius: 4px; }
-
-    .size-guide-link {
-      font-size: 12px; color: #0284c7; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; margin-left: auto;
-    }
-
+    .size-guide-link { font-size: 12px; color: #0284c7; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; cursor: pointer; margin-left: auto; }
     .size-options { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
-    .size-btn {
-      padding: 7px 16px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155;
-      border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer;
-    }
+    .size-btn { padding: 7px 16px; border: 1px solid #cbd5e1; background: #ffffff; color: #334155; border-radius: 6px; font-size: 13px; font-weight: 600; cursor: pointer; }
     .size-btn.active { background-color: #0284c7; color: white; border-color: #0284c7; }
-
     .detail-actions-row { display: flex; gap: 10px; margin-bottom: 12px; }
-    .add-cart-btn-large, .buy-now-btn-large {
-      flex: 1; height: 46px; color: white; border: none;
-      border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
+    .add-cart-btn-large, .buy-now-btn-large { flex: 1; height: 46px; color: white; border: none; border-radius: 8px; font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
     .add-cart-btn-large { background-color: #0284c7; }
     .buy-now-btn-large { background-color: #f97316; }
-
-    .share-wa-btn {
-      width: 100%; padding: 10px; background-color: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px;
-      color: #334155; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
-    }
-
-    .delivery-perks-box {
-      margin-top: 16px; padding: 12px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px;
-      display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #334155;
-    }
+    .share-wa-btn { width: 100%; padding: 10px; background-color: #f1f5f9; border: 1px solid #e2e8f0; border-radius: 8px; color: #334155; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; }
+    .delivery-perks-box { margin-top: 16px; padding: 12px 14px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 8px; display: flex; flex-direction: column; gap: 8px; font-size: 12px; color: #334155; }
     .delivery-perks-box div { display: flex; align-items: center; gap: 8px; }
     .delivery-perks-box i { color: #0284c7; font-size: 14px; }
 
-    /* LIBAS FULLSCREEN IMAGE LIGHTBOX / VIEWER STYLES */
+    /* LIGHTBOX */
     .image-lightbox-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background-color: #ffffff;
-      z-index: 3500;
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      touch-action: pan-y;
-      animation: fadeInLightbox 0.2s ease-out;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: #ffffff;
+      z-index: 3500; display: none; flex-direction: column; align-items: center; justify-content: center; touch-action: pan-y; animation: fadeInLightbox 0.2s ease-out;
     }
-    .image-lightbox-overlay.open {
-      display: flex;
-    }
-    @keyframes fadeInLightbox {
-      from { opacity: 0; transform: scale(0.98); }
-      to { opacity: 1; transform: scale(1); }
-    }
+    .image-lightbox-overlay.open { display: flex; }
+    @keyframes fadeInLightbox { from { opacity: 0; transform: scale(0.98); } to { opacity: 1; transform: scale(1); } }
+    .lightbox-img-wrapper { flex: 1; width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; padding: 15px 15px 90px 15px; overflow: hidden; user-select: none; }
+    .lightbox-img-wrapper img { max-height: 84vh; max-width: 95vw; width: auto; height: auto; object-fit: contain; border-radius: 4px; box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05); transition: opacity 0.25s ease, transform 0.25s ease; }
+    .lightbox-controls { position: absolute; bottom: 25px; left: 50%; transform: translateX(-50%); display: flex; align-items: center; justify-content: center; gap: 16px; z-index: 3600; }
+    .lightbox-btn { width: 46px; height: 46px; border-radius: 50%; background: #ffffff; border: 1px solid #e2e8f0; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09); display: flex; align-items: center; justify-content: center; cursor: pointer; color: #0f172a; font-size: 15px; transition: all 0.2s ease; outline: none; }
+    .lightbox-btn.close-btn { width: 52px; height: 52px; font-size: 18px; }
+    .lightbox-btn:hover { background: #f8fafc; border-color: #cbd5e1; transform: scale(1.08); }
 
-    .lightbox-img-wrapper {
-      flex: 1;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 15px 15px 90px 15px;
-      overflow: hidden;
-      user-select: none;
-    }
-    .lightbox-img-wrapper img {
-      max-height: 84vh;
-      max-width: 95vw;
-      width: auto;
-      height: auto;
-      object-fit: contain;
-      border-radius: 4px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
-    /* Floating Controls */
-    .lightbox-controls {
-      position: absolute;
-      bottom: 25px;
-      left: 50%;
-      transform: translateX(-50%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      z-index: 3600;
-    }
-    .lightbox-btn {
-      width: 46px;
-      height: 46px;
-      border-radius: 50%;
-      background: #ffffff;
-      border: 1px solid #e2e8f0;
-      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      color: #0f172a;
-      font-size: 15px;
-      transition: all 0.2s ease;
-      outline: none;
-    }
-    .lightbox-btn.close-btn {
-      width: 52px;
-      height: 52px;
-      font-size: 18px;
-    }
-    .lightbox-btn:hover {
-      background: #f8fafc;
-      border-color: #cbd5e1;
-      transform: scale(1.08);
-    }
-    .lightbox-btn:active {
-      transform: scale(0.94);
-    }
-
-    /* SIZE CHART MODAL */
+    /* SIZE CHART */
     .size-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
     .size-table th, .size-table td { border: 1px solid #cbd5e1; padding: 8px; text-align: center; }
     .size-table th { background: #f1f5f9; font-weight: 700; }
 
-    /* DYNAMIC UPI QR BOX */
-    .upi-qr-card {
-      background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 8px; padding: 12px;
-      text-align: center; margin-top: 10px; display: none;
+    /* RAZORPAY NOTICE BOX */
+    .razorpay-info-card {
+      background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 8px; padding: 12px;
+      margin-top: 10px; display: none; text-align: center;
     }
-    .upi-qr-card.show { display: block; }
-    .upi-qr-card img { width: 150px; height: 150px; margin: 8px auto; border-radius: 8px; border: 1px solid #cbd5e1; }
+    .razorpay-info-card.show { display: block; }
 
-    /* TOAST NOTIFICATIONS */
-    .toast-container {
-      position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999;
-      display: flex; flex-direction: column; gap: 8px; width: max-content; max-width: 90vw;
-    }
-    .custom-toast {
-      background: #0f172a; color: white; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600;
-      display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.22); animation: toastIn 0.3s ease;
-    }
+    /* TOAST */
+    .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; width: max-content; max-width: 90vw; }
+    .custom-toast { background: #0f172a; color: white; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.22); animation: toastIn 0.3s ease; }
     .custom-toast.success { border-left: 4px solid #22c55e; }
     .custom-toast.error { border-left: 4px solid #ef4444; }
     @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    /* ADMIN TABS & TABLES */
+    /* ADMIN TABS */
     .admin-tabs { display: flex; background: #f1f5f9; border-bottom: 1px solid #cbd5e1; overflow-x: auto; flex-shrink: 0; }
-    .admin-tab-btn {
-      padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13px;
-      color: #64748b; cursor: pointer; white-space: nowrap;
-    }
+    .admin-tab-btn { padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: #64748b; cursor: pointer; white-space: nowrap; }
     .admin-tab-btn.active { background: white; color: #0284c7; border-bottom: 2px solid #0284c7; }
     .admin-tab-content { display: none; }
     .admin-tab-content.active { display: block; }
-
     .menu-manager-table { width: 100%; border-collapse: collapse; margin-top: 14px; font-size: 13px; }
     .menu-manager-table th, .menu-manager-table td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
     .menu-manager-table th { background: #f8fafc; font-weight: 700; }
-
-    .delete-menu-btn {
-      background-color: #ef4444; color: white; border: none; padding: 5px 8px; border-radius: 5px; cursor: pointer; font-size: 12px;
-    }
-    .edit-menu-btn {
-      background-color: #0284c7; color: white; border: none; padding: 5px 9px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px;
-    }
-
-    .stock-toggle-btn {
-      border: none; padding: 5px 10px; border-radius: 16px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap;
-    }
+    .delete-menu-btn { background-color: #ef4444; color: white; border: none; padding: 5px 8px; border-radius: 5px; cursor: pointer; font-size: 12px; }
+    .edit-menu-btn { background-color: #0284c7; color: white; border: none; padding: 5px 9px; border-radius: 5px; cursor: pointer; font-size: 12px; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; }
+    .stock-toggle-btn { border: none; padding: 5px 10px; border-radius: 16px; font-size: 11px; font-weight: 700; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
     .stock-toggle-btn.in { background-color: #dcfce7; color: #15803d; border: 1px solid #86efac; }
     .stock-toggle-btn.out { background-color: #fee2e2; color: #b91c1c; border: 1px solid #fca5a5; }
-
     .form-group { margin-bottom: 14px; }
     .form-group label { display: block; font-size: 13px; font-weight: 600; color: #334155; margin-bottom: 5px; }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background-color: #ffffff;
-    }
+    .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-size: 13px; outline: none; background-color: #ffffff; }
     .form-row { display: flex; gap: 10px; }
     .form-row .form-group { flex: 1; }
     .submit-product-btn { width: 100%; padding: 12px; background-color: #0284c7; color: white; border: none; border-radius: 8px; font-weight: 700; font-size: 14px; cursor: pointer; }
-
-    .image-preview, .image-preview-grid {
-      width: 100%; min-height: 80px; border: 2px dashed #cbd5e1; border-radius: 8px; margin-top: 8px; padding: 8px; display: flex; align-items: center; justify-content: center;
-    }
+    .image-preview, .image-preview-grid { width: 100%; min-height: 80px; border: 2px dashed #cbd5e1; border-radius: 8px; margin-top: 8px; padding: 8px; display: flex; align-items: center; justify-content: center; }
     .image-preview-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(70px, 1fr)); gap: 8px; }
     .preview-thumb-wrapper { position: relative; }
     .preview-thumb-wrapper img { width: 100%; height: 70px; object-fit: cover; border-radius: 6px; }
-    .preview-thumb-remove {
-      position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border-radius: 50%;
-      width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer;
-    }
-    .add-variant-btn {
-      background: #e2e8f0; border: none; padding: 6px 12px; border-radius: 5px; font-weight: 600; font-size: 12px; cursor: pointer; margin-bottom: 10px;
-    }
+    .preview-thumb-remove { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; }
+    .add-variant-btn { background: #e2e8f0; border: none; padding: 6px 12px; border-radius: 5px; font-weight: 600; font-size: 12px; cursor: pointer; margin-bottom: 10px; }
     .remove-variant-btn { background: #ef4444; color: white; border: none; padding: 0 12px; border-radius: 5px; cursor: pointer; }
 
     /* FOOTER */
     footer { background-color: #0f172a; color: #94a3b8; padding: 40px 20px 24px 20px; margin-top: 50px; }
     .footer-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 28px; max-width: 1340px; margin-left: auto; margin-right: auto; }
-    @media (min-width: 768px) {
-      .footer-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; }
-    }
+    @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
     .footer-col h4 { color: #ffffff; font-size: 15px; margin-bottom: 12px; font-weight: 700; }
     .footer-col ul { list-style: none; }
     .footer-col li, .footer-col p { font-size: 13px; line-height: 1.7; margin-bottom: 6px; }
@@ -885,7 +612,6 @@
     .footer-col a:hover { color: #38bdf8; }
     .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #1e293b; font-size: 12px; max-width: 1340px; margin: 0 auto; }
 
-    /* Mobile Tweaks */
     @media (max-width: 420px) {
       .action-badge-btn span:not(.badge-count) { display: none; }
       .action-badge-btn { padding: 6px 8px; }
@@ -1046,7 +772,7 @@
     </div>
   </div>
 
-  <!-- PRODUCT DETAIL POPUP MODAL (LIBAS STYLE GALLERY) -->
+  <!-- PRODUCT DETAIL POPUP MODAL -->
   <div class="admin-modal-overlay" id="productDetailModalOverlay">
     <div class="admin-modal">
       <div class="admin-header">
@@ -1055,18 +781,15 @@
       </div>
       <div class="admin-body">
         <div class="product-detail-container">
-          <!-- 2-COLUMN FULL DISPLAY GALLERY -->
           <div class="product-detail-gallery">
             <div class="libas-image-grid" id="detailModalGrid"></div>
           </div>
 
-          <!-- STICKY PRODUCT INFO -->
           <div class="product-detail-info">
             <span class="detail-category-badge" id="detailModalCategory">Category</span>
             <h3 class="detail-title" id="detailModalName">Product Name</h3>
             <div id="detailModalRatingBadge" style="font-size: 13px; color: #eab308; margin-bottom: 8px;"></div>
             
-            <!-- MRP & DISCOUNT ADDED IN DETAIL PRICE BOX -->
             <div class="detail-price-box" id="detailModalPrice">₹0</div>
             
             <p id="detailModalDesc" style="font-size: 13px; color: #475569; margin-bottom: 14px; line-height: 1.6;"></p>
@@ -1093,7 +816,7 @@
             <div class="delivery-perks-box">
               <div><i class="fa-solid fa-circle-check"></i> 100% Genuine & Hand-Inspected Fabric</div>
               <div><i class="fa-solid fa-box-open"></i> Fast & Secure Doorstep Delivery</div>
-              <div><i class="fa-solid fa-wallet"></i> Pay via COD or Online UPI / QR</div>
+              <div><i class="fa-solid fa-wallet"></i> Pay via COD or Online Razorpay (Cards / UPI)</div>
               <div><i class="fa-solid fa-repeat"></i> Easy 7 Days Size Exchange Support</div>
             </div>
           </div>
@@ -1130,7 +853,7 @@
     </div>
   </div>
 
-  <!-- LIBAS STYLE FULLSCREEN IMAGE LIGHTBOX VIEWER -->
+  <!-- FULLSCREEN LIGHTBOX -->
   <div class="image-lightbox-overlay" id="imageLightboxOverlay">
     <div class="lightbox-img-wrapper" id="lightboxImgWrapper" ontouchstart="handleLightboxTouchStart(event)" ontouchend="handleLightboxTouchEnd(event)">
       <img src="" id="lightboxActiveImage" alt="Product Full View">
@@ -1186,13 +909,13 @@
           <span>Total:</span><span id="cartTotal">₹0</span>
         </div>
         <button class="whatsapp-btn" onclick="openCustomerDetailsModal()">
-          <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> Proceed to Order
+          <i class="fa-solid fa-shield-halved" style="font-size: 16px;"></i> Proceed to Checkout
         </button>
       </div>
     </div>
   </div>
 
-  <!-- CUSTOMER DETAILS & UPI CHECKOUT -->
+  <!-- CUSTOMER DETAILS & RAZORPAY CHECKOUT MODAL -->
   <div class="admin-modal-overlay" id="customerModalOverlay">
     <div class="admin-modal" style="max-width: 440px;">
       <div class="admin-header">
@@ -1200,7 +923,7 @@
         <button class="close-cart-btn" onclick="closeCustomerDetailsModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="admin-body">
-        <form id="customerForm" onsubmit="sendWhatsAppOrder(event)">
+        <form id="customerForm" onsubmit="processOrderPlacement(event)">
           <div class="form-group">
             <label>Full Name *</label>
             <input type="text" id="custName" placeholder="Enter Full Name" required>
@@ -1250,19 +973,23 @@
           <div class="form-group">
             <label>Payment Method *</label>
             <select id="custPayment" onchange="handlePaymentMethodChange()" required>
+              <option value="Online (Razorpay)">Online Payment (UPI, Cards, NetBanking via Razorpay)</option>
               <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
-              <option value="Online UPI / QR Code">Online UPI (GPay / PhonePe / Paytm)</option>
             </select>
           </div>
 
-          <div class="upi-qr-card" id="upiQrCard">
-            <p style="font-size: 13px; font-weight: 700; color: #166534;">Scan & Pay: <span id="upiAmountText">₹0</span></p>
-            <img src="" id="upiQrImage" alt="UPI QR Code">
-            <p style="font-size: 11px; color: #475569;">Scan with UPI app & click Confirm to send receipt.</p>
+          <!-- Razorpay Notice Card -->
+          <div class="razorpay-info-card show" id="razorpayInfoCard">
+            <div style="font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 4px;">
+              <i class="fa-solid fa-lock"></i> 100% Secure Razorpay Gateway
+            </div>
+            <p style="font-size: 12px; color: #475569;">
+              Pay via Google Pay, PhonePe, Paytm, Debit/Credit Card or NetBanking.
+            </p>
           </div>
 
-          <button type="submit" class="whatsapp-btn" style="margin-top: 12px;">
-            <i class="fa-brands fa-whatsapp" style="font-size: 18px;"></i> Confirm & Send Order
+          <button type="submit" id="checkoutSubmitBtn" class="whatsapp-btn" style="margin-top: 14px; background-color: #0284c7;">
+            <i class="fa-solid fa-lock"></i> Pay & Confirm Order
           </button>
         </form>
       </div>
@@ -1551,7 +1278,7 @@
           </table>
         </div>
 
-        <!-- TAB 6: CUSTOMER REVIEWS & RATINGS MANAGER -->
+        <!-- TAB 6: REVIEWS -->
         <div id="reviewsManagerTab" class="admin-tab-content">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
             <h4 style="font-size:15px; font-weight:800; color:#0f172a;"><i class="fa-solid fa-comments"></i> Ratings & Customer Reviews</h4>
@@ -1600,7 +1327,6 @@
               <input type="text" id="footCopyright" required>
             </div>
 
-            <!-- STORE POLICIES SECTION -->
             <div style="margin-top: 20px; margin-bottom: 14px; border-top: 2px dashed #cbd5e1; padding-top: 16px;">
               <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">Store Policies</h4>
               <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Update policies that appear on your footer popup modals.</p>
@@ -1636,7 +1362,12 @@
   <!-- JAVASCRIPT APPLICATION LOGIC -->
   <script>
     const YOUR_WHATSAPP_NUMBER = "917088484025"; 
-    const STORE_UPI_ID = "7088484025@okbizaxis"; 
+
+    /* =========================================================
+       👉 RAZORPAY CONFIGURATION
+       यहाँ अपनी Razorpay Key ID डालें (उदा. rzp_test_... या rzp_live_...)
+       ========================================================= */
+    const RAZORPAY_KEY_ID = "rzp_live_TpPkjNXVFI2LAh"; 
 
     // CLOUDINARY CONFIGURATION
     const CLOUDINARY_CLOUD_NAME = "j074va9c";
@@ -1681,7 +1412,6 @@
     let currentlyViewingProductId = null;
     let currentCategoryFilter = 'all';
 
-    // Lightbox / Image Viewer State
     let currentModalImages = [];
     let currentLightboxIndex = 0;
     let touchStartX = 0;
@@ -2053,7 +1783,6 @@
         const startMrp = firstVariant.mrp || product.mrp || 0;
         const isWish = wishlist.includes(String(product.id));
 
-        // MRP & Discount Cut Price Logic for Product Card
         let priceHtml = `<span class="product-price">₹${startPrice.toLocaleString()}</span>`;
         if (startMrp && startMrp > startPrice) {
           const discountPercent = Math.round(((startMrp - startPrice) / startMrp) * 100);
@@ -2147,7 +1876,6 @@
       document.getElementById('productDetailModalOverlay').classList.add('open');
     }
 
-    /* FULLSCREEN LIGHTBOX FUNCTIONS */
     function openImageLightbox(index) {
       if (!currentModalImages || currentModalImages.length === 0) return;
       currentLightboxIndex = index;
@@ -2311,10 +2039,6 @@
       const grandTotal = Math.max(0, subtotal - discount);
       document.getElementById('cartSubtotal').innerText = `₹${subtotal.toLocaleString()}`;
       document.getElementById('cartTotal').innerText = `₹${grandTotal.toLocaleString()}`;
-      
-      document.getElementById('upiAmountText').innerText = `₹${grandTotal.toLocaleString()}`;
-      const upiUrl = `upi://pay?pa=${STORE_UPI_ID}&pn=VekuCollections&am=${grandTotal}&cu=INR`;
-      document.getElementById('upiQrImage').src = `https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=${encodeURIComponent(upiUrl)}`;
     }
 
     function changeQty(idx, delta) {
@@ -2364,15 +2088,34 @@
     function closeCustomerDetailsModal() {
       document.getElementById('customerModalOverlay').classList.remove('open');
     }
+    
     function handlePaymentMethodChange() {
-      const isOnline = document.getElementById('custPayment').value.includes("Online");
-      const qrCard = document.getElementById('upiQrCard');
-      if (isOnline) qrCard.classList.add('show');
-      else qrCard.classList.remove('show');
+      const isOnline = document.getElementById('custPayment').value.includes("Razorpay");
+      const rzpCard = document.getElementById('razorpayInfoCard');
+      const submitBtn = document.getElementById('checkoutSubmitBtn');
+
+      if (isOnline) {
+        rzpCard.classList.add('show');
+        submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay via Razorpay';
+        submitBtn.style.backgroundColor = '#0284c7';
+      } else {
+        rzpCard.classList.remove('show');
+        submitBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirm COD Order';
+        submitBtn.style.backgroundColor = '#16a34a';
+      }
     }
 
-    async function sendWhatsAppOrder(e) {
+    /* =========================================================
+       👉 RAZORPAY PAYMENT & ORDER EXECUTION FLOW
+       ========================================================= */
+    async function processOrderPlacement(e) {
       e.preventDefault();
+
+      if (cart.length === 0) {
+        showToast("Cart is empty!", "error");
+        return;
+      }
+
       const name = document.getElementById('custName').value.trim();
       const phone = document.getElementById('custPhone').value.trim();
       const address = document.getElementById('custAddress').value.trim();
@@ -2388,27 +2131,93 @@
       }
       const grandTotal = Math.max(0, subtotal - discount);
 
+      // 1. ONLINE PAYMENT VIA RAZORPAY
+      if (payment.includes("Razorpay")) {
+        if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "rzp_test_YOUR_RAZORPAY_KEY_ID") {
+          alert("कृपया कोड में अपनी असली Razorpay Key ID डालें (RAZORPAY_KEY_ID)!");
+          return;
+        }
+
+        const options = {
+          key: RAZORPAY_KEY_ID,
+          amount: grandTotal * 100, // Amount in paise
+          currency: "INR",
+          name: "Veku Collections",
+          description: "Order Checkout Payment",
+          image: "https://cdn-icons-png.flaticon.com/512/891/891462.png",
+          prefill: {
+            name: name,
+            contact: phone
+          },
+          theme: {
+            color: "#0284c7"
+          },
+          handler: async function (response) {
+            // Payment success callback
+            const razorpayPaymentId = response.razorpay_payment_id;
+            await completeOrderExecution({
+              name, phone, address, city, pincode, state,
+              payment: `Paid Online (Razorpay ID: ${razorpayPaymentId})`,
+              subtotal, discount, grandTotal,
+              paymentId: razorpayPaymentId,
+              status: 'Paid'
+            });
+          },
+          modal: {
+            ondismiss: function () {
+              showToast("Payment Cancelled", "error");
+            }
+          }
+        };
+
+        const rzp = new Razorpay(options);
+        rzp.on('payment.failed', function (response) {
+          alert("Payment Failed: " + response.error.description);
+        });
+        rzp.open();
+
+      } else {
+        // 2. CASH ON DELIVERY (COD)
+        await completeOrderExecution({
+          name, phone, address, city, pincode, state,
+          payment: 'Cash on Delivery (COD)',
+          subtotal, discount, grandTotal,
+          paymentId: 'COD',
+          status: 'Pending'
+        });
+      }
+    }
+
+    async function completeOrderExecution(orderDetails) {
       const orderData = {
         orderId: 'ORD-' + Math.floor(100000 + Math.random() * 900000),
         date: new Date().toLocaleDateString(),
-        customer: { name, phone, address, city, pincode, state },
+        customer: {
+          name: orderDetails.name,
+          phone: orderDetails.phone,
+          address: orderDetails.address,
+          city: orderDetails.city,
+          pincode: orderDetails.pincode,
+          state: orderDetails.state
+        },
         items: [...cart],
-        subtotal,
-        discount,
-        total: grandTotal,
-        paymentMethod: payment,
-        status: 'Pending'
+        subtotal: orderDetails.subtotal,
+        discount: orderDetails.discount,
+        total: orderDetails.grandTotal,
+        paymentMethod: orderDetails.payment,
+        paymentId: orderDetails.paymentId || 'COD',
+        status: orderDetails.status || 'Pending'
       };
 
       customerOrders.unshift(orderData);
       localStorage.setItem('veku_orders', JSON.stringify(customerOrders));
       if (window.saveOrderToFirestore) await window.saveOrderToFirestore(orderData);
 
-      let msg = `🛍️ *NEW ORDER - VEKU COLLECTIONS*\nOrder ID: #${orderData.orderId}\n\n👤 *Customer:* ${name}\n📞 *Phone:* ${phone}\n📍 *Address:* ${address}, ${city} - ${pincode}, ${state}\n💳 *Payment:* ${payment}\n\n🛒 *Items:*\n`;
+      let msg = `🛍️ *NEW ORDER - VEKU COLLECTIONS*\nOrder ID: #${orderData.orderId}\n\n👤 *Customer:* ${orderDetails.name}\n📞 *Phone:* ${orderDetails.phone}\n📍 *Address:* ${orderDetails.address}, ${orderDetails.city} - ${orderDetails.pincode}, ${orderDetails.state}\n💳 *Payment Status:* ${orderDetails.payment}\n\n🛒 *Items:*\n`;
       cart.forEach((item, i) => {
         msg += `${i+1}. ${item.name} (${item.size}) x ${item.qty} = ₹${item.price * item.qty}\n`;
       });
-      msg += `\n💰 *Total:* ₹${grandTotal.toLocaleString()}\n\nPlease confirm my order!`;
+      msg += `\n💰 *Total Paid:* ₹${orderDetails.grandTotal.toLocaleString()}\n\nThank you for shopping with Veku Collections!`;
 
       window.open(`https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
 
@@ -2416,7 +2225,7 @@
       saveCart();
       closeCustomerDetailsModal();
       toggleCart();
-      showToast("Order placed!");
+      showToast("Order placed successfully!", "success");
     }
 
     function openAdminLoginModal() { document.getElementById('adminLoginModalOverlay').classList.add('open'); }
@@ -2457,7 +2266,7 @@
       if (!tbody) return;
       tbody.innerHTML = customerOrders.map((ord, idx) => {
         const status = ord.status || 'Pending';
-        const payment = ord.paymentMethod ? (ord.paymentMethod.includes('COD') ? 'COD' : 'Online UPI') : 'COD';
+        const payment = ord.paymentMethod || 'COD';
         const city = ord.customer?.city ? `<br><small style="color:#64748b; font-weight:normal; text-transform:uppercase;">${ord.customer.city}</small>` : '';
         return `
         <tr>
@@ -2465,10 +2274,11 @@
           <td><strong>${ord.customer?.name || 'Customer'}</strong>${city}</td>
           <td>${ord.customer?.phone || '-'}</td>
           <td>₹${ord.total}</td>
-          <td><span style="font-size:12px; font-weight:700; color:#334155;">${payment}</span></td>
+          <td><span style="font-size:12px; font-weight:700; color:#0284c7;">${payment}</span></td>
           <td>
             <select onchange="updateOrderStatus(${idx}, this.value)" style="padding: 5px 8px; border-radius: 5px; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 600; background: #fff; cursor: pointer; color: #0f172a;">
               <option value="Pending" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
+              <option value="Paid" ${status === 'Paid' ? 'selected' : ''}>Paid</option>
               <option value="Shipped" ${status === 'Shipped' ? 'selected' : ''}>Shipped</option>
               <option value="Delivered" ${status === 'Delivered' ? 'selected' : ''}>Delivered</option>
             </select>
@@ -2550,7 +2360,6 @@
       container.appendChild(row);
     }
 
-    // CLOUDINARY PREVIEWS & UPLOADS
     function previewImages(event) {
       const files = Array.from(event.target.files);
       selectedAddFiles = files;
@@ -2888,9 +2697,6 @@
       setRating(5);
     }
 
-    /* ========================================================
-       ADMIN REVIEWS MANAGER (EDIT & DELETE NEGATIVE REVIEWS)
-       ======================================================== */
     function renderAdminReviewsTable() {
       const tbody = document.getElementById('adminReviewsTableBody');
       if (!tbody) return;
@@ -3002,7 +2808,6 @@
       if (document.getElementById('footAddress')) document.getElementById('footAddress').value = footerData.address || '';
       if (document.getElementById('footCopyright')) document.getElementById('footCopyright').value = footerData.copyright || '';
       
-      // Store Policies Inputs
       if (document.getElementById('footPrivacyPolicy')) document.getElementById('footPrivacyPolicy').value = footerData.privacyPolicy || '';
       if (document.getElementById('footReturnPolicy')) document.getElementById('footReturnPolicy').value = footerData.returnPolicy || '';
       if (document.getElementById('footTermsConditions')) document.getElementById('footTermsConditions').value = footerData.termsConditions || '';
@@ -3112,7 +2917,7 @@
 
     window.loginWithFirebase = async (e, p) => await signInWithEmailAndPassword(window.auth, e, p);
 
-    // 1. Sync Products
+    // Sync Products
     onSnapshot(collection(window.db, "products"), (snapshot) => {
       let list = [];
       snapshot.forEach(d => list.push({ ...d.data(), id: d.id }));
@@ -3123,7 +2928,7 @@
       }
     });
 
-    // 2. Realtime Menu Navigation Sync
+    // Realtime Menu Navigation Sync
     onSnapshot(doc(window.db, "settings", "menu_config"), (docSnap) => {
       if (docSnap.exists() && docSnap.data().menuData) {
         menuData = docSnap.data().menuData;
@@ -3131,7 +2936,7 @@
       }
     });
 
-    // 3. Sync Settings & Footer (Including Store Policies)
+    // Sync Settings & Footer
     onSnapshot(doc(window.db, "settings", "footer_config"), (docSnap) => {
       if (docSnap.exists() && docSnap.data().footerData) {
         footerData = docSnap.data().footerData;
@@ -3140,7 +2945,7 @@
       populateFooterManagerUI();
     });
 
-    // 4. Sync Orders (Admin vekucollections@gmail.com)
+    // Sync Orders (Admin vekucollections@gmail.com)
     let unsubscribeOrders = null;
     onAuthStateChanged(window.auth, (user) => {
       if (user && user.email === 'vekucollections@gmail.com') {
@@ -3161,7 +2966,7 @@
       }
     });
 
-    // 5. Sync Coupons
+    // Sync Coupons
     onSnapshot(doc(window.db, "settings", "coupons_config"), (docSnap) => {
       if (docSnap.exists() && docSnap.data().coupons) {
         activeCoupons = docSnap.data().coupons;
@@ -3169,7 +2974,7 @@
       }
     });
 
-    // 6. Realtime Customer Reviews Sync
+    // Sync Reviews
     onSnapshot(collection(window.db, "reviews"), (snapshot) => {
       let revMap = {};
       snapshot.forEach(d => {
@@ -3187,7 +2992,6 @@
       }
     });
 
-    // Realtime Save & Update Helpers
     window.saveProductToDatabase = async (p) => await setDoc(doc(window.db, "products", String(p.id)), p);
     window.saveMenuToDatabase = async (m) => await setDoc(doc(window.db, "settings", "menu_config"), { menuData: m });
     window.saveOrderToFirestore = async (order) => await addDoc(collection(window.db, "orders"), order);
