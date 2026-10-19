@@ -1104,7 +1104,7 @@
 
   <!-- ADMIN DASHBOARD -->
   <div class="admin-modal-overlay" id="adminModalOverlay">
-    <div class="admin-modal" style="max-width: 980px;">
+    <div class="admin-modal" style="max-width: 1050px;">
       <div class="admin-header">
         <h3><i class="fa-solid fa-sliders"></i> Store Administration</h3>
         <button class="close-cart-btn" onclick="closeAdminPanel()"><i class="fa-solid fa-xmark"></i></button>
@@ -1128,12 +1128,14 @@
             <table class="menu-manager-table">
               <thead>
                 <tr>
+                  <th>Order ID</th>
                   <th>Date</th>
-                  <th>Customer</th>
-                  <th>Phone</th>
+                  <th>Customer Info</th>
+                  <th>Products Ordered</th>
+                  <th>Delivery Address</th>
                   <th>Total</th>
-                  <th>Payment</th>
-                  <th>Status</th>
+                  <th>Payment Mode</th>
+                  <th>Order Status</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -1365,7 +1367,6 @@
 
     /* =========================================================
        👉 RAZORPAY CONFIGURATION
-       यहाँ अपनी Razorpay Key ID डालें (उदा. rzp_test_... या rzp_live_...)
        ========================================================= */
     const RAZORPAY_KEY_ID = "rzp_live_TpPkjNXVFI2LAh"; 
 
@@ -2153,7 +2154,6 @@
             color: "#0284c7"
           },
           handler: async function (response) {
-            // Payment success callback
             const razorpayPaymentId = response.razorpay_payment_id;
             await completeOrderExecution({
               name, phone, address, city, pincode, state,
@@ -2191,7 +2191,7 @@
     async function completeOrderExecution(orderDetails) {
       const orderData = {
         orderId: 'ORD-' + Math.floor(100000 + Math.random() * 900000),
-        date: new Date().toLocaleDateString(),
+        date: new Date().toLocaleDateString('en-GB'),
         customer: {
           name: orderDetails.name,
           phone: orderDetails.phone,
@@ -2211,21 +2211,39 @@
 
       customerOrders.unshift(orderData);
       localStorage.setItem('veku_orders', JSON.stringify(customerOrders));
-      if (window.saveOrderToFirestore) await window.saveOrderToFirestore(orderData);
+      
+      // Save order to Firebase Firestore
+      if (window.saveOrderToFirestore) {
+        await window.saveOrderToFirestore(orderData);
+      }
 
-      let msg = `🛍️ *NEW ORDER - VEKU COLLECTIONS*\nOrder ID: #${orderData.orderId}\n\n👤 *Customer:* ${orderDetails.name}\n📞 *Phone:* ${orderDetails.phone}\n📍 *Address:* ${orderDetails.address}, ${orderDetails.city} - ${orderDetails.pincode}, ${orderDetails.state}\n💳 *Payment Status:* ${orderDetails.payment}\n\n🛒 *Items:*\n`;
+      // WhatsApp Message Formatting
+      let msg = `🛍️ *NEW ORDER - VEKU COLLECTIONS*\n`;
+      msg += `Order ID: #${orderData.orderId}\n\n`;
+      msg += `👤 *Customer:* ${orderDetails.name}\n`;
+      msg += `📞 *Phone:* ${orderDetails.phone}\n`;
+      msg += `📍 *Address:* ${orderDetails.address}, ${orderDetails.city} - ${orderDetails.pincode}, ${orderDetails.state}\n`;
+      msg += `💳 *Payment:* ${orderDetails.payment}\n\n`;
+      msg += `🛒 *Items Ordered:*\n`;
+      
       cart.forEach((item, i) => {
-        msg += `${i+1}. ${item.name} (${item.size}) x ${item.qty} = ₹${item.price * item.qty}\n`;
+        msg += `${i+1}. ${item.name} (${item.size}) x ${item.qty} = ₹${(item.price * item.qty).toLocaleString()}\n`;
       });
-      msg += `\n💰 *Total Paid:* ₹${orderDetails.grandTotal.toLocaleString()}\n\nThank you for shopping with Veku Collections!`;
+      
+      msg += `\n💰 *Total Paid:* ₹${orderDetails.grandTotal.toLocaleString()}\n\n`;
+      msg += `Thank you for shopping with Veku Collections!`;
 
-      window.open(`https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`, '_blank');
-
+      // Clear Cart
       cart = [];
       saveCart();
       closeCustomerDetailsModal();
-      toggleCart();
       showToast("Order placed successfully!", "success");
+
+      // Auto Redirect to WhatsApp without getting blocked by mobile popup blockers
+      const waUrl = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
+      setTimeout(() => {
+        window.location.href = waUrl;
+      }, 450);
     }
 
     function openAdminLoginModal() { document.getElementById('adminLoginModalOverlay').classList.add('open'); }
@@ -2264,26 +2282,75 @@
     function renderOrdersTable() {
       const tbody = document.getElementById('ordersTableBody');
       if (!tbody) return;
+
+      if (!customerOrders || customerOrders.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="9" style="text-align:center; padding:24px; color:#64748b;">No customer orders found yet.</td></tr>`;
+        return;
+      }
+
       tbody.innerHTML = customerOrders.map((ord, idx) => {
         const status = ord.status || 'Pending';
-        const payment = ord.paymentMethod || 'COD';
-        const city = ord.customer?.city ? `<br><small style="color:#64748b; font-weight:normal; text-transform:uppercase;">${ord.customer.city}</small>` : '';
+        const payment = ord.paymentMethod || ord.payment || 'COD';
+        
+        // Products List Render with Thumbnail, Size, Qty
+        const itemsHtml = (ord.items && ord.items.length > 0) 
+          ? ord.items.map(it => `
+              <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; background:#f8fafc; padding:5px 8px; border-radius:6px; border:1px solid #e2e8f0; min-width:180px;">
+                <img src="${it.image || ''}" style="width:34px; height:42px; object-fit:cover; border-radius:4px; flex-shrink:0;">
+                <div style="line-height:1.2;">
+                  <div style="font-weight:700; font-size:12px; color:#0f172a;">${it.name}</div>
+                  <div style="font-size:11px; color:#64748b; margin-top:2px;">Size: <b style="color:#0284c7;">${it.size}</b> | Qty: <b>${it.qty}</b></div>
+                  <div style="font-size:11px; font-weight:800; color:#15803d;">₹${(it.price * it.qty).toLocaleString()}</div>
+                </div>
+              </div>
+            `).join('')
+          : '<span style="color:#94a3b8; font-size:12px;">No items listed</span>';
+
+        // Full Address
+        const cust = ord.customer || {};
+        const fullAddress = `
+          <div style="font-size:11px; color:#334155; line-height:1.4; max-width:180px;">
+            ${cust.address || ''}<br>
+            <b>${cust.city || ''}</b> - ${cust.pincode || ''}<br>
+            <span>${cust.state || ''}</span>
+          </div>
+        `;
+
         return `
         <tr>
-          <td>${ord.date}</td>
-          <td><strong>${ord.customer?.name || 'Customer'}</strong>${city}</td>
-          <td>${ord.customer?.phone || '-'}</td>
-          <td>₹${ord.total}</td>
-          <td><span style="font-size:12px; font-weight:700; color:#0284c7;">${payment}</span></td>
           <td>
-            <select onchange="updateOrderStatus(${idx}, this.value)" style="padding: 5px 8px; border-radius: 5px; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 600; background: #fff; cursor: pointer; color: #0f172a;">
+            <span style="font-weight:800; color:#0284c7; font-size:12px; background:#e0f2fe; padding:3px 7px; border-radius:4px; white-space:nowrap;">
+              #${ord.orderId || 'ORD-' + (idx+1)}
+            </span>
+          </td>
+          <td style="font-size:12px; white-space:nowrap;">${ord.date}</td>
+          <td>
+            <strong style="font-size:13px; color:#0f172a;">${cust.name || 'Customer'}</strong><br>
+            <a href="tel:${cust.phone}" style="color:#0284c7; text-decoration:none; font-size:12px; font-weight:600;">
+              <i class="fa-solid fa-phone" style="font-size:10px;"></i> ${cust.phone || '-'}
+            </a>
+          </td>
+          <td>${itemsHtml}</td>
+          <td>${fullAddress}</td>
+          <td><strong style="font-size:14px; color:#0f172a;">₹${Number(ord.total).toLocaleString()}</strong></td>
+          <td>
+            <span style="font-size:11px; font-weight:700; color:${payment.includes('Paid') ? '#15803d' : '#d97706'}; background:${payment.includes('Paid') ? '#dcfce7' : '#fef3c7'}; padding:3px 8px; border-radius:4px; display:inline-block;">
+              ${payment}
+            </span>
+          </td>
+          <td>
+            <select onchange="updateOrderStatus(${idx}, this.value)" style="padding: 5px 8px; border-radius: 6px; border: 1px solid #cbd5e1; font-size: 12px; font-weight: 700; background: #fff; cursor: pointer; color: #0f172a;">
               <option value="Pending" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
               <option value="Paid" ${status === 'Paid' ? 'selected' : ''}>Paid</option>
               <option value="Shipped" ${status === 'Shipped' ? 'selected' : ''}>Shipped</option>
               <option value="Delivered" ${status === 'Delivered' ? 'selected' : ''}>Delivered</option>
             </select>
           </td>
-          <td><button onclick="deleteOrder(${idx})" class="delete-menu-btn"><i class="fa-solid fa-trash-can"></i></button></td>
+          <td>
+            <button onclick="deleteOrder(${idx})" class="delete-menu-btn" title="Delete Order">
+              <i class="fa-solid fa-trash-can"></i>
+            </button>
+          </td>
         </tr>
       `;
       }).join('');
