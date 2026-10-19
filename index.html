@@ -612,6 +612,72 @@
     .footer-col a:hover { color: #38bdf8; }
     .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #1e293b; font-size: 12px; max-width: 1340px; margin: 0 auto; }
 
+    /* ORDER TRACKER STYLES */
+    .track-stepper {
+      display: flex;
+      justify-content: space-between;
+      position: relative;
+      margin: 24px 0 20px 0;
+    }
+    .track-stepper::before {
+      content: '';
+      position: absolute;
+      top: 15px;
+      left: 10%;
+      right: 10%;
+      height: 3px;
+      background-color: #e2e8f0;
+      z-index: 1;
+    }
+    .track-step {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+    }
+    .step-circle {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid #cbd5e1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #64748b;
+      font-weight: 700;
+      transition: all 0.3s ease;
+    }
+    .step-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: #64748b;
+      text-align: center;
+    }
+    .track-step.completed .step-circle {
+      border-color: #22c55e;
+      background: #22c55e;
+      color: #ffffff;
+    }
+    .track-step.completed .step-label {
+      color: #15803d;
+      font-weight: 700;
+    }
+    .track-step.active .step-circle {
+      border-color: #0284c7;
+      background: #0284c7;
+      color: #ffffff;
+      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2);
+    }
+    .track-step.active .step-label {
+      color: #0284c7;
+      font-weight: 700;
+    }
+
     @media (max-width: 420px) {
       .action-badge-btn span:not(.badge-count) { display: none; }
       .action-badge-btn { padding: 6px 8px; }
@@ -992,6 +1058,30 @@
             <i class="fa-solid fa-lock"></i> Pay & Confirm Order
           </button>
         </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRACK ORDER MODAL FOR CUSTOMERS -->
+  <div class="admin-modal-overlay" id="trackOrderModalOverlay" style="z-index: 2400;">
+    <div class="admin-modal" style="max-width: 520px;">
+      <div class="admin-header">
+        <h3><i class="fa-solid fa-truck-fast"></i> Track Your Order</h3>
+        <button class="close-cart-btn" onclick="closeTrackOrderModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="admin-body">
+        <div style="background: #f8fafc; padding: 14px; border-radius: 8px; border: 1px solid #e2e8f0; margin-bottom: 14px;">
+          <label style="display:block; font-size:13px; font-weight:700; color:#334155; margin-bottom:6px;">Enter Order ID / Number</label>
+          <div style="display:flex; gap:8px;">
+            <input type="text" id="trackOrderIdInput" placeholder="e.g. ORD-793392" style="flex:1; padding:10px 12px; border:1px solid #cbd5e1; border-radius:6px; font-size:14px; font-weight:600; text-transform:uppercase;">
+            <button onclick="handleTrackOrderSearch()" id="trackSearchBtn" style="padding:10px 18px; background:#0284c7; color:#fff; border:none; border-radius:6px; font-weight:700; cursor:pointer; font-size:14px; display:flex; align-items:center; gap:6px;">
+              <i class="fa-solid fa-magnifying-glass"></i> Track
+            </button>
+          </div>
+          <p style="font-size:11px; color:#64748b; margin-top:6px;">Order number aapko checkout ke baad aur WhatsApp message me mila hoga.</p>
+        </div>
+
+        <div id="trackOrderResult"></div>
       </div>
     </div>
   </div>
@@ -2107,6 +2197,180 @@
     }
 
     /* =========================================================
+       👉 TRACK ORDER MODAL & SEARCH FUNCTIONALITY
+       ========================================================= */
+    function openTrackOrderModal(orderId = '') {
+      document.getElementById('trackOrderModalOverlay').classList.add('open');
+      const input = document.getElementById('trackOrderIdInput');
+      if (orderId) {
+        input.value = orderId;
+        handleTrackOrderSearch();
+      } else {
+        input.focus();
+      }
+    }
+
+    function closeTrackOrderModal() {
+      document.getElementById('trackOrderModalOverlay').classList.remove('open');
+      document.getElementById('trackOrderResult').innerHTML = '';
+      document.getElementById('trackOrderIdInput').value = '';
+    }
+
+    async function handleTrackOrderSearch() {
+      const inputVal = document.getElementById('trackOrderIdInput').value.trim();
+      const resContainer = document.getElementById('trackOrderResult');
+
+      if (!inputVal) {
+        showToast("कृपया अपना Order Number डालें", "error");
+        return;
+      }
+
+      const searchKey = inputVal.replace('#', '').toUpperCase();
+      resContainer.innerHTML = `
+        <div style="text-align:center; padding:25px; color:#0284c7; font-weight:700;">
+          <i class="fa-solid fa-spinner fa-spin fa-2x"></i>
+          <p style="margin-top:8px; font-size:13px;">Searching your order...</p>
+        </div>
+      `;
+
+      let matchedOrder = null;
+
+      // 1. First check in Firebase Firestore
+      if (window.findOrderById) {
+        matchedOrder = await window.findOrderById(searchKey);
+      }
+
+      // 2. Fallback check in local memory / local storage
+      if (!matchedOrder && customerOrders && customerOrders.length > 0) {
+        matchedOrder = customerOrders.find(o => {
+          const ordIdClean = (o.orderId || '').replace('#', '').toUpperCase();
+          return ordIdClean === searchKey;
+        });
+      }
+
+      if (!matchedOrder) {
+        resContainer.innerHTML = `
+          <div style="text-align:center; padding:30px 15px; background:#fff1f2; border:1px solid #fecdd3; border-radius:8px;">
+            <i class="fa-solid fa-circle-question fa-2x" style="color:#ef4444; margin-bottom:8px;"></i>
+            <h4 style="color:#991b1b; font-size:15px; margin-bottom:4px;">Order Nahi Mila!</h4>
+            <p style="font-size:12px; color:#475569;">Koi order "#${searchKey}" ke sath nahi mila. Kripya apna sahi Order ID daalein.</p>
+          </div>
+        `;
+        return;
+      }
+
+      renderOrderTrackResult(matchedOrder);
+    }
+
+    function renderOrderTrackResult(order) {
+      const resContainer = document.getElementById('trackOrderResult');
+      const status = (order.status || 'Pending').toLowerCase();
+
+      // Stepper Stage Logic
+      let step1Class = 'completed'; // Order Placed
+      let step2Class = ''; // Payment / Confirmed
+      let step3Class = ''; // Shipped
+      let step4Class = ''; // Delivered
+
+      if (status === 'paid') {
+        step2Class = 'completed active';
+      } else if (status === 'shipped') {
+        step2Class = 'completed';
+        step3Class = 'completed active';
+      } else if (status === 'delivered') {
+        step2Class = 'completed';
+        step3Class = 'completed';
+        step4Class = 'completed active';
+      } else {
+        // Pending
+        step1Class = 'completed active';
+      }
+
+      const cust = order.customer || {};
+      const items = order.items || [];
+      const payment = order.paymentMethod || order.payment || 'COD';
+
+      resContainer.innerHTML = `
+        <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.03);">
+          
+          <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-bottom:1px solid #f1f5f9; padding-bottom:12px;">
+            <div>
+              <span style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Order ID</span>
+              <div style="font-size:16px; font-weight:900; color:#0284c7;">#${order.orderId || '-'}</div>
+            </div>
+            <div style="text-align:right;">
+              <span style="font-size:11px; color:#64748b;">Order Date: <b>${order.date || '-'}</b></span>
+              <div>
+                <span style="display:inline-block; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:800; background:${order.status === 'Delivered' ? '#dcfce7' : '#e0f2fe'}; color:${order.status === 'Delivered' ? '#15803d' : '#0284c7'};">
+                  ${order.status || 'Pending'}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- STEPPER -->
+          <div class="track-stepper">
+            <div class="track-step ${step1Class}">
+              <div class="step-circle"><i class="fa-solid fa-clipboard-check"></i></div>
+              <div class="step-label">Order Placed</div>
+            </div>
+            <div class="track-step ${step2Class}">
+              <div class="step-circle"><i class="fa-solid fa-credit-card"></i></div>
+              <div class="step-label">Confirmed</div>
+            </div>
+            <div class="track-step ${step3Class}">
+              <div class="step-circle"><i class="fa-solid fa-truck-moving"></i></div>
+              <div class="step-label">Shipped</div>
+            </div>
+            <div class="track-step ${step4Class}">
+              <div class="step-circle"><i class="fa-solid fa-house-chimney-check"></i></div>
+              <div class="step-label">Delivered</div>
+            </div>
+          </div>
+
+          <!-- CUSTOMER & DELIVERY ADDRESS -->
+          <div style="background:#f8fafc; padding:10px 12px; border-radius:8px; font-size:12px; color:#334155; margin-bottom:12px; border:1px solid #e2e8f0; line-height:1.5;">
+            <div><strong style="color:#0f172a;"><i class="fa-solid fa-user"></i> ${cust.name || 'Customer'}</strong> (${cust.phone || '-'})</div>
+            <div style="margin-top:3px;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> ${cust.address || ''}, <b>${cust.city || ''}</b> - ${cust.pincode || ''}, ${cust.state || ''}</div>
+          </div>
+
+          <!-- PRODUCTS LIST -->
+          <div style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:8px;">Items Ordered (${items.length}):</div>
+          <div style="max-height:180px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
+            ${items.map(it => `
+              <div style="display:flex; align-items:center; gap:10px; background:#ffffff; border:1px solid #f1f5f9; padding:6px 8px; border-radius:6px;">
+                <img src="${it.image || ''}" style="width:38px; height:48px; object-fit:cover; border-radius:4px;">
+                <div style="flex:1; min-width:0;">
+                  <div style="font-weight:700; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.name}</div>
+                  <div style="font-size:11px; color:#64748b;">Size: <b>${it.size}</b> | Qty: <b>${it.qty}</b></div>
+                </div>
+                <div style="font-weight:800; font-size:13px; color:#0f172a;">₹${(it.price * it.qty).toLocaleString()}</div>
+              </div>
+            `).join('')}
+          </div>
+
+          <!-- PAYMENT & TOTAL -->
+          <div style="border-top:1px solid #e2e8f0; padding-top:10px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <span style="font-size:11px; color:#64748b;">Payment Mode:</span>
+              <div style="font-size:11px; font-weight:700; color:#15803d;">${payment}</div>
+            </div>
+            <div style="text-align:right;">
+              <span style="font-size:11px; color:#64748b;">Total Amount:</span>
+              <div style="font-size:17px; font-weight:900; color:#0f172a;">₹${Number(order.total || 0).toLocaleString()}</div>
+            </div>
+          </div>
+
+          <!-- WHATSAPP SUPPORT FOR THIS ORDER -->
+          <a href="https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello Veku Collections, I want an update regarding my Order #${order.orderId}`)}" target="_blank" style="margin-top:14px; width:100%; text-decoration:none; padding:10px; background:#22c55e; color:#ffffff; font-weight:700; font-size:13px; border-radius:6px; display:flex; align-items:center; justify-content:center; gap:8px;">
+            <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Ask Support on WhatsApp
+          </a>
+
+        </div>
+      `;
+    }
+
+    /* =========================================================
        👉 RAZORPAY PAYMENT & ORDER EXECUTION FLOW
        ========================================================= */
     async function processOrderPlacement(e) {
@@ -2189,8 +2453,9 @@
     }
 
     async function completeOrderExecution(orderDetails) {
+      const generatedOrderId = 'ORD-' + Math.floor(100000 + Math.random() * 900000);
       const orderData = {
-        orderId: 'ORD-' + Math.floor(100000 + Math.random() * 900000),
+        orderId: generatedOrderId,
         date: new Date().toLocaleDateString('en-GB'),
         customer: {
           name: orderDetails.name,
@@ -2231,13 +2496,14 @@
       });
       
       msg += `\n💰 *Total Paid:* ₹${orderDetails.grandTotal.toLocaleString()}\n\n`;
+      msg += `Track this order: Search #${orderData.orderId} on our website.\n`;
       msg += `Thank you for shopping with Veku Collections!`;
 
       // Clear Cart
       cart = [];
       saveCart();
       closeCustomerDetailsModal();
-      showToast("Order placed successfully!", "success");
+      showToast("Order placed successfully! Order ID: #" + orderData.orderId, "success");
 
       // Auto Redirect to WhatsApp without getting blocked by mobile popup blockers
       const waUrl = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
@@ -2319,7 +2585,7 @@
         return `
         <tr>
           <td>
-            <span style="font-weight:800; color:#0284c7; font-size:12px; background:#e0f2fe; padding:3px 7px; border-radius:4px; white-space:nowrap;">
+            <span style="font-weight:800; color:#0284c7; font-size:12px; background:#e0f2fe; padding:3px 7px; border-radius:4px; white-space:nowrap; cursor:pointer;" onclick="openTrackOrderModal('${ord.orderId}')" title="Click to view tracking">
               #${ord.orderId || 'ORD-' + (idx+1)}
             </span>
           </td>
@@ -2894,6 +3160,11 @@
               <li><a href="#" onclick="handleCategoryClick('mans-collection')">Man's Collection</a></li>
               <li><a href="#" onclick="handleCategoryClick('womens-collection')">Women's Collection</a></li>
               <li><a href="#" onclick="handleCategoryClick('shoes')">Shoes</a></li>
+              <li>
+                <button onclick="openTrackOrderModal()" style="margin-top: 10px; background: linear-gradient(135deg, #0284c7, #38bdf8); color: white; border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; font-size: 13px; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);">
+                  <i class="fa-solid fa-truck-fast"></i> Track Order
+                </button>
+              </li>
             </ul>
           </div>
           <div class="footer-col">
@@ -2965,7 +3236,7 @@
   <!-- FIREBASE REALTIME SYNC MODULE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
     import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
@@ -3032,6 +3303,22 @@
         }
       }
     });
+
+    // Realtime Customer Order Tracking By ID
+    window.findOrderById = async (orderIdKey) => {
+      try {
+        const cleanId = orderIdKey.replace('#', '').trim();
+        const ordersRef = collection(window.db, "orders");
+        const q1 = query(ordersRef, where("orderId", "in", [cleanId, '#' + cleanId]));
+        const snap = await getDocs(q1);
+        if (!snap.empty) {
+          return snap.docs[0].data();
+        }
+      } catch (err) {
+        console.warn("Firestore order lookup query failed, checking local backup:", err.message);
+      }
+      return null;
+    };
 
     // Sync Coupons
     onSnapshot(doc(window.db, "settings", "coupons_config"), (docSnap) => {
