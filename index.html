@@ -113,7 +113,7 @@
       white-space: nowrap;
     }
 
-    /* Animated Brand Logo Letters */
+    /* Animated Brand Logo Letters (Used in Header & Footer) */
     .animated-title span, .animated-subtitle span {
       display: inline-block;
       opacity: 0;
@@ -130,7 +130,7 @@
 
     @keyframes letterFloatWave {
       0%, 100% { transform: translateY(0) rotate(0deg); }
-      30% { transform: translateY(-2px) rotate(-1deg); color: #38bdf8; }
+      30% { transform: translateY(-2px) rotate(-1deg); color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.4); }
       70% { transform: translateY(1.5px) rotate(1deg); }
     }
 
@@ -567,7 +567,7 @@
     .razorpay-info-card.show { display: block; }
 
     /* TOAST */
-    .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; width: max-content; max-width: 90vw; }
+    .toast-container { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; width: max-content; max-width: 90vw; }
     .custom-toast { background: #0f172a; color: white; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.22); animation: toastIn 0.3s ease; }
     .custom-toast.success { border-left: 4px solid #22c55e; }
     .custom-toast.error { border-left: 4px solid #ef4444; }
@@ -601,16 +601,374 @@
     .add-variant-btn { background: #e2e8f0; border: none; padding: 6px 12px; border-radius: 5px; font-weight: 600; font-size: 12px; cursor: pointer; margin-bottom: 10px; }
     .remove-variant-btn { background: #ef4444; color: white; border: none; padding: 0 12px; border-radius: 5px; cursor: pointer; }
 
-    /* FOOTER */
-    footer { background-color: #0f172a; color: #94a3b8; padding: 40px 20px 24px 20px; margin-top: 50px; }
-    .footer-grid { display: grid; grid-template-columns: 1fr; gap: 24px; margin-bottom: 28px; max-width: 1340px; margin-left: auto; margin-right: auto; }
-    @media (min-width: 768px) { .footer-grid { grid-template-columns: repeat(4, 1fr); gap: 32px; } }
-    .footer-col h4 { color: #ffffff; font-size: 15px; margin-bottom: 12px; font-weight: 700; }
+    /* =========================================================
+       👉 FOOTER STYLING (MATCHING HEADER LOGO + ANIMATION)
+       ========================================================= */
+    footer {
+      background-color: #ffffff;
+      color: #334155;
+      padding: 35px 20px 24px 20px;
+      margin-top: 45px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 13.5px;
+    }
+    
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 50px;
+      row-gap: 36px;
+      max-width: 1100px;
+      margin: 0 auto 36px auto;
+    }
+
+    @media (min-width: 768px) {
+      footer {
+        padding: 55px 40px 30px 40px;
+      }
+      .footer-grid {
+        column-gap: 60px;
+        row-gap: 48px;
+      }
+    }
+
+    .footer-col {
+      min-width: 0;
+    }
+
+    .footer-col h4 {
+      color: #0f172a;
+      font-size: 16px;
+      margin-bottom: 16px;
+      font-weight: 700;
+      letter-spacing: -0.2px;
+    }
+
     .footer-col ul { list-style: none; }
-    .footer-col li, .footer-col p { font-size: 13px; line-height: 1.7; margin-bottom: 6px; }
-    .footer-col a { color: #94a3b8; text-decoration: none; }
-    .footer-col a:hover { color: #38bdf8; }
-    .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #1e293b; font-size: 12px; max-width: 1340px; margin: 0 auto; }
+    .footer-col li { margin-bottom: 10px; }
+    .footer-col p { font-size: 13.5px; line-height: 1.6; color: #475569; margin-bottom: 6px; word-break: break-word; }
+    .footer-col a { color: #475569; text-decoration: none; font-size: 13.5px; transition: color 0.2s; display: inline-block; }
+    .footer-col a:hover { color: #0284c7; }
+
+    /* FOOTER BRAND LOGO (EXACT HEADER COLOR & ANIMATED LETTERS) */
+    .footer-brand-title {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+      margin-bottom: 18px;
+    }
+
+    .footer-brand-title .logo-badge svg {
+      width: 36px;
+      height: 36px;
+    }
+
+    .footer-brand-text-wrap {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.15;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    .footer-brand-main-title {
+      font-size: 19px;
+      font-weight: 900;
+      letter-spacing: 0.8px;
+      color: #0f172a;
+    }
+
+    .footer-brand-subtitle {
+      font-size: 8.5px;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      color: #0284c7;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .footer-direction-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 13.5px;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+      margin-top: 4px;
+      margin-bottom: 18px;
+      cursor: pointer;
+    }
+
+    .footer-social-icons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+      margin-bottom: 16px;
+    }
+    .social-icon-circle {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid #cbd5e1;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      text-decoration: none;
+      font-size: 13px;
+      transition: all 0.2s ease;
+      background: #ffffff;
+      flex-shrink: 0;
+    }
+    .social-icon-circle:hover {
+      border-color: #0f172a;
+      background: #0f172a;
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* Newsletter Box in Footer */
+    .newsletter-form-box {
+      display: flex;
+      width: 100%;
+      margin: 14px 0 14px 0;
+      border: 1px solid #000000;
+      border-radius: 2px;
+      overflow: hidden;
+      background: #ffffff;
+    }
+    .newsletter-input {
+      flex: 1;
+      padding: 10px 12px;
+      border: none;
+      outline: none;
+      font-size: 13px;
+      color: #0f172a;
+      min-width: 0;
+    }
+    .newsletter-input::placeholder { color: #94a3b8; }
+    .newsletter-btn {
+      background-color: #000000;
+      color: #ffffff;
+      border: none;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      transition: background 0.2s;
+    }
+    .newsletter-btn:hover { background-color: #1e293b; }
+
+    .currency-selector-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13.5px;
+      font-weight: 600;
+      color: #0f172a;
+      cursor: pointer;
+      padding: 4px 0;
+    }
+
+    /* MOBILE ACCORDION */
+    .footer-accordion-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-accordion-plus {
+      display: none;
+      font-size: 20px;
+      font-weight: 400;
+      color: #0f172a;
+      transition: transform 0.2s ease;
+      line-height: 1;
+      user-select: none;
+    }
+
+    @media (max-width: 768px) {
+      .footer-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        margin-bottom: 24px;
+      }
+
+      .footer-col-accordion {
+        border-top: 1px solid #e2e8f0;
+      }
+
+      .footer-col-accordion:last-child {
+        border-bottom: 1px solid #e2e8f0;
+      }
+
+      .footer-accordion-header {
+        padding: 16px 0;
+        cursor: pointer;
+      }
+
+      .footer-accordion-header h4 {
+        margin-bottom: 0 !important;
+        font-size: 15px;
+        font-weight: 700;
+        color: #0f172a;
+      }
+
+      .footer-accordion-plus {
+        display: inline-block;
+      }
+
+      .footer-accordion-content {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      .footer-col-accordion.active .footer-accordion-content {
+        max-height: 700px;
+        padding-bottom: 16px;
+      }
+
+      .footer-col-accordion.active .footer-accordion-plus {
+        transform: rotate(45deg);
+      }
+    }
+
+    @media (min-width: 769px) {
+      .footer-accordion-plus {
+        display: none !important;
+      }
+      .footer-accordion-content {
+        max-height: none !important;
+        overflow: visible !important;
+        display: block !important;
+      }
+      .footer-accordion-header {
+        cursor: default;
+      }
+    }
+
+    /* Footer Bottom Strip */
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding-top: 24px;
+      border-top: 1px solid #f1f5f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+      font-size: 13px;
+      color: #64748b;
+    }
+    @media (min-width: 768px) {
+      .footer-bottom {
+        flex-direction: row;
+        justify-content: space-between;
+      }
+    }
+    .payment-badges-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .pay-badge-item {
+      height: 24px;
+      border-radius: 4px;
+      padding: 2px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 11px;
+      letter-spacing: 0.5px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      color: #0f172a;
+    }
+    .pay-badge-item.visa { background: #1a1f71; color: white; border-color: #1a1f71; font-style: italic; }
+    .pay-badge-item.paypal { background: #003087; color: white; border-color: #003087; }
+    .pay-badge-item.mastercard { background: #eb001b; color: #f79e1b; border-color: #eb001b; }
+    .pay-badge-item.amex { background: #007bc1; color: white; border-color: #007bc1; }
+
+    /* MOBILE BOTTOM STICKY NAVIGATION BAR */
+    .mobile-bottom-nav {
+      display: none;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      border-top: 1px solid #e2e8f0;
+      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+      z-index: 1500;
+      padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+      justify-content: space-around;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .mobile-bottom-nav {
+        display: flex;
+      }
+      body {
+        padding-bottom: 68px;
+      }
+    }
+
+    .bottom-nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #0f172a;
+      text-decoration: none;
+      background: none;
+      border: none;
+      cursor: pointer;
+      position: relative;
+      font-size: 11.5px;
+      font-weight: 700;
+      gap: 3px;
+      flex: 1;
+      padding: 2px 0;
+    }
+    .bottom-nav-item i {
+      font-size: 20px;
+      color: #0f172a;
+      transition: transform 0.15s ease;
+    }
+    .bottom-nav-item:active i {
+      transform: scale(0.9);
+    }
+    .bottom-badge {
+      position: absolute;
+      top: -2px;
+      right: calc(50% - 17px);
+      background-color: #dc2626;
+      color: #ffffff;
+      font-size: 9.5px;
+      font-weight: 800;
+      border-radius: 50%;
+      min-width: 16px;
+      height: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1px;
+      line-height: 1;
+    }
 
     /* ORDER TRACKER STYLES */
     .track-stepper {
@@ -1451,13 +1809,40 @@
   <!-- FOOTER -->
   <footer id="mainFooter"></footer>
 
+  <!-- MOBILE STICKY BOTTOM NAVIGATION BAR -->
+  <nav class="mobile-bottom-nav">
+    <button class="bottom-nav-item" onclick="openSidebar()" aria-label="Categories">
+      <i class="fa-solid fa-border-all"></i>
+      <span>Categories</span>
+    </button>
+    <button class="bottom-nav-item" onclick="toggleWishlist()" aria-label="Wishlist">
+      <i class="fa-regular fa-heart"></i>
+      <span class="bottom-badge" id="bottomWishlistCount">0</span>
+      <span>Wishlist</span>
+    </button>
+    <button class="bottom-nav-item" onclick="triggerMobileSearchFocus()" aria-label="Search">
+      <i class="fa-solid fa-magnifying-glass"></i>
+      <span>Search</span>
+    </button>
+    <button class="bottom-nav-item" onclick="toggleCart()" aria-label="Cart">
+      <i class="fa-solid fa-bag-shopping"></i>
+      <span class="bottom-badge" id="bottomCartCount">0</span>
+      <span>Cart</span>
+    </button>
+    <button class="bottom-nav-item" onclick="openAdminLoginModal()" aria-label="Account">
+      <span style="position:relative; display:inline-block; line-height:1;">
+        <i class="fa-regular fa-user"></i>
+        <i class="fa-solid fa-bolt" style="position:absolute; right:-5px; top:-2px; font-size:11px; color:#eab308;"></i>
+      </span>
+      <span>Account</span>
+    </button>
+  </nav>
+
   <!-- JAVASCRIPT APPLICATION LOGIC -->
   <script>
     const YOUR_WHATSAPP_NUMBER = "917088484025"; 
 
-    /* =========================================================
-       👉 RAZORPAY CONFIGURATION
-       ========================================================= */
+    /* RAZORPAY CONFIGURATION */
     const RAZORPAY_KEY_ID = "rzp_live_TpPkjNXVFI2LAh"; 
 
     // CLOUDINARY CONFIGURATION
@@ -1542,7 +1927,7 @@
     const defaultFooterData = {
       aboutText: "Welcome to Veku Collections. Your destination for high-quality ethnic wear, footwear, and apparel.",
       phone: "+91 7088484025",
-      email: "vekucollections@gmail.com",
+      email: "support@vekucollections.com",
       address: "Main Market, Aligarh, Uttar Pradesh, 202001",
       copyright: "© 2026 Veku Collections. All rights reserved.",
       privacyPolicy: "We value your privacy. We only collect basic shipping information to deliver your order safely.",
@@ -1635,6 +2020,7 @@
       sidebarContainer.innerHTML = navHTML;
       populateAdminCategoryOptions();
       populateMenuManagerUI();
+      renderFooter();
     }
 
     function handleCategoryClick(categorySlug) {
@@ -1781,7 +2167,11 @@
     }
 
     function updateWishlistBadge() {
-      document.getElementById('wishlistCount').innerText = wishlist.length;
+      const count = wishlist.length;
+      const headerBadge = document.getElementById('wishlistCount');
+      const bottomBadge = document.getElementById('bottomWishlistCount');
+      if (headerBadge) headerBadge.innerText = count;
+      if (bottomBadge) bottomBadge.innerText = count;
     }
 
     function renderWishlistUI() {
@@ -2086,8 +2476,11 @@
     function updateCartUI() {
       const body = document.getElementById('cartBody');
       const count = document.getElementById('cartCount');
+      const bottomCount = document.getElementById('bottomCartCount');
       const totalItems = cart.reduce((s, i) => s + i.qty, 0);
-      count.innerText = totalItems;
+      
+      if (count) count.innerText = totalItems;
+      if (bottomCount) bottomCount.innerText = totalItems;
 
       if (cart.length === 0) {
         body.innerHTML = `<div style="text-align:center; padding:50px 10px; color:#64748b; font-size:14px;">Your cart is empty.</div>`;
@@ -2196,9 +2589,15 @@
       }
     }
 
-    /* =========================================================
-       👉 TRACK ORDER MODAL & SEARCH FUNCTIONALITY
-       ========================================================= */
+    function triggerMobileSearchFocus() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      const searchBox = document.getElementById('searchInput');
+      if (searchBox) {
+        searchBox.focus();
+      }
+    }
+
+    /* TRACK ORDER MODAL & SEARCH FUNCTIONALITY */
     function openTrackOrderModal(orderId = '') {
       document.getElementById('trackOrderModalOverlay').classList.add('open');
       const input = document.getElementById('trackOrderIdInput');
@@ -2235,12 +2634,10 @@
 
       let matchedOrder = null;
 
-      // 1. First check in Firebase Firestore
       if (window.findOrderById) {
         matchedOrder = await window.findOrderById(searchKey);
       }
 
-      // 2. Fallback check in local memory / local storage
       if (!matchedOrder && customerOrders && customerOrders.length > 0) {
         matchedOrder = customerOrders.find(o => {
           const ordIdClean = (o.orderId || '').replace('#', '').toUpperCase();
@@ -2266,11 +2663,10 @@
       const resContainer = document.getElementById('trackOrderResult');
       const status = (order.status || 'Pending').toLowerCase();
 
-      // Stepper Stage Logic
-      let step1Class = 'completed'; // Order Placed
-      let step2Class = ''; // Payment / Confirmed
-      let step3Class = ''; // Shipped
-      let step4Class = ''; // Delivered
+      let step1Class = 'completed'; 
+      let step2Class = ''; 
+      let step3Class = ''; 
+      let step4Class = ''; 
 
       if (status === 'paid') {
         step2Class = 'completed active';
@@ -2282,7 +2678,6 @@
         step3Class = 'completed';
         step4Class = 'completed active';
       } else {
-        // Pending
         step1Class = 'completed active';
       }
 
@@ -2370,9 +2765,7 @@
       `;
     }
 
-    /* =========================================================
-       👉 RAZORPAY PAYMENT & ORDER EXECUTION FLOW
-       ========================================================= */
+    /* RAZORPAY PAYMENT & ORDER EXECUTION FLOW */
     async function processOrderPlacement(e) {
       e.preventDefault();
 
@@ -2405,7 +2798,7 @@
 
         const options = {
           key: RAZORPAY_KEY_ID,
-          amount: grandTotal * 100, // Amount in paise
+          amount: grandTotal * 100,
           currency: "INR",
           name: "Veku Collections",
           description: "Order Checkout Payment",
@@ -2477,12 +2870,10 @@
       customerOrders.unshift(orderData);
       localStorage.setItem('veku_orders', JSON.stringify(customerOrders));
       
-      // Save order to Firebase Firestore
       if (window.saveOrderToFirestore) {
         await window.saveOrderToFirestore(orderData);
       }
 
-      // WhatsApp Message Formatting
       let msg = `🛍️ *NEW ORDER - VEKU COLLECTIONS*\n`;
       msg += `Order ID: #${orderData.orderId}\n\n`;
       msg += `👤 *Customer:* ${orderDetails.name}\n`;
@@ -2499,13 +2890,11 @@
       msg += `Track this order: Search #${orderData.orderId} on our website.\n`;
       msg += `Thank you for shopping with Veku Collections!`;
 
-      // Clear Cart
       cart = [];
       saveCart();
       closeCustomerDetailsModal();
       showToast("Order placed successfully! Order ID: #" + orderData.orderId, "success");
 
-      // Auto Redirect to WhatsApp without getting blocked by mobile popup blockers
       const waUrl = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;
       setTimeout(() => {
         window.location.href = waUrl;
@@ -2558,7 +2947,6 @@
         const status = ord.status || 'Pending';
         const payment = ord.paymentMethod || ord.payment || 'COD';
         
-        // Products List Render with Thumbnail, Size, Qty
         const itemsHtml = (ord.items && ord.items.length > 0) 
           ? ord.items.map(it => `
               <div style="display:flex; align-items:center; gap:8px; margin-bottom:6px; background:#f8fafc; padding:5px 8px; border-radius:6px; border:1px solid #e2e8f0; min-width:180px;">
@@ -2572,7 +2960,6 @@
             `).join('')
           : '<span style="color:#94a3b8; font-size:12px;">No items listed</span>';
 
-        // Full Address
         const cust = ord.customer || {};
         const fullAddress = `
           <div style="font-size:11px; color:#334155; line-height:1.4; max-width:180px;">
@@ -3146,43 +3533,172 @@
       if (document.getElementById('footTermsConditions')) document.getElementById('footTermsConditions').value = footerData.termsConditions || '';
     }
 
+    function toggleFooterAccordion(element) {
+      if (window.innerWidth <= 768) {
+        const parentCol = element.closest('.footer-col-accordion');
+        if (parentCol) {
+          parentCol.classList.toggle('active');
+        }
+      }
+    }
+
+    /* =========================================================
+       👉 RENDER FOOTER (ANIMATED LOGO + SUBMENUS ONLY IN COLLECTION)
+       ========================================================= */
     function renderFooter() {
-      document.getElementById('mainFooter').innerHTML = `
+      const mainFooter = document.getElementById('mainFooter');
+      if (!mainFooter) return;
+
+      const addrClean = encodeURIComponent(footerData.address || "Main Market, Aligarh");
+      const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${addrClean}`;
+
+      // Sirf Submenus ko generate karna (Parent Collection names exclude rahenge)
+      let collectionLinksHtml = '';
+      const addedCategories = new Set();
+
+      if (menuData && menuData.length > 0) {
+        menuData.forEach(m => {
+          if (m.submenus && m.submenus.length > 0) {
+            m.submenus.forEach(s => {
+              if (!addedCategories.has(s.category)) {
+                addedCategories.add(s.category);
+                collectionLinksHtml += `<li><a href="#" onclick="handleCategoryClick('${s.category}'); return false;">${s.title}</a></li>`;
+              }
+            });
+          }
+        });
+      }
+
+      // Default fallback agar shuruaat me koi submenu na ho
+      if (!collectionLinksHtml) {
+        collectionLinksHtml = `
+          <li><a href="#" onclick="handleCategoryClick('shirt'); return false;">Shirt</a></li>
+          <li><a href="#" onclick="handleCategoryClick('jeans'); return false;">Jeans</a></li>
+          <li><a href="#" onclick="handleCategoryClick('suit'); return false;">Suit</a></li>
+          <li><a href="#" onclick="handleCategoryClick('saree'); return false;">Saree</a></li>
+          <li><a href="#" onclick="handleCategoryClick('formal-shoes'); return false;">Formal Shoes</a></li>
+        `;
+      }
+
+      mainFooter.innerHTML = `
         <div class="footer-grid">
-          <div class="footer-col">
-            <h4>About Veku Collections</h4>
-            <p>${footerData.aboutText}</p>
+          
+          <!-- TOP: BRAND DETAILS (HEADER JAISA LOGO AUR EXACT COLOR HIERARCHY + LETTER ANIMATION) -->
+          <div class="footer-col footer-brand-info">
+            <a href="#" class="footer-brand-title" onclick="resetFilter(); return false;">
+              <div class="logo-badge">
+                <svg width="36" height="36" viewBox="0 0 100 100" fill="none">
+                  <defs>
+                    <linearGradient id="vekuFootGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                      <stop offset="0%" stop-color="#0284c7" />
+                      <stop offset="100%" stop-color="#38bdf8" />
+                    </linearGradient>
+                  </defs>
+                  <rect width="100" height="100" rx="26" fill="url(#vekuFootGrad)" />
+                  <path d="M26 32 L50 76 L74 32 H59 L50 54 L41 32 H26 Z" fill="#ffffff" />
+                  <circle cx="50" cy="19" r="5" fill="#ffffff" />
+                </svg>
+              </div>
+              <div class="footer-brand-text-wrap">
+                <span class="footer-brand-main-title animated-title">
+                  <span style="--i:1">V</span><span style="--i:2">E</span><span style="--i:3">K</span><span style="--i:4">U</span>
+                </span>
+                <span class="footer-brand-subtitle animated-subtitle">
+                  <span style="--i:5">C</span><span style="--i:6">O</span><span style="--i:7">L</span><span style="--i:8">L</span><span style="--i:9">E</span><span style="--i:10">C</span><span style="--i:11">T</span><span style="--i:12">I</span><span style="--i:13">O</span><span style="--i:14">N</span><span style="--i:15">S</span>
+                </span>
+              </div>
+            </a>
+
+            <p><strong>Address:</strong> ${footerData.address}</p>
+            <p><strong>Email:</strong> ${footerData.email}</p>
+            <p><strong>Phone:</strong> ${footerData.phone}</p>
+
+            <a href="${googleMapsUrl}" target="_blank" class="footer-direction-link">
+              Get direction <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
+            </a>
+
+            <!-- 7 ROUND SOCIAL ICONS -->
+            <div class="footer-social-icons">
+              <a href="https://facebook.com" target="_blank" class="social-icon-circle" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+              <a href="https://twitter.com" target="_blank" class="social-icon-circle" aria-label="X Twitter"><i class="fa-brands fa-x-twitter"></i></a>
+              <a href="https://instagram.com" target="_blank" class="social-icon-circle" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+              <a href="https://youtube.com" target="_blank" class="social-icon-circle" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+              <a href="https://pinterest.com" target="_blank" class="social-icon-circle" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
+              <a href="https://snapchat.com" target="_blank" class="social-icon-circle" aria-label="Snapchat"><i class="fa-brands fa-snapchat"></i></a>
+              <a href="https://wa.me/${YOUR_WHATSAPP_NUMBER}" target="_blank" class="social-icon-circle" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+            </div>
           </div>
-          <div class="footer-col">
-            <h4>Quick Links</h4>
-            <ul>
-              <li><a href="#" onclick="handleCategoryClick('all')">Home</a></li>
-              <li><a href="#" onclick="handleCategoryClick('mans-collection')">Man's Collection</a></li>
-              <li><a href="#" onclick="handleCategoryClick('womens-collection')">Women's Collection</a></li>
-              <li><a href="#" onclick="handleCategoryClick('shoes')">Shoes</a></li>
-              <li>
-                <button onclick="openTrackOrderModal()" style="margin-top: 10px; background: linear-gradient(135deg, #0284c7, #38bdf8); color: white; border: none; padding: 7px 14px; border-radius: 6px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 7px; font-size: 13px; box-shadow: 0 4px 10px rgba(2, 132, 199, 0.35);">
-                  <i class="fa-solid fa-truck-fast"></i> Track Order
+
+          <!-- SECTION 1: COLLECTION (SIRF SUBMENUS DISPLAY HONGE) -->
+          <div class="footer-col footer-col-accordion">
+            <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
+              <h4>Collection</h4>
+              <span class="footer-accordion-plus">+</span>
+            </div>
+            <div class="footer-accordion-content">
+              <ul>
+                ${collectionLinksHtml}
+              </ul>
+            </div>
+          </div>
+
+          <!-- SECTION 2: QUICK LINKS -->
+          <div class="footer-col footer-col-accordion">
+            <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
+              <h4>Quick Links</h4>
+              <span class="footer-accordion-plus">+</span>
+            </div>
+            <div class="footer-accordion-content">
+              <ul>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('about')">About Us</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('contact')">Contact Us</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('blog')">Blog</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('privacy')">Privacy Policy</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('shipping')">Shipping Policy</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('return')">Refund Policy</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('terms')">Terms & Conditions</a></li>
+                <li><a href="javascript:void(0)" onclick="openTrackOrderModal()">Track my order</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('return')">Exchange Product</a></li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- SECTION 3: SIGN UP FOR EMAIL -->
+          <div class="footer-col footer-col-accordion">
+            <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
+              <h4>Sign Up for Email</h4>
+              <span class="footer-accordion-plus">+</span>
+            </div>
+            <div class="footer-accordion-content">
+              <p style="margin-bottom: 12px;">Sign up to get first dibs on new arrivals, sales, exclusive content, events and more!</p>
+
+              <form class="newsletter-form-box" onsubmit="event.preventDefault(); showToast('Thank you for subscribing! ✨'); this.reset();">
+                <input type="email" class="newsletter-input" placeholder="Enter email address" required>
+                <button type="submit" class="newsletter-btn">
+                  Subscribe <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
                 </button>
-              </li>
-            </ul>
+              </form>
+
+              <div class="currency-selector-badge">
+                <span>🇮🇳 INR</span>
+                <i class="fa-solid fa-chevron-down" style="font-size: 11px;"></i>
+              </div>
+            </div>
           </div>
-          <div class="footer-col">
-            <h4>Store Policies</h4>
-            <ul style="list-style: none;">
-              <li><a href="javascript:void(0)" onclick="openPolicyModal('privacy')"><i class="fa-solid fa-lock" style="font-size:11px; margin-right:6px;"></i> Privacy Policy</a></li>
-              <li><a href="javascript:void(0)" onclick="openPolicyModal('return')"><i class="fa-solid fa-rotate-left" style="font-size:11px; margin-right:6px;"></i> Return & Exchange</a></li>
-              <li><a href="javascript:void(0)" onclick="openPolicyModal('terms')"><i class="fa-solid fa-gavel" style="font-size:11px; margin-right:6px;"></i> Terms & Conditions</a></li>
-            </ul>
-          </div>
-          <div class="footer-col">
-            <h4>Contact Details</h4>
-            <p><i class="fa-solid fa-phone"></i> ${footerData.phone}</p>
-            <p><i class="fa-solid fa-envelope"></i> ${footerData.email}</p>
-            <p><i class="fa-solid fa-location-dot"></i> ${footerData.address}</p>
+
+        </div>
+
+        <!-- FOOTER BOTTOM: COPYRIGHT & PAYMENT BADGES -->
+        <div class="footer-bottom">
+          <div>${footerData.copyright || "© 2026 Veku Collections. All rights reserved."}</div>
+          <div class="payment-badges-row">
+            <span class="pay-badge-item visa">VISA</span>
+            <span class="pay-badge-item paypal"><i class="fa-brands fa-paypal"></i> PayPal</span>
+            <span class="pay-badge-item mastercard">●● mastercard</span>
+            <span class="pay-badge-item amex">AMEX</span>
+            <span class="pay-badge-item">UPI / RuPay</span>
           </div>
         </div>
-        <div class="footer-bottom">${footerData.copyright}</div>
       `;
     }
 
@@ -3195,11 +3711,23 @@
         title.innerHTML = '<i class="fa-solid fa-lock"></i> Privacy Policy';
         content.innerText = footerData.privacyPolicy || 'Privacy policy details will appear here.';
       } else if (type === 'return') {
-        title.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Return & Exchange Policy';
+        title.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Refund & Return Policy';
         content.innerText = footerData.returnPolicy || 'Return policy details will appear here.';
       } else if (type === 'terms') {
         title.innerHTML = '<i class="fa-solid fa-gavel"></i> Terms & Conditions';
         content.innerText = footerData.termsConditions || 'Terms & conditions will appear here.';
+      } else if (type === 'about') {
+        title.innerHTML = '<i class="fa-solid fa-circle-info"></i> About Us';
+        content.innerText = footerData.aboutText || 'Welcome to our store.';
+      } else if (type === 'contact') {
+        title.innerHTML = '<i class="fa-solid fa-phone"></i> Contact Us';
+        content.innerText = `Phone: ${footerData.phone}\nEmail: ${footerData.email}\nAddress: ${footerData.address}`;
+      } else if (type === 'shipping') {
+        title.innerHTML = '<i class="fa-solid fa-truck"></i> Shipping Policy';
+        content.innerText = "We dispatch all orders within 24-48 working hours with fast tracked delivery across India.";
+      } else if (type === 'blog') {
+        title.innerHTML = '<i class="fa-solid fa-newspaper"></i> Blog & Stories';
+        content.innerText = "Check back soon for the latest ethnic fashion guides, styling tips, and artisan stories!";
       }
       modal.classList.add('open');
     }
