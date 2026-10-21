@@ -113,7 +113,7 @@
       white-space: nowrap;
     }
 
-    /* Animated Brand Logo Letters (Used in Header & Footer) */
+    /* Animated Brand Logo Letters */
     .animated-title span, .animated-subtitle span {
       display: inline-block;
       opacity: 0;
@@ -601,9 +601,7 @@
     .add-variant-btn { background: #e2e8f0; border: none; padding: 6px 12px; border-radius: 5px; font-weight: 600; font-size: 12px; cursor: pointer; margin-bottom: 10px; }
     .remove-variant-btn { background: #ef4444; color: white; border: none; padding: 0 12px; border-radius: 5px; cursor: pointer; }
 
-    /* =========================================================
-       👉 FOOTER STYLING (MATCHING HEADER LOGO + ANIMATION)
-       ========================================================= */
+    /* FOOTER STYLING */
     footer {
       background-color: #ffffff;
       color: #334155;
@@ -611,29 +609,33 @@
       margin-top: 45px;
       border-top: 1px solid #e2e8f0;
       font-size: 13.5px;
+      width: 100%;
     }
     
     .footer-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
       column-gap: 50px;
       row-gap: 36px;
-      max-width: 1100px;
+      max-width: 1240px;
       margin: 0 auto 36px auto;
     }
 
-    @media (min-width: 768px) {
+    /* DESKTOP 4-COLUMNS LAYOUT */
+    @media (min-width: 860px) {
       footer {
-        padding: 55px 40px 30px 40px;
+        padding: 50px 40px 30px 40px;
       }
       .footer-grid {
-        column-gap: 60px;
-        row-gap: 48px;
+        display: grid;
+        grid-template-columns: 1.3fr 0.9fr 1.05fr 1.45fr;
+        column-gap: 46px;
+        row-gap: 0;
+        align-items: flex-start;
       }
-    }
-
-    .footer-col {
-      min-width: 0;
+      .footer-col {
+        min-width: 0;
+      }
     }
 
     .footer-col h4 {
@@ -650,7 +652,7 @@
     .footer-col a { color: #475569; text-decoration: none; font-size: 13.5px; transition: color 0.2s; display: inline-block; }
     .footer-col a:hover { color: #0284c7; }
 
-    /* FOOTER BRAND LOGO (EXACT HEADER COLOR & ANIMATED LETTERS) */
+    /* FOOTER BRAND LOGO */
     .footer-brand-title {
       display: inline-flex;
       align-items: center;
@@ -698,71 +700,73 @@
       text-decoration: underline;
       text-underline-offset: 4px;
       margin-top: 4px;
-      margin-bottom: 18px;
+      margin-bottom: 16px;
       cursor: pointer;
     }
 
+    /* EXACT CIRCULAR MINIMAL SOCIAL ICONS MATCHING USER IMAGE */
     .footer-social-icons {
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 4px;
-      margin-bottom: 16px;
+      margin-top: 14px;
+      margin-bottom: 20px;
     }
     .social-icon-circle {
-      width: 34px;
-      height: 34px;
+      width: 42px;
+      height: 42px;
       border-radius: 50%;
-      border: 1px solid #cbd5e1;
+      border: 1.5px solid #000000;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      color: #0f172a;
+      color: #000000;
       text-decoration: none;
-      font-size: 13px;
-      transition: all 0.2s ease;
+      font-size: 16px;
+      transition: all 0.25s ease;
       background: #ffffff;
       flex-shrink: 0;
     }
     .social-icon-circle:hover {
-      border-color: #0f172a;
-      background: #0f172a;
+      background: #000000;
       color: #ffffff;
       transform: translateY(-2px);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
 
     /* Newsletter Box in Footer */
     .newsletter-form-box {
       display: flex;
       width: 100%;
-      margin: 14px 0 14px 0;
-      border: 1px solid #000000;
-      border-radius: 2px;
+      margin: 16px 0 14px 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 4px;
       overflow: hidden;
       background: #ffffff;
     }
     .newsletter-input {
       flex: 1;
-      padding: 10px 12px;
+      padding: 11px 14px;
       border: none;
       outline: none;
       font-size: 13px;
       color: #0f172a;
       min-width: 0;
+      background: transparent;
     }
     .newsletter-input::placeholder { color: #94a3b8; }
     .newsletter-btn {
       background-color: #000000;
       color: #ffffff;
       border: none;
-      padding: 10px 14px;
+      padding: 11px 16px;
       font-size: 13px;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 5px;
+      gap: 6px;
       white-space: nowrap;
       transition: background 0.2s;
     }
@@ -776,10 +780,10 @@
       font-weight: 600;
       color: #0f172a;
       cursor: pointer;
-      padding: 4px 0;
+      padding: 6px 0;
     }
 
-    /* MOBILE ACCORDION */
+    /* MOBILE ACCORDION STYLES */
     .footer-accordion-header {
       display: flex;
       justify-content: space-between;
@@ -796,7 +800,7 @@
       user-select: none;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width: 859px) {
       .footer-grid {
         display: flex;
         flex-direction: column;
@@ -844,7 +848,7 @@
       }
     }
 
-    @media (min-width: 769px) {
+    @media (min-width: 860px) {
       .footer-accordion-plus {
         display: none !important;
       }
@@ -860,7 +864,7 @@
 
     /* Footer Bottom Strip */
     .footer-bottom {
-      max-width: 1100px;
+      max-width: 1240px;
       margin: 0 auto;
       padding-top: 24px;
       border-top: 1px solid #f1f5f9;
@@ -871,7 +875,7 @@
       font-size: 13px;
       color: #64748b;
     }
-    @media (min-width: 768px) {
+    @media (min-width: 860px) {
       .footer-bottom {
         flex-direction: row;
         justify-content: space-between;
@@ -1185,13 +1189,13 @@
 
   <!-- STORE POLICY VIEWER MODAL -->
   <div class="admin-modal-overlay" id="policyModalOverlay" style="z-index: 2500;">
-    <div class="admin-modal" style="max-width: 480px;">
+    <div class="admin-modal" style="max-width: 520px;">
       <div class="admin-header">
         <h3 id="policyModalTitle"><i class="fa-solid fa-file-contract"></i> Policy</h3>
         <button class="close-cart-btn" onclick="closePolicyModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="admin-body">
-        <p id="policyModalContent" style="font-size: 13px; line-height: 1.7; color: #334155; white-space: pre-line;"></p>
+        <p id="policyModalContent" style="font-size: 13.5px; line-height: 1.7; color: #334155; white-space: pre-line;"></p>
       </div>
     </div>
   </div>
@@ -1751,54 +1755,112 @@
           </div>
         </div>
 
-        <!-- TAB 7: SETTINGS & FOOTER -->
+        <!-- TAB 7: SETTINGS & FOOTER (FULL CONTROL OVER QUICK LINKS & SOCIAL LINKS) -->
         <div id="footerManagerTab" class="admin-tab-content">
           <form id="footerForm" onsubmit="handleFooterSubmit(event)">
-            <div class="form-group">
-              <label>About Us</label>
-              <textarea id="footAbout" rows="3" required></textarea>
+            
+            <div style="margin-bottom: 16px;">
+              <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
+                <i class="fa-solid fa-store" style="color:#0284c7;"></i> Store & Brand Details
+              </h4>
+              <p style="font-size: 12px; color: #64748b;">Yahan aap store ka contact, address aur copyright text edit kar sakte hain.</p>
             </div>
+
             <div class="form-row">
               <div class="form-group">
-                <label>Contact Phone / WhatsApp</label>
-                <input type="text" id="footPhone" required>
+                <label>Contact Phone / WhatsApp *</label>
+                <input type="text" id="footPhone" placeholder="+91 7088484025" required>
               </div>
               <div class="form-group">
-                <label>Email Address</label>
-                <input type="email" id="footEmail" required>
+                <label>Email Address *</label>
+                <input type="email" id="footEmail" placeholder="support@vekucollections.com" required>
               </div>
             </div>
+            
             <div class="form-group">
-              <label>Shop Address</label>
-              <input type="text" id="footAddress" required>
-            </div>
-            <div class="form-group">
-              <label>Copyright Text</label>
-              <input type="text" id="footCopyright" required>
+              <label>Shop / Company Address *</label>
+              <input type="text" id="footAddress" placeholder="Main Market, Aligarh, Uttar Pradesh, 202001" required>
             </div>
 
+            <div class="form-group">
+              <label>Copyright Text *</label>
+              <input type="text" id="footCopyright" placeholder="© 2026 Veku Collections. All rights reserved." required>
+            </div>
+
+            <!-- SOCIAL MEDIA LINKS IN ADMIN PANEL -->
             <div style="margin-top: 20px; margin-bottom: 14px; border-top: 2px dashed #cbd5e1; padding-top: 16px;">
-              <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">Store Policies</h4>
-              <p style="font-size: 12px; color: #64748b; margin-bottom: 12px;">Update policies that appear on your footer popup modals.</p>
+              <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
+                <i class="fa-solid fa-share-nodes" style="color:#0284c7;"></i> Social Media Links (Facebook, Instagram, WhatsApp, YouTube)
+              </h4>
+              <p style="font-size: 12px; color: #64748b;">Yahan apne accounts ki links paste karein. Website par icon click karte hi customer aapke profile par jayega:</p>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label><i class="fa-brands fa-facebook-f"></i> Facebook Page / Profile Link</label>
+                <input type="url" id="footFacebook" placeholder="https://facebook.com/yourpage">
+              </div>
+              <div class="form-group">
+                <label><i class="fa-brands fa-instagram"></i> Instagram Profile Link</label>
+                <input type="url" id="footInstagram" placeholder="https://instagram.com/yourhandle">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label><i class="fa-brands fa-youtube"></i> YouTube Channel Link</label>
+                <input type="url" id="footYouTube" placeholder="https://youtube.com/@yourchannel">
+              </div>
+              <div class="form-group">
+                <label><i class="fa-brands fa-whatsapp"></i> WhatsApp Link or Number</label>
+                <input type="text" id="footWhatsApp" placeholder="https://wa.me/917088484025 ya 7088484025">
+              </div>
+            </div>
+
+            <div style="margin-top: 24px; margin-bottom: 14px; border-top: 2px dashed #cbd5e1; padding-top: 16px;">
+              <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
+                <i class="fa-solid fa-list-check" style="color:#0284c7;"></i> Quick Links & Policies Management
+              </h4>
+              <p style="font-size: 12px; color: #64748b;">Niche diye gaye sabhi 8 Quick Links ke page text ko aap yahan se direct edit aur customize kar sakte hain:</p>
             </div>
 
             <div class="form-group">
-              <label>Privacy Policy</label>
+              <label><i class="fa-solid fa-circle-info" style="color:#0284c7;"></i> 1. About Us (Hamare baare me jankari)</label>
+              <textarea id="footAbout" rows="3" placeholder="Enter About Us details..." required></textarea>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa-solid fa-newspaper" style="color:#0284c7;"></i> 2. Blog & Stories</label>
+              <textarea id="footBlog" rows="3" placeholder="Enter blog updates, stories or announcement text..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa-solid fa-lock" style="color:#0284c7;"></i> 3. Privacy Policy</label>
               <textarea id="footPrivacyPolicy" rows="3" placeholder="Enter privacy policy text here..."></textarea>
             </div>
 
             <div class="form-group">
-              <label>Return Policy</label>
-              <textarea id="footReturnPolicy" rows="3" placeholder="Enter return & exchange policy text here..."></textarea>
+              <label><i class="fa-solid fa-truck-fast" style="color:#0284c7;"></i> 4. Shipping Policy (Dispatch & Delivery time)</label>
+              <textarea id="footShippingPolicy" rows="3" placeholder="Enter shipping & delivery terms..."></textarea>
             </div>
 
             <div class="form-group">
-              <label>Terms & Conditions</label>
+              <label><i class="fa-solid fa-rotate-left" style="color:#0284c7;"></i> 5. Refund Policy (Return & refund rules)</label>
+              <textarea id="footReturnPolicy" rows="3" placeholder="Enter return & refund policy text here..."></textarea>
+            </div>
+
+            <div class="form-group">
+              <label><i class="fa-solid fa-gavel" style="color:#0284c7;"></i> 6. Terms & Conditions</label>
               <textarea id="footTermsConditions" rows="3" placeholder="Enter terms & conditions text here..."></textarea>
             </div>
 
+            <div class="form-group">
+              <label><i class="fa-solid fa-repeat" style="color:#0284c7;"></i> 7. Exchange Product Policy (Size & color exchange)</label>
+              <textarea id="footExchangePolicy" rows="3" placeholder="Enter product exchange rules & conditions..."></textarea>
+            </div>
+
             <button type="submit" class="submit-product-btn" style="background:#16a34a; margin-top: 10px;">
-              <i class="fa-solid fa-floppy-disk"></i> Save Footer & Policies
+              <i class="fa-solid fa-floppy-disk"></i> Save Footer, Social Links & Policies
             </button>
           </form>
         </div>
@@ -1924,16 +1986,25 @@
 
     let menuData = defaultMenuData;
 
+    // DEFAULT FOOTER DATA WITH SOCIAL LINKS & QUICK LINKS POLICIES
     const defaultFooterData = {
       aboutText: "Welcome to Veku Collections. Your destination for high-quality ethnic wear, footwear, and apparel.",
       phone: "+91 7088484025",
       email: "support@vekucollections.com",
       address: "Main Market, Aligarh, Uttar Pradesh, 202001",
       copyright: "© 2026 Veku Collections. All rights reserved.",
-      privacyPolicy: "We value your privacy. We only collect basic shipping information to deliver your order safely.",
-      returnPolicy: "We offer 7-day hassle-free exchange & returns for unused products in original packing.",
-      termsConditions: "Prices and stock are subject to real-time availability."
+      blogText: "Stay tuned for the latest ethnic fashion guides, styling tips, artisan weaves, and festive collections!",
+      privacyPolicy: "We value your privacy. We only collect basic shipping and payment information to deliver your order safely and never share your data with third parties.",
+      shippingPolicy: "All orders are safely packed and dispatched within 24 to 48 hours. Standard delivery across India takes 3 to 7 business days with real-time tracking.",
+      returnPolicy: "We offer a 7-day hassle-free refund & return policy for unused products in their original packaging with tags intact.",
+      termsConditions: "By using our website, you agree to our terms. Prices, stock, and promotional offers are subject to change without prior notice.",
+      exchangePolicy: "Need a size or color exchange? We offer 7 days size exchange support on all apparel and footwear. Simply contact our WhatsApp support.",
+      facebookUrl: "https://facebook.com",
+      instagramUrl: "https://instagram.com",
+      youtubeUrl: "https://youtube.com",
+      whatsappUrl: "https://wa.me/917088484025"
     };
+    
     let footerData = { ...defaultFooterData };
 
     function showToast(message, type = 'success') {
@@ -2737,7 +2808,7 @@
                 <img src="${it.image || ''}" style="width:38px; height:48px; object-fit:cover; border-radius:4px;">
                 <div style="flex:1; min-width:0;">
                   <div style="font-weight:700; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${it.name}</div>
-                  <div style="font-size:11px; color:#64748b;">Size: <b>${it.size}</b> | Qty: <b>${it.qty}</b></div>
+                  <div style="font-size:11px; color:#64748b; margin-top:2px;">Size: <b>${it.size}</b> | Qty: <b>${it.qty}</b></div>
                 </div>
                 <div style="font-weight:800; font-size:13px; color:#0f172a;">₹${(it.price * it.qty).toLocaleString()}</div>
               </div>
@@ -3521,20 +3592,31 @@
       showToast("Review deleted!", "error");
     }
 
+    // POPULATE FOOTER & POLICIES IN ADMIN PANEL
     function populateFooterManagerUI() {
-      if (document.getElementById('footAbout')) document.getElementById('footAbout').value = footerData.aboutText || '';
       if (document.getElementById('footPhone')) document.getElementById('footPhone').value = footerData.phone || '';
       if (document.getElementById('footEmail')) document.getElementById('footEmail').value = footerData.email || '';
       if (document.getElementById('footAddress')) document.getElementById('footAddress').value = footerData.address || '';
       if (document.getElementById('footCopyright')) document.getElementById('footCopyright').value = footerData.copyright || '';
       
+      // Social Links
+      if (document.getElementById('footFacebook')) document.getElementById('footFacebook').value = footerData.facebookUrl || '';
+      if (document.getElementById('footInstagram')) document.getElementById('footInstagram').value = footerData.instagramUrl || '';
+      if (document.getElementById('footYouTube')) document.getElementById('footYouTube').value = footerData.youtubeUrl || '';
+      if (document.getElementById('footWhatsApp')) document.getElementById('footWhatsApp').value = footerData.whatsappUrl || '';
+
+      // Quick Links Content
+      if (document.getElementById('footAbout')) document.getElementById('footAbout').value = footerData.aboutText || '';
+      if (document.getElementById('footBlog')) document.getElementById('footBlog').value = footerData.blogText || '';
       if (document.getElementById('footPrivacyPolicy')) document.getElementById('footPrivacyPolicy').value = footerData.privacyPolicy || '';
+      if (document.getElementById('footShippingPolicy')) document.getElementById('footShippingPolicy').value = footerData.shippingPolicy || '';
       if (document.getElementById('footReturnPolicy')) document.getElementById('footReturnPolicy').value = footerData.returnPolicy || '';
       if (document.getElementById('footTermsConditions')) document.getElementById('footTermsConditions').value = footerData.termsConditions || '';
+      if (document.getElementById('footExchangePolicy')) document.getElementById('footExchangePolicy').value = footerData.exchangePolicy || '';
     }
 
     function toggleFooterAccordion(element) {
-      if (window.innerWidth <= 768) {
+      if (window.innerWidth <= 859) {
         const parentCol = element.closest('.footer-col-accordion');
         if (parentCol) {
           parentCol.classList.toggle('active');
@@ -3542,9 +3624,7 @@
       }
     }
 
-    /* =========================================================
-       👉 RENDER FOOTER (ANIMATED LOGO + SUBMENUS ONLY IN COLLECTION)
-       ========================================================= */
+    /* RENDER FOOTER */
     function renderFooter() {
       const mainFooter = document.getElementById('mainFooter');
       if (!mainFooter) return;
@@ -3552,7 +3632,7 @@
       const addrClean = encodeURIComponent(footerData.address || "Main Market, Aligarh");
       const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${addrClean}`;
 
-      // Sirf Submenus ko generate karna (Parent Collection names exclude rahenge)
+      // Submenus generate karna
       let collectionLinksHtml = '';
       const addedCategories = new Set();
 
@@ -3569,7 +3649,6 @@
         });
       }
 
-      // Default fallback agar shuruaat me koi submenu na ho
       if (!collectionLinksHtml) {
         collectionLinksHtml = `
           <li><a href="#" onclick="handleCategoryClick('shirt'); return false;">Shirt</a></li>
@@ -3580,10 +3659,17 @@
         `;
       }
 
-      mainFooter.innerHTML = `
+      // WhatsApp link normalize logic
+      let waLink = footerData.whatsappUrl || `https://wa.me/${YOUR_WHATSAPP_NUMBER}`;
+      if (waLink && !waLink.startsWith('http')) {
+        const digits = waLink.replace(/\D/g, '');
+        waLink = `https://wa.me/${digits.length === 10 ? '91' + digits : digits}`;
+      }
+
+     mainFooter.innerHTML = `
         <div class="footer-grid">
           
-          <!-- TOP: BRAND DETAILS (HEADER JAISA LOGO AUR EXACT COLOR HIERARCHY + LETTER ANIMATION) -->
+          <!-- COL 1: BRAND DETAILS & ADDRESS -->
           <div class="footer-col footer-brand-info">
             <a href="#" class="footer-brand-title" onclick="resetFilter(); return false;">
               <div class="logo-badge">
@@ -3617,19 +3703,24 @@
               Get direction <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
             </a>
 
-            <!-- 7 ROUND SOCIAL ICONS -->
+            <!-- 4 ROUND SOCIAL ICONS (IMAGE MATCHING) -->
             <div class="footer-social-icons">
-              <a href="https://facebook.com" target="_blank" class="social-icon-circle" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
-              <a href="https://twitter.com" target="_blank" class="social-icon-circle" aria-label="X Twitter"><i class="fa-brands fa-x-twitter"></i></a>
-              <a href="https://instagram.com" target="_blank" class="social-icon-circle" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
-              <a href="https://youtube.com" target="_blank" class="social-icon-circle" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
-              <a href="https://pinterest.com" target="_blank" class="social-icon-circle" aria-label="Pinterest"><i class="fa-brands fa-pinterest-p"></i></a>
-              <a href="https://snapchat.com" target="_blank" class="social-icon-circle" aria-label="Snapchat"><i class="fa-brands fa-snapchat"></i></a>
-              <a href="https://wa.me/${YOUR_WHATSAPP_NUMBER}" target="_blank" class="social-icon-circle" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+              <a href="${footerData.facebookUrl || '#'}" target="_blank" class="social-icon-circle" aria-label="Facebook">
+                <i class="fa-brands fa-facebook-f"></i>
+              </a>
+              <a href="${footerData.instagramUrl || '#'}" target="_blank" class="social-icon-circle" aria-label="Instagram">
+                <i class="fa-brands fa-instagram"></i>
+              </a>
+              <a href="${footerData.youtubeUrl || '#'}" target="_blank" class="social-icon-circle" aria-label="YouTube">
+                <i class="fa-brands fa-youtube"></i>
+              </a>
+              <a href="${waLink}" target="_blank" class="social-icon-circle" aria-label="WhatsApp">
+                <i class="fa-brands fa-whatsapp"></i>
+              </a>
             </div>
           </div>
 
-          <!-- SECTION 1: COLLECTION (SIRF SUBMENUS DISPLAY HONGE) -->
+          <!-- COL 2: COLLECTION -->
           <div class="footer-col footer-col-accordion">
             <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
               <h4>Collection</h4>
@@ -3642,7 +3733,7 @@
             </div>
           </div>
 
-          <!-- SECTION 2: QUICK LINKS -->
+          <!-- COL 3: QUICK LINKS -->
           <div class="footer-col footer-col-accordion">
             <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
               <h4>Quick Links</h4>
@@ -3658,19 +3749,19 @@
                 <li><a href="javascript:void(0)" onclick="openPolicyModal('return')">Refund Policy</a></li>
                 <li><a href="javascript:void(0)" onclick="openPolicyModal('terms')">Terms & Conditions</a></li>
                 <li><a href="javascript:void(0)" onclick="openTrackOrderModal()">Track my order</a></li>
-                <li><a href="javascript:void(0)" onclick="openPolicyModal('return')">Exchange Product</a></li>
+                <li><a href="javascript:void(0)" onclick="openPolicyModal('exchange')">Exchange Product</a></li>
               </ul>
             </div>
           </div>
 
-          <!-- SECTION 3: SIGN UP FOR EMAIL -->
+          <!-- COL 4: SIGN UP FOR EMAIL -->
           <div class="footer-col footer-col-accordion">
             <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
               <h4>Sign Up for Email</h4>
               <span class="footer-accordion-plus">+</span>
             </div>
             <div class="footer-accordion-content">
-              <p style="margin-bottom: 12px;">Sign up to get first dibs on new arrivals, sales, exclusive content, events and more!</p>
+              <p style="margin-bottom: 12px; color: #475569;">Sign up to get first dibs on new arrivals, sales, exclusive content, events and more!</p>
 
               <form class="newsletter-form-box" onsubmit="event.preventDefault(); showToast('Thank you for subscribing! ✨'); this.reset();">
                 <input type="email" class="newsletter-input" placeholder="Enter email address" required>
@@ -3688,7 +3779,7 @@
 
         </div>
 
-        <!-- FOOTER BOTTOM: COPYRIGHT & PAYMENT BADGES -->
+        <!-- FOOTER BOTTOM -->
         <div class="footer-bottom">
           <div>${footerData.copyright || "© 2026 Veku Collections. All rights reserved."}</div>
           <div class="payment-badges-row">
@@ -3702,6 +3793,7 @@
       `;
     }
 
+    // OPEN DETAILED POPUP MODAL FOR QUICK LINKS
     function openPolicyModal(type) {
       const modal = document.getElementById('policyModalOverlay');
       const title = document.getElementById('policyModalTitle');
@@ -3712,7 +3804,7 @@
         content.innerText = footerData.privacyPolicy || 'Privacy policy details will appear here.';
       } else if (type === 'return') {
         title.innerHTML = '<i class="fa-solid fa-rotate-left"></i> Refund & Return Policy';
-        content.innerText = footerData.returnPolicy || 'Return policy details will appear here.';
+        content.innerText = footerData.returnPolicy || 'Return and refund policy details will appear here.';
       } else if (type === 'terms') {
         title.innerHTML = '<i class="fa-solid fa-gavel"></i> Terms & Conditions';
         content.innerText = footerData.termsConditions || 'Terms & conditions will appear here.';
@@ -3721,13 +3813,16 @@
         content.innerText = footerData.aboutText || 'Welcome to our store.';
       } else if (type === 'contact') {
         title.innerHTML = '<i class="fa-solid fa-phone"></i> Contact Us';
-        content.innerText = `Phone: ${footerData.phone}\nEmail: ${footerData.email}\nAddress: ${footerData.address}`;
+        content.innerText = `📞 Phone / WhatsApp: ${footerData.phone}\n📧 Email: ${footerData.email}\n📍 Address: ${footerData.address}\n\nOur support team is available Monday to Saturday (10:00 AM - 7:00 PM).`;
       } else if (type === 'shipping') {
-        title.innerHTML = '<i class="fa-solid fa-truck"></i> Shipping Policy';
-        content.innerText = "We dispatch all orders within 24-48 working hours with fast tracked delivery across India.";
+        title.innerHTML = '<i class="fa-solid fa-truck-fast"></i> Shipping Policy';
+        content.innerText = footerData.shippingPolicy || "We dispatch all orders within 24-48 working hours with fast tracked delivery across India.";
       } else if (type === 'blog') {
         title.innerHTML = '<i class="fa-solid fa-newspaper"></i> Blog & Stories';
-        content.innerText = "Check back soon for the latest ethnic fashion guides, styling tips, and artisan stories!";
+        content.innerText = footerData.blogText || "Check back soon for the latest ethnic fashion guides, styling tips, and artisan stories!";
+      } else if (type === 'exchange') {
+        title.innerHTML = '<i class="fa-solid fa-repeat"></i> Exchange Product Policy';
+        content.innerText = footerData.exchangePolicy || "Easy 7-day size or color exchange is available for all eligible orders.";
       }
       modal.classList.add('open');
     }
@@ -3736,21 +3831,36 @@
       document.getElementById('policyModalOverlay').classList.remove('open');
     }
 
+    // SAVE FOOTER, SOCIAL LINKS & ALL QUICK LINKS POLICIES
     function handleFooterSubmit(e) {
       e.preventDefault();
       footerData = {
-        aboutText: document.getElementById('footAbout').value.trim(),
         phone: document.getElementById('footPhone').value.trim(),
         email: document.getElementById('footEmail').value.trim(),
         address: document.getElementById('footAddress').value.trim(),
         copyright: document.getElementById('footCopyright').value.trim(),
+
+        // Social Media Links
+        facebookUrl: document.getElementById('footFacebook') ? document.getElementById('footFacebook').value.trim() : (footerData.facebookUrl || ''),
+        instagramUrl: document.getElementById('footInstagram') ? document.getElementById('footInstagram').value.trim() : (footerData.instagramUrl || ''),
+        youtubeUrl: document.getElementById('footYouTube') ? document.getElementById('footYouTube').value.trim() : (footerData.youtubeUrl || ''),
+        whatsappUrl: document.getElementById('footWhatsApp') ? document.getElementById('footWhatsApp').value.trim() : (footerData.whatsappUrl || ''),
+        
+        // Quick Links Content
+        aboutText: document.getElementById('footAbout').value.trim(),
+        blogText: document.getElementById('footBlog') ? document.getElementById('footBlog').value.trim() : (footerData.blogText || ''),
         privacyPolicy: document.getElementById('footPrivacyPolicy') ? document.getElementById('footPrivacyPolicy').value.trim() : (footerData.privacyPolicy || ''),
+        shippingPolicy: document.getElementById('footShippingPolicy') ? document.getElementById('footShippingPolicy').value.trim() : (footerData.shippingPolicy || ''),
         returnPolicy: document.getElementById('footReturnPolicy') ? document.getElementById('footReturnPolicy').value.trim() : (footerData.returnPolicy || ''),
-        termsConditions: document.getElementById('footTermsConditions') ? document.getElementById('footTermsConditions').value.trim() : (footerData.termsConditions || '')
+        termsConditions: document.getElementById('footTermsConditions') ? document.getElementById('footTermsConditions').value.trim() : (footerData.termsConditions || ''),
+        exchangePolicy: document.getElementById('footExchangePolicy') ? document.getElementById('footExchangePolicy').value.trim() : (footerData.exchangePolicy || '')
       };
-      if (window.saveFooterToFirestore) window.saveFooterToFirestore(footerData);
+
+      if (window.saveFooterToFirestore) {
+        window.saveFooterToFirestore(footerData);
+      }
       renderFooter();
-      showToast("Store policies and footer updated successfully!");
+      showToast("Store policies, Social links & Quick Links updated!");
     }
 
     // Initial Renders
@@ -3802,10 +3912,10 @@
       }
     });
 
-    // Sync Settings & Footer
+    // Sync Settings, Footer, Social Links & All Quick Links
     onSnapshot(doc(window.db, "settings", "footer_config"), (docSnap) => {
       if (docSnap.exists() && docSnap.data().footerData) {
-        footerData = docSnap.data().footerData;
+        footerData = { ...defaultFooterData, ...docSnap.data().footerData };
       }
       renderFooter();
       populateFooterManagerUI();
