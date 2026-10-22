@@ -29,6 +29,8 @@
       width: 100%;
       background-color: #f8fafc;
       color: #0f172a;
+      /* Ensures content is never hidden behind the sticky bottom navigation bar */
+      padding-bottom: 74px;
     }
 
     /* HEADER */
@@ -478,7 +480,7 @@
     .cart-item-img { width: 65px; height: 80px; border-radius: 6px; object-fit: cover; }
     .cart-item-details { flex: 1; min-width: 0; }
     .qty-controls { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-    .qty-btn { width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 5px; cursor: pointer; font-weight: bold; }
+    .qty-btn { width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 5px; cursor: font-weight: bold; }
     .remove-btn { color: #ef4444; background: none; border: none; cursor: pointer; font-size: 15px; padding: 6px; }
 
     .cart-footer { padding: 16px; border-top: 1px solid #e2e8f0; background-color: #f8fafc; }
@@ -567,7 +569,7 @@
     .razorpay-info-card.show { display: block; }
 
     /* TOAST */
-    .toast-container { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; width: max-content; max-width: 90vw; }
+    .toast-container { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; width: max-content; max-width: 90vw; }
     .custom-toast { background: #0f172a; color: white; padding: 12px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; display: flex; align-items: center; gap: 10px; box-shadow: 0 10px 20px rgba(0,0,0,0.22); animation: toastIn 0.3s ease; }
     .custom-toast.success { border-left: 4px solid #22c55e; }
     .custom-toast.error { border-left: 4px solid #ef4444; }
@@ -628,8 +630,8 @@
       }
       .footer-grid {
         display: grid;
-        grid-template-columns: 1.3fr 0.9fr 1.05fr 1.45fr;
-        column-gap: 46px;
+        grid-template-columns: 1.45fr 0.9fr 1.05fr 1.4fr;
+        column-gap: 36px;
         row-gap: 0;
         align-items: flex-start;
       }
@@ -649,8 +651,8 @@
     .footer-col ul { list-style: none; }
     .footer-col li { margin-bottom: 10px; }
     .footer-col p { font-size: 13.5px; line-height: 1.6; color: #475569; margin-bottom: 6px; word-break: break-word; }
-    .footer-col a { color: #475569; text-decoration: none; font-size: 13.5px; transition: color 0.2s; display: inline-block; }
-    .footer-col a:hover { color: #0284c7; }
+    .footer-col ul a { color: #475569; text-decoration: none; font-size: 13.5px; transition: color 0.2s; display: inline-block; }
+    .footer-col ul a:hover { color: #0284c7; }
 
     /* FOOTER BRAND LOGO */
     .footer-brand-title {
@@ -704,35 +706,59 @@
       cursor: pointer;
     }
 
-    /* EXACT CIRCULAR MINIMAL SOCIAL ICONS MATCHING USER IMAGE */
+    /* CIRCULAR MINIMAL SOCIAL ICONS */
     .footer-social-icons {
       display: flex;
       align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
+      gap: 10px;
+      flex-wrap: nowrap;
       margin-top: 14px;
       margin-bottom: 20px;
     }
+    
+    .footer-col .footer-social-icons .social-icon-circle,
     .social-icon-circle {
-      width: 42px;
-      height: 42px;
+      width: 40px;
+      height: 40px;
       border-radius: 50%;
       border: 1.5px solid #000000;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      color: #000000;
-      text-decoration: none;
-      font-size: 16px;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      color: #000000 !important;
+      text-decoration: none !important;
+      font-size: 16.5px !important;
+      line-height: 1 !important;
       transition: all 0.25s ease;
-      background: #ffffff;
+      background: #ffffff !important;
       flex-shrink: 0;
+      box-sizing: border-box;
+      padding: 0 !important;
+      margin: 0 !important;
     }
+    
+    .footer-col .footer-social-icons .social-icon-circle i,
+    .social-icon-circle i {
+      display: inline-block !important;
+      line-height: 1 !important;
+      font-size: 16.5px !important;
+      color: inherit !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: center;
+    }
+
+    .footer-col .footer-social-icons .social-icon-circle:hover,
     .social-icon-circle:hover {
-      background: #000000;
-      color: #ffffff;
+      background: #000000 !important;
+      color: #ffffff !important;
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    }
+    
+    .footer-col .footer-social-icons .social-icon-circle:hover i,
+    .social-icon-circle:hover i {
+      color: #ffffff !important;
     }
 
     /* Newsletter Box in Footer */
@@ -906,28 +932,36 @@
     .pay-badge-item.mastercard { background: #eb001b; color: #f79e1b; border-color: #eb001b; }
     .pay-badge-item.amex { background: #007bc1; color: white; border-color: #007bc1; }
 
-    /* MOBILE BOTTOM STICKY NAVIGATION BAR */
+    /* =========================================================
+       STICKY BOTTOM NAVIGATION BAR (NOW FOR BOTH MOBILE & DESKTOP)
+       ========================================================= */
     .mobile-bottom-nav {
-      display: none;
+      display: flex !important; /* Visible on mobile and desktop */
       position: fixed;
       bottom: 0;
       left: 0;
       width: 100%;
       background: #ffffff;
       border-top: 1px solid #e2e8f0;
-      box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.05);
+      box-shadow: 0 -4px 18px rgba(0, 0, 0, 0.08);
       z-index: 1500;
-      padding: 7px 8px calc(7px + env(safe-area-inset-bottom));
+      padding: 8px 10px calc(8px + env(safe-area-inset-bottom));
       justify-content: space-around;
       align-items: center;
     }
 
-    @media (max-width: 768px) {
+    /* Desktop Centered Floating App Dock Styling */
+    @media (min-width: 769px) {
       .mobile-bottom-nav {
-        display: flex;
-      }
-      body {
-        padding-bottom: 68px;
+        left: 50% !important;
+        transform: translateX(-50%) !important;
+        width: 100% !important;
+        max-width: 580px !important;
+        border-radius: 18px 18px 0 0 !important;
+        border: 1px solid #cbd5e1 !important;
+        border-bottom: none !important;
+        box-shadow: 0 -6px 28px rgba(15, 23, 42, 0.14) !important;
+        padding: 9px 24px !important;
       }
     }
 
@@ -946,12 +980,20 @@
       font-weight: 700;
       gap: 3px;
       flex: 1;
-      padding: 2px 0;
+      padding: 3px 0;
+      transition: color 0.2s ease, transform 0.15s ease;
     }
     .bottom-nav-item i {
       font-size: 20px;
       color: #0f172a;
-      transition: transform 0.15s ease;
+      transition: transform 0.2s ease, color 0.2s ease;
+    }
+    .bottom-nav-item:hover {
+      color: #0284c7;
+    }
+    .bottom-nav-item:hover i {
+      color: #0284c7;
+      transform: translateY(-2px);
     }
     .bottom-nav-item:active i {
       transform: scale(0.9);
@@ -972,6 +1014,7 @@
       justify-content: center;
       padding: 1px;
       line-height: 1;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.15);
     }
 
     /* ORDER TRACKER STYLES */
@@ -1755,7 +1798,7 @@
           </div>
         </div>
 
-        <!-- TAB 7: SETTINGS & FOOTER (FULL CONTROL OVER QUICK LINKS & SOCIAL LINKS) -->
+        <!-- TAB 7: SETTINGS & FOOTER -->
         <div id="footerManagerTab" class="admin-tab-content">
           <form id="footerForm" onsubmit="handleFooterSubmit(event)">
             
@@ -1871,7 +1914,7 @@
   <!-- FOOTER -->
   <footer id="mainFooter"></footer>
 
-  <!-- MOBILE STICKY BOTTOM NAVIGATION BAR -->
+  <!-- STICKY BOTTOM NAVIGATION BAR (NOW WORKS ON BOTH DESKTOP & MOBILE) -->
   <nav class="mobile-bottom-nav">
     <button class="bottom-nav-item" onclick="openSidebar()" aria-label="Categories">
       <i class="fa-solid fa-border-all"></i>
@@ -1986,7 +2029,7 @@
 
     let menuData = defaultMenuData;
 
-    // DEFAULT FOOTER DATA WITH SOCIAL LINKS & QUICK LINKS POLICIES
+    // DEFAULT FOOTER DATA
     const defaultFooterData = {
       aboutText: "Welcome to Veku Collections. Your destination for high-quality ethnic wear, footwear, and apparel.",
       phone: "+91 7088484025",
@@ -2860,7 +2903,7 @@
       }
       const grandTotal = Math.max(0, subtotal - discount);
 
-      // 1. ONLINE PAYMENT VIA RAZORPAY
+      // ONLINE PAYMENT VIA RAZORPAY
       if (payment.includes("Razorpay")) {
         if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "rzp_test_YOUR_RAZORPAY_KEY_ID") {
           alert("कृपया कोड में अपनी असली Razorpay Key ID डालें (RAZORPAY_KEY_ID)!");
@@ -2905,7 +2948,7 @@
         rzp.open();
 
       } else {
-        // 2. CASH ON DELIVERY (COD)
+        // CASH ON DELIVERY (COD)
         await completeOrderExecution({
           name, phone, address, city, pincode, state,
           payment: 'Cash on Delivery (COD)',
@@ -3632,7 +3675,6 @@
       const addrClean = encodeURIComponent(footerData.address || "Main Market, Aligarh");
       const googleMapsUrl = `https://www.google.com/maps/search/?api=1&query=${addrClean}`;
 
-      // Submenus generate karna
       let collectionLinksHtml = '';
       const addedCategories = new Set();
 
@@ -3659,14 +3701,13 @@
         `;
       }
 
-      // WhatsApp link normalize logic
       let waLink = footerData.whatsappUrl || `https://wa.me/${YOUR_WHATSAPP_NUMBER}`;
       if (waLink && !waLink.startsWith('http')) {
         const digits = waLink.replace(/\D/g, '');
         waLink = `https://wa.me/${digits.length === 10 ? '91' + digits : digits}`;
       }
 
-     mainFooter.innerHTML = `
+      mainFooter.innerHTML = `
         <div class="footer-grid">
           
           <!-- COL 1: BRAND DETAILS & ADDRESS -->
@@ -3703,7 +3744,7 @@
               Get direction <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
             </a>
 
-            <!-- 4 ROUND SOCIAL ICONS (IMAGE MATCHING) -->
+            <!-- 4 ROUND SOCIAL ICONS -->
             <div class="footer-social-icons">
               <a href="${footerData.facebookUrl || '#'}" target="_blank" class="social-icon-circle" aria-label="Facebook">
                 <i class="fa-brands fa-facebook-f"></i>
