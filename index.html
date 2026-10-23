@@ -29,7 +29,6 @@
       width: 100%;
       background-color: #f8fafc;
       color: #0f172a;
-      /* Ensures content is never hidden behind the sticky bottom navigation bar */
       padding-bottom: 74px;
     }
 
@@ -115,7 +114,6 @@
       white-space: nowrap;
     }
 
-    /* Animated Brand Logo Letters */
     .animated-title span, .animated-subtitle span {
       display: inline-block;
       opacity: 0;
@@ -480,7 +478,7 @@
     .cart-item-img { width: 65px; height: 80px; border-radius: 6px; object-fit: cover; }
     .cart-item-details { flex: 1; min-width: 0; }
     .qty-controls { display: flex; align-items: center; gap: 8px; margin-top: 6px; }
-    .qty-btn { width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 5px; cursor: font-weight: bold; }
+    .qty-btn { width: 26px; height: 26px; border: 1px solid #cbd5e1; background: #f8fafc; border-radius: 5px; cursor: pointer; font-weight: bold; }
     .remove-btn { color: #ef4444; background: none; border: none; cursor: pointer; font-size: 15px; padding: 6px; }
 
     .cart-footer { padding: 16px; border-top: 1px solid #e2e8f0; background-color: #f8fafc; }
@@ -623,7 +621,6 @@
       margin: 0 auto 36px auto;
     }
 
-    /* DESKTOP 4-COLUMNS LAYOUT */
     @media (min-width: 860px) {
       footer {
         padding: 50px 40px 30px 40px;
@@ -654,7 +651,6 @@
     .footer-col ul a { color: #475569; text-decoration: none; font-size: 13.5px; transition: color 0.2s; display: inline-block; }
     .footer-col ul a:hover { color: #0284c7; }
 
-    /* FOOTER BRAND LOGO */
     .footer-brand-title {
       display: inline-flex;
       align-items: center;
@@ -706,7 +702,6 @@
       cursor: pointer;
     }
 
-    /* CIRCULAR MINIMAL SOCIAL ICONS */
     .footer-social-icons {
       display: flex;
       align-items: center;
@@ -761,7 +756,6 @@
       color: #ffffff !important;
     }
 
-    /* Newsletter Box in Footer */
     .newsletter-form-box {
       display: flex;
       width: 100%;
@@ -809,7 +803,6 @@
       padding: 6px 0;
     }
 
-    /* MOBILE ACCORDION STYLES */
     .footer-accordion-header {
       display: flex;
       justify-content: space-between;
@@ -888,7 +881,6 @@
       }
     }
 
-    /* Footer Bottom Strip */
     .footer-bottom {
       max-width: 1240px;
       margin: 0 auto;
@@ -932,11 +924,9 @@
     .pay-badge-item.mastercard { background: #eb001b; color: #f79e1b; border-color: #eb001b; }
     .pay-badge-item.amex { background: #007bc1; color: white; border-color: #007bc1; }
 
-    /* =========================================================
-       STICKY BOTTOM NAVIGATION BAR (NOW FOR BOTH MOBILE & DESKTOP)
-       ========================================================= */
+    /* STICKY BOTTOM NAVIGATION BAR */
     .mobile-bottom-nav {
-      display: flex !important; /* Visible on mobile and desktop */
+      display: flex !important;
       position: fixed;
       bottom: 0;
       left: 0;
@@ -950,7 +940,6 @@
       align-items: center;
     }
 
-    /* Desktop Centered Floating App Dock Styling */
     @media (min-width: 769px) {
       .mobile-bottom-nav {
         left: 50% !important;
@@ -988,16 +977,9 @@
       color: #0f172a;
       transition: transform 0.2s ease, color 0.2s ease;
     }
-    .bottom-nav-item:hover {
-      color: #0284c7;
-    }
-    .bottom-nav-item:hover i {
-      color: #0284c7;
-      transform: translateY(-2px);
-    }
-    .bottom-nav-item:active i {
-      transform: scale(0.9);
-    }
+    .bottom-nav-item:hover { color: #0284c7; }
+    .bottom-nav-item:hover i { color: #0284c7; transform: translateY(-2px); }
+    .bottom-nav-item:active i { transform: scale(0.9); }
     .bottom-badge {
       position: absolute;
       top: -2px;
@@ -1386,7 +1368,7 @@
     </div>
   </div>
 
-  <!-- CUSTOMER DETAILS & RAZORPAY CHECKOUT MODAL -->
+  <!-- CUSTOMER DETAILS & CHECKOUT MODAL -->
   <div class="admin-modal-overlay" id="customerModalOverlay">
     <div class="admin-modal" style="max-width: 440px;">
       <div class="admin-header">
@@ -1441,26 +1423,33 @@
             </select>
           </div>
 
+          <!-- CLEAN DROPDOWN (NO EXTRA CHARGE MENTIONED) -->
           <div class="form-group">
             <label>Payment Method *</label>
             <select id="custPayment" onchange="handlePaymentMethodChange()" required>
-              <option value="Online (Razorpay)">Online Payment (UPI, Cards, NetBanking via Razorpay)</option>
+              <option value="Online (Razorpay)">Online Payment (UPI, Cards, NetBanking)</option>
               <option value="Cash on Delivery (COD)">Cash on Delivery (COD)</option>
             </select>
           </div>
 
-          <!-- Razorpay Notice Card -->
+          <!-- CLEAN NOTICE CARD -->
           <div class="razorpay-info-card show" id="razorpayInfoCard">
             <div style="font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 4px;">
-              <i class="fa-solid fa-lock"></i> 100% Secure Razorpay Gateway
+              <i class="fa-solid fa-lock"></i> 100% Secure Payment
             </div>
             <p style="font-size: 12px; color: #475569;">
-              Pay via Google Pay, PhonePe, Paytm, Debit/Credit Card or NetBanking.
+              Pay via Google Pay, PhonePe, Paytm, Cards or NetBanking.
             </p>
           </div>
 
-          <button type="submit" id="checkoutSubmitBtn" class="whatsapp-btn" style="margin-top: 14px; background-color: #0284c7;">
-            <i class="fa-solid fa-lock"></i> Pay & Confirm Order
+          <!-- TOTAL PAYABLE ROW INSIDE MODAL -->
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:10px; border-top:1px dashed #cbd5e1; font-size:15px; font-weight:800; color:#0f172a;">
+            <span>Total Payable:</span>
+            <span id="checkoutTotalDisplay" style="font-size: 18px; color: #0284c7;">₹0</span>
+          </div>
+
+          <button type="submit" id="checkoutSubmitBtn" class="whatsapp-btn" style="margin-top: 12px; background-color: #0284c7;">
+            <i class="fa-solid fa-lock"></i> Pay via Razorpay
           </button>
         </form>
       </div>
@@ -1830,7 +1819,6 @@
               <input type="text" id="footCopyright" placeholder="© 2026 Veku Collections. All rights reserved." required>
             </div>
 
-            <!-- SOCIAL MEDIA LINKS IN ADMIN PANEL -->
             <div style="margin-top: 20px; margin-bottom: 14px; border-top: 2px dashed #cbd5e1; padding-top: 16px;">
               <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
                 <i class="fa-solid fa-share-nodes" style="color:#0284c7;"></i> Social Media Links (Facebook, Instagram, WhatsApp, YouTube)
@@ -1914,7 +1902,7 @@
   <!-- FOOTER -->
   <footer id="mainFooter"></footer>
 
-  <!-- STICKY BOTTOM NAVIGATION BAR (NOW WORKS ON BOTH DESKTOP & MOBILE) -->
+  <!-- STICKY BOTTOM NAVIGATION BAR -->
   <nav class="mobile-bottom-nav">
     <button class="bottom-nav-item" onclick="openSidebar()" aria-label="Categories">
       <i class="fa-solid fa-border-all"></i>
@@ -2687,18 +2675,55 @@
       document.getElementById('customerModalOverlay').classList.remove('open');
     }
     
+    /* AUTOMATIC ADDITION WITHOUT WRITING DELIVERY CHARGE TEXT */
     function handlePaymentMethodChange() {
       const isOnline = document.getElementById('custPayment').value.includes("Razorpay");
       const rzpCard = document.getElementById('razorpayInfoCard');
       const submitBtn = document.getElementById('checkoutSubmitBtn');
+      const totalDisplay = document.getElementById('checkoutTotalDisplay');
+
+      const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
+      let discount = 0;
+      if (appliedCoupon) {
+        discount = appliedCoupon.type === 'flat' ? appliedCoupon.value : Math.round((subtotal * appliedCoupon.value) / 100);
+      }
+
+      // Online: Actual Price | COD: Automatically +₹50
+      const finalAmount = isOnline 
+        ? Math.max(0, subtotal - discount) 
+        : Math.max(0, subtotal - discount) + 50;
+
+      if (totalDisplay) {
+        totalDisplay.innerText = `₹${finalAmount.toLocaleString()}`;
+      }
 
       if (isOnline) {
-        rzpCard.classList.add('show');
-        submitBtn.innerHTML = '<i class="fa-solid fa-lock"></i> Pay via Razorpay';
+        rzpCard.style.display = 'block';
+        rzpCard.style.backgroundColor = '#eff6ff';
+        rzpCard.style.borderColor = '#bfdbfe';
+        rzpCard.innerHTML = `
+          <div style="font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 3px;">
+            <i class="fa-solid fa-lock"></i> 100% Secure Payment
+          </div>
+          <p style="font-size: 12px; color: #475569;">
+            Pay via Google Pay, PhonePe, Paytm, Cards or NetBanking.
+          </p>
+        `;
+        submitBtn.innerHTML = `<i class="fa-solid fa-lock"></i> Pay ₹${finalAmount.toLocaleString()} via Razorpay`;
         submitBtn.style.backgroundColor = '#0284c7';
       } else {
-        rzpCard.classList.remove('show');
-        submitBtn.innerHTML = '<i class="fa-brands fa-whatsapp"></i> Confirm COD Order';
+        rzpCard.style.display = 'block';
+        rzpCard.style.backgroundColor = '#f8fafc';
+        rzpCard.style.borderColor = '#cbd5e1';
+        rzpCard.innerHTML = `
+          <div style="font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 3px;">
+            <i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery
+          </div>
+          <p style="font-size: 12px; color: #475569;">
+            Pay cash to the delivery partner when your package arrives.
+          </p>
+        `;
+        submitBtn.innerHTML = `<i class="fa-brands fa-whatsapp"></i> Confirm COD Order (₹${finalAmount.toLocaleString()})`;
         submitBtn.style.backgroundColor = '#16a34a';
       }
     }
@@ -2879,7 +2904,7 @@
       `;
     }
 
-    /* RAZORPAY PAYMENT & ORDER EXECUTION FLOW */
+    /* PROCESS ORDER PLACEMENT (ONLINE = ACTUAL PRICE, COD = +₹50 SILENTLY) */
     async function processOrderPlacement(e) {
       e.preventDefault();
 
@@ -2901,10 +2926,13 @@
       if (appliedCoupon) {
         discount = appliedCoupon.type === 'flat' ? appliedCoupon.value : Math.round((subtotal * appliedCoupon.value) / 100);
       }
-      const grandTotal = Math.max(0, subtotal - discount);
+
+      const isOnline = payment.includes("Razorpay");
+      const autoCharge = isOnline ? 0 : 50; // Silent 50 added for COD
+      const grandTotal = Math.max(0, (subtotal - discount) + autoCharge);
 
       // ONLINE PAYMENT VIA RAZORPAY
-      if (payment.includes("Razorpay")) {
+      if (isOnline) {
         if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "rzp_test_YOUR_RAZORPAY_KEY_ID") {
           alert("कृपया कोड में अपनी असली Razorpay Key ID डालें (RAZORPAY_KEY_ID)!");
           return;
@@ -2912,7 +2940,7 @@
 
         const options = {
           key: RAZORPAY_KEY_ID,
-          amount: grandTotal * 100,
+          amount: grandTotal * 100, // Actual price
           currency: "INR",
           name: "Veku Collections",
           description: "Order Checkout Payment",
@@ -2948,7 +2976,7 @@
         rzp.open();
 
       } else {
-        // CASH ON DELIVERY (COD)
+        // CASH ON DELIVERY (COD) - TOTAL INCLUDES 50 AUTOMATICALLY
         await completeOrderExecution({
           name, phone, address, city, pincode, state,
           payment: 'Cash on Delivery (COD)',
@@ -3000,7 +3028,10 @@
         msg += `${i+1}. ${item.name} (${item.size}) x ${item.qty} = ₹${(item.price * item.qty).toLocaleString()}\n`;
       });
       
-      msg += `\n💰 *Total Paid:* ₹${orderDetails.grandTotal.toLocaleString()}\n\n`;
+      if (orderDetails.discount > 0) {
+        msg += `\n🏷️ Coupon Discount: -₹${orderDetails.discount.toLocaleString()}`;
+      }
+      msg += `\n💰 *Total Amount:* ₹${orderDetails.grandTotal.toLocaleString()}\n\n`;
       msg += `Track this order: Search #${orderData.orderId} on our website.\n`;
       msg += `Thank you for shopping with Veku Collections!`;
 
@@ -3834,7 +3865,6 @@
       `;
     }
 
-    // OPEN DETAILED POPUP MODAL FOR QUICK LINKS
     function openPolicyModal(type) {
       const modal = document.getElementById('policyModalOverlay');
       const title = document.getElementById('policyModalTitle');
@@ -3872,7 +3902,6 @@
       document.getElementById('policyModalOverlay').classList.remove('open');
     }
 
-    // SAVE FOOTER, SOCIAL LINKS & ALL QUICK LINKS POLICIES
     function handleFooterSubmit(e) {
       e.preventDefault();
       footerData = {
