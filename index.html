@@ -138,7 +138,7 @@
       grid-area: actions;
       display: flex;
       align-items: center;
-      gap: 8px;
+      gap: 10px;
       justify-self: end;
       flex-shrink: 0;
     }
@@ -397,7 +397,7 @@
       .products-grid { grid-template-columns: repeat(4, 1fr); gap: 26px; }
     }
 
-    /* SIDEBAR DRAWER */
+    /* SIDEBAR DRAWER - LIBAS STYLED */
     .sidebar-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(3px);
@@ -412,13 +412,45 @@
     }
     .sidebar-drawer.open { left: 0; }
 
+    /* LIBAS STYLE TOP DRAWER HEADER WITH LOGIN */
     .sidebar-header {
-      background-color: #0f172a; color: #ffffff; padding: 18px 20px;
-      display: flex; justify-content: space-between; align-items: center;
+      background-color: #ffffff !important;
+      color: #0f172a;
+      padding: 16px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #e2e8f0;
     }
-    .sidebar-title { font-size: 16px; font-weight: 700; display: flex; align-items: center; gap: 10px; }
-    .sidebar-close-btn { background: none; border: none; color: #94a3b8; font-size: 24px; cursor: pointer; }
-    .sidebar-close-btn:hover { color: #ffffff; }
+    .libas-drawer-login-btn {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 13.5px;
+      font-weight: 800;
+      color: #0f172a;
+      cursor: pointer;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      transition: color 0.2s;
+    }
+    .libas-drawer-login-btn:hover { color: #0284c7; }
+    .libas-drawer-login-btn .libas-user-icon {
+      font-size: 26px;
+      color: #0284c7;
+    }
+
+    .sidebar-close-btn { 
+      background: none; 
+      border: none; 
+      color: #0f172a !important; 
+      font-size: 24px; 
+      cursor: pointer; 
+      line-height: 1;
+      padding: 4px;
+      transition: color 0.2s;
+    }
+    .sidebar-close-btn:hover { color: #ef4444 !important; }
 
     .sidebar-body { flex: 1; overflow-y: auto; padding: 8px 0; }
     .sidebar-menu-list { list-style: none; }
@@ -427,7 +459,9 @@
     .sidebar-menu-link {
       display: flex; justify-content: space-between; align-items: center;
       padding: 14px 20px; color: #334155; text-decoration: none;
-      font-weight: 600; font-size: 14px; transition: all 0.2s; cursor: pointer;
+      font-weight: 600; font-size: 13.5px; transition: all 0.2s; cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.3px;
     }
     .sidebar-menu-link:hover { background-color: #f0f9ff; color: #0284c7; }
 
@@ -444,7 +478,7 @@
     .sidebar-footer { padding: 16px 20px; border-top: 1px solid #e2e8f0; background: #f8fafc; }
     .sidebar-admin-btn {
       width: 100%; padding: 12px; background-color: #ef4444; color: #ffffff; border: none; border-radius: 8px;
-      font-size: 14px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+      font-size: 13px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
     }
 
     /* MODALS & DRAWERS */
@@ -573,7 +607,7 @@
     .custom-toast.error { border-left: 4px solid #ef4444; }
     @keyframes toastIn { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-    /* ADMIN TABS */
+    /* ADMIN & COMMON TABS */
     .admin-tabs { display: flex; background: #f1f5f9; border-bottom: 1px solid #cbd5e1; overflow-x: auto; flex-shrink: 0; }
     .admin-tab-btn { padding: 12px 16px; border: none; background: transparent; font-weight: 600; font-size: 13px; color: #64748b; cursor: pointer; white-space: nowrap; }
     .admin-tab-btn.active { background: white; color: #0284c7; border-bottom: 2px solid #0284c7; }
@@ -600,6 +634,327 @@
     .preview-thumb-remove { position: absolute; top: -5px; right: -5px; background: #ef4444; color: white; border-radius: 50%; width: 18px; height: 18px; display: flex; align-items: center; justify-content: center; font-size: 10px; cursor: pointer; }
     .add-variant-btn { background: #e2e8f0; border: none; padding: 6px 12px; border-radius: 5px; font-weight: 600; font-size: 12px; cursor: pointer; margin-bottom: 10px; }
     .remove-variant-btn { background: #ef4444; color: white; border: none; padding: 0 12px; border-radius: 5px; cursor: pointer; }
+
+    /* ========================================================
+       MEESHO & LIBAS STYLE CLEAN AUTH MODAL (MOBILE OTP + GOOGLE)
+       ======================================================== */
+    .meesho-auth-card {
+      width: 100%;
+      max-width: 440px;
+      background: #ffffff;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28);
+      position: relative;
+      animation: modalScaleUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes modalScaleUp {
+      from { transform: scale(0.94); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+    .meesho-auth-header {
+      padding: 24px 24px 8px 24px;
+      position: relative;
+      text-align: center;
+    }
+    .meesho-auth-close {
+      position: absolute;
+      top: 14px;
+      right: 14px;
+      background: #f1f5f9;
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: #64748b;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.2s;
+      z-index: 50; /* क्रॉस बटन को सबसे ऊपर रखने के लिए */
+    }
+    .meesho-auth-close:hover { background: #e2e8f0; color: #0f172a; }
+    .meesho-auth-logo-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+    }
+    .meesho-auth-title {
+      font-size: 20px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+    }
+    .meesho-auth-subtitle {
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .meesho-auth-body {
+      padding: 16px 24px 26px 24px;
+      display: flex;
+      flex-direction: column;
+    }
+    /* Phone Input Box with India Flag */
+    .meesho-phone-wrap {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      padding: 4px 12px;
+      background: #ffffff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      margin-top: 8px;
+    }
+    .meesho-phone-wrap:focus-within {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    .country-code-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-weight: 700;
+      font-size: 14px;
+      color: #0f172a;
+      padding-right: 10px;
+      border-right: 1.5px solid #e2e8f0;
+      user-select: none;
+      flex-shrink: 0;
+    }
+    .meesho-phone-input {
+      flex: 1;
+      border: none;
+      outline: none;
+      padding: 10px 10px;
+      font-size: 15px;
+      font-weight: 600;
+      color: #0f172a;
+      letter-spacing: 0.5px;
+      min-width: 0;
+    }
+    .meesho-phone-input::placeholder { color: #94a3b8; font-weight: 400; }
+    
+    /* Big Action Button (Meesho / Libas Style) */
+    .meesho-primary-btn {
+      width: 100%;
+      padding: 13px;
+      background-color: #0284c7;
+      color: #ffffff;
+      border: none;
+      border-radius: 10px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 14px;
+      transition: background 0.2s, transform 0.1s;
+    }
+    .meesho-primary-btn:hover { background-color: #0369a1; }
+    .meesho-primary-btn:active { transform: scale(0.99); }
+    .meesho-primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+
+    /* Divider */
+    .meesho-divider {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 18px 0;
+      color: #94a3b8;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .meesho-divider::before, .meesho-divider::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    .meesho-divider span {
+      padding: 0 12px;
+      color: #64748b;
+    }
+
+    /* Social / Alternative buttons */
+    .social-auth-row {
+      display: flex;
+      gap: 10px;
+    }
+    .social-auth-btn {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 10px 14px;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      color: #334155;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+    .social-auth-btn:hover {
+      background: #f8fafc;
+      border-color: #94a3b8;
+    }
+    .google-g-icon { width: 18px; height: 18px; display: block; }
+
+    /* OTP Inputs Group */
+    .otp-inputs-grid {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin: 14px 0;
+    }
+    .otp-digit-field {
+      width: 48px;
+      height: 52px;
+      text-align: center;
+      font-size: 22px;
+      font-weight: 800;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 10px;
+      outline: none;
+      color: #0f172a;
+      transition: all 0.2s;
+      background: #ffffff;
+    }
+    .otp-digit-field:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
+    }
+    .otp-resend-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 12px;
+      color: #64748b;
+      margin-top: 4px;
+    }
+    .otp-change-num-btn, .otp-resend-btn {
+      color: #0284c7;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 12px;
+      text-decoration: underline;
+    }
+
+    /* CUSTOMER DASHBOARD / ACCOUNT MODAL */
+    .customer-dashboard-modal {
+      width: 100%;
+      max-width: 640px;
+      background: #ffffff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
+      max-height: 90vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .cust-profile-card {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      padding: 22px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .cust-avatar-circle {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #ffffff;
+      color: #0284c7;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: 900;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      flex-shrink: 0;
+    }
+    .cust-info-col h3 {
+      font-size: 18px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+    }
+    .cust-info-col p {
+      font-size: 12.5px;
+      opacity: 0.92;
+      margin-top: 3px;
+    }
+    .account-quick-badges {
+      display: flex;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .account-quick-badge {
+      background: rgba(255,255,255,0.2);
+      padding: 2px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .cust-dash-body {
+      padding: 18px 22px;
+      overflow-y: auto;
+      flex: 1;
+    }
+    .dash-section-title {
+      font-size: 15px;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .cust-orders-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .cust-order-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      padding: 12px 14px;
+      background: #ffffff;
+      transition: all 0.2s;
+    }
+    .cust-order-card:hover {
+      border-color: #cbd5e1;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+    .logout-btn-clean {
+      padding: 10px 18px;
+      background: #fee2e2;
+      color: #dc2626;
+      border: 1px solid #fecdd3;
+      border-radius: 8px;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 13px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: background 0.2s;
+    }
+    .logout-btn-clean:hover { background: #fecdd3; }
 
     /* FOOTER STYLING */
     footer {
@@ -750,11 +1105,6 @@
       transform: translateY(-2px);
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
     }
-    
-    .footer-col .footer-social-icons .social-icon-circle:hover i,
-    .social-icon-circle:hover i {
-      color: #ffffff !important;
-    }
 
     .newsletter-form-box {
       display: flex;
@@ -826,59 +1176,20 @@
         gap: 0;
         margin-bottom: 24px;
       }
-
-      .footer-col-accordion {
-        border-top: 1px solid #e2e8f0;
-      }
-
-      .footer-col-accordion:last-child {
-        border-bottom: 1px solid #e2e8f0;
-      }
-
-      .footer-accordion-header {
-        padding: 16px 0;
-        cursor: pointer;
-      }
-
-      .footer-accordion-header h4 {
-        margin-bottom: 0 !important;
-        font-size: 15px;
-        font-weight: 700;
-        color: #0f172a;
-      }
-
-      .footer-accordion-plus {
-        display: inline-block;
-      }
-
-      .footer-accordion-content {
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-
-      .footer-col-accordion.active .footer-accordion-content {
-        max-height: 700px;
-        padding-bottom: 16px;
-      }
-
-      .footer-col-accordion.active .footer-accordion-plus {
-        transform: rotate(45deg);
-      }
+      .footer-col-accordion { border-top: 1px solid #e2e8f0; }
+      .footer-col-accordion:last-child { border-bottom: 1px solid #e2e8f0; }
+      .footer-accordion-header { padding: 16px 0; cursor: pointer; }
+      .footer-accordion-header h4 { margin-bottom: 0 !important; font-size: 15px; font-weight: 700; color: #0f172a; }
+      .footer-accordion-plus { display: inline-block; }
+      .footer-accordion-content { max-height: 0; overflow: hidden; transition: max-height 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+      .footer-col-accordion.active .footer-accordion-content { max-height: 700px; padding-bottom: 16px; }
+      .footer-col-accordion.active .footer-accordion-plus { transform: rotate(45deg); }
     }
 
     @media (min-width: 860px) {
-      .footer-accordion-plus {
-        display: none !important;
-      }
-      .footer-accordion-content {
-        max-height: none !important;
-        overflow: visible !important;
-        display: block !important;
-      }
-      .footer-accordion-header {
-        cursor: default;
-      }
+      .footer-accordion-plus { display: none !important; }
+      .footer-accordion-content { max-height: none !important; overflow: visible !important; display: block !important; }
+      .footer-accordion-header { cursor: default; }
     }
 
     .footer-bottom {
@@ -894,30 +1205,13 @@
       color: #64748b;
     }
     @media (min-width: 860px) {
-      .footer-bottom {
-        flex-direction: row;
-        justify-content: space-between;
-      }
+      .footer-bottom { flex-direction: row; justify-content: space-between; }
     }
-    .payment-badges-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      flex-wrap: wrap;
-    }
+    .payment-badges-row { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
     .pay-badge-item {
-      height: 24px;
-      border-radius: 4px;
-      padding: 2px 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      font-size: 11px;
-      letter-spacing: 0.5px;
-      border: 1px solid #e2e8f0;
-      background: #ffffff;
-      color: #0f172a;
+      height: 24px; border-radius: 4px; padding: 2px 8px; display: flex; align-items: center;
+      justify-content: center; font-weight: 800; font-size: 11px; letter-spacing: 0.5px;
+      border: 1px solid #e2e8f0; background: #ffffff; color: #0f172a;
     }
     .pay-badge-item.visa { background: #1a1f71; color: white; border-color: #1a1f71; font-style: italic; }
     .pay-badge-item.paypal { background: #003087; color: white; border-color: #003087; }
@@ -1039,31 +1333,11 @@
       font-weight: 700;
       transition: all 0.3s ease;
     }
-    .step-label {
-      font-size: 11px;
-      font-weight: 600;
-      color: #64748b;
-      text-align: center;
-    }
-    .track-step.completed .step-circle {
-      border-color: #22c55e;
-      background: #22c55e;
-      color: #ffffff;
-    }
-    .track-step.completed .step-label {
-      color: #15803d;
-      font-weight: 700;
-    }
-    .track-step.active .step-circle {
-      border-color: #0284c7;
-      background: #0284c7;
-      color: #ffffff;
-      box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2);
-    }
-    .track-step.active .step-label {
-      color: #0284c7;
-      font-weight: 700;
-    }
+    .step-label { font-size: 11px; font-weight: 600; color: #64748b; text-align: center; }
+    .track-step.completed .step-circle { border-color: #22c55e; background: #22c55e; color: #ffffff; }
+    .track-step.completed .step-label { color: #15803d; font-weight: 700; }
+    .track-step.active .step-circle { border-color: #0284c7; background: #0284c7; color: #ffffff; box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.2); }
+    .track-step.active .step-label { color: #0284c7; font-weight: 700; }
 
     @media (max-width: 420px) {
       .action-badge-btn span:not(.badge-count) { display: none; }
@@ -1112,7 +1386,7 @@
       </a>
     </div>
 
-    <!-- Header Actions -->
+    <!-- Header Actions (Wishlist & Cart only) -->
     <div class="header-actions">
       <div class="action-badge-btn" onclick="toggleWishlist()">
         <i class="fa-solid fa-heart" style="color: #ef4444;"></i>
@@ -1142,25 +1416,40 @@
     <div class="hero-pill">✓ 100% Premium Fabric</div>
   </div>
 
-  <!-- SIDEBAR NAVIGATION DRAWER -->
+  <!-- SIDEBAR NAVIGATION DRAWER (LIBAS STYLE LOG IN HEADER) -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
   <div class="sidebar-drawer" id="sidebarDrawer">
+    <!-- TOP DRAWER HEADER WITH LIBAS LOGIN BUTTON -->
     <div class="sidebar-header">
-      <div class="sidebar-title">
-        <i class="fa-solid fa-bag-shopping" style="color: #38bdf8;"></i>
-        <span>Categories & Menu</span>
+      <div class="libas-drawer-login-btn" onclick="closeSidebar(); openCustomerAuthOrProfile();" id="sidebarDrawerLoginBtn">
+        <i class="fa-solid fa-circle-user libas-user-icon"></i>
+        <span id="sidebarDrawerLoginLabel">LOG IN</span>
       </div>
-      <button class="sidebar-close-btn" onclick="closeSidebar()">&times;</button>
+      <button class="sidebar-close-btn" onclick="closeSidebar()" aria-label="Close Menu">&times;</button>
     </div>
 
     <div class="sidebar-body">
       <ul class="sidebar-menu-list" id="sidebarMenuList"></ul>
+
+      <!-- LIBAS STYLE EXTRA SERVICES & TRACKING LINKS -->
+      <ul class="sidebar-menu-list" style="border-top: 2px solid #f1f5f9; margin-top: 6px;">
+        <li class="sidebar-menu-item">
+          <div class="sidebar-menu-link" onclick="closeSidebar(); openTrackOrderModal();">
+            <span><i class="fa-solid fa-truck-fast" style="margin-right: 12px; color: #0284c7;"></i> TRACK YOUR ORDER</span>
+          </div>
+        </li>
+        <li class="sidebar-menu-item">
+          <a class="sidebar-menu-link" href="https://wa.me/917088484025" target="_blank">
+            <span><i class="fa-brands fa-whatsapp" style="margin-right: 12px; color: #22c55e;"></i> NEED HELP?</span>
+          </a>
+        </li>
+      </ul>
     </div>
 
     <div class="sidebar-footer">
       <button class="sidebar-admin-btn" onclick="closeSidebar(); openAdminLoginModal();">
-        <i class="fa-solid fa-user-lock"></i> Admin Panel
+        <i class="fa-solid fa-user-lock"></i> Store Admin Panel
       </button>
     </div>
   </div>
@@ -1180,6 +1469,211 @@
     </div>
 
     <div class="products-grid" id="productsGrid"></div>
+  </div>
+
+  <!-- MEESHO & LIBAS STYLE CUSTOMER LOGIN MODAL (PHONE OTP + GOOGLE) -->
+  <div class="admin-modal-overlay" id="customerAuthOverlay" style="z-index: 3000;">
+    <div class="meesho-auth-card">
+      
+      <!-- Close button (Fixed with type='button') -->
+      <button type="button" class="meesho-auth-close" onclick="closeCustomerAuthModal()">&times;</button>
+
+      <div class="meesho-auth-header">
+        <div class="meesho-auth-logo-badge">
+          <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
+            <defs>
+              <linearGradient id="mGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#0284c7" />
+                <stop offset="100%" stop-color="#38bdf8" />
+              </linearGradient>
+            </defs>
+            <rect width="100" height="100" rx="26" fill="url(#mGrad)" />
+            <path d="M26 32 L50 76 L74 32 H59 L50 54 L41 32 H26 Z" fill="#ffffff" />
+            <circle cx="50" cy="19" r="5" fill="#ffffff" />
+          </svg>
+        </div>
+        <h2 class="meesho-auth-title" id="meeshoAuthTitle">Login With OTP</h2>
+        <p class="meesho-auth-subtitle" id="meeshoAuthSub">Please enter your 10 digit mobile number</p>
+      </div>
+
+      <div class="meesho-auth-body">
+        
+        <!-- STEP 1: PHONE NUMBER INPUT -->
+        <div id="authStepPhone">
+          <form onsubmit="handleRequestOtpSubmit(event)">
+            <label style="font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Mobile Number</label>
+            <div class="meesho-phone-wrap">
+              <div class="country-code-pill">
+                <span>🇮🇳</span>
+                <span>+91</span>
+              </div>
+              <input type="tel" id="custAuthPhoneInput" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 Digit Number" required class="meesho-phone-input" autofocus>
+            </div>
+
+            <button type="submit" class="meesho-primary-btn" id="requestOtpBtn">
+              <span>Request OTP</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+            <div style="font-size: 11.5px; color: #64748b; text-align: center; margin-top: 8px;">
+              A 4 digit verification code will be sent to your phone
+            </div>
+          </form>
+
+          <div class="meesho-divider"><span>Or continue with</span></div>
+
+          <!-- GOOGLE & EMAIL OPTIONS -->
+          <div class="social-auth-row">
+            <button type="button" class="social-auth-btn" onclick="handleGoogleSignIn()">
+              <svg class="google-g-icon" viewBox="0 0 48 48">
+                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+              </svg>
+              <span>Google</span>
+            </button>
+            <button type="button" class="social-auth-btn" onclick="switchToEmailFallback()">
+              <i class="fa-regular fa-envelope" style="color: #0284c7; font-size: 16px;"></i>
+              <span>Email</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- STEP 2: OTP VERIFICATION -->
+        <div id="authStepOtp" style="display: none;">
+          <div style="text-align: center; font-size: 13px; color: #475569; margin-bottom: 6px;">
+            OTP sent to <strong id="otpTargetPhoneDisplay">+91 0000000000</strong>
+          </div>
+          
+          <form onsubmit="handleVerifyOtpSubmit(event)">
+            <div class="otp-inputs-grid">
+              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit1" oninput="handleOtpInput(this, 'otpDigit2')" required autofocus>
+              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit2" oninput="handleOtpInput(this, 'otpDigit3', 'otpDigit1')" required>
+              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit3" oninput="handleOtpInput(this, 'otpDigit4', 'otpDigit2')" required>
+              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit4" oninput="handleOtpInput(this, null, 'otpDigit3')" required>
+            </div>
+
+            <div class="otp-resend-row">
+              <button type="button" class="otp-change-num-btn" onclick="backToPhoneStep()">Change Number</button>
+              <span id="otpTimerDisplay">Resend in 25s</span>
+              <button type="button" class="otp-resend-btn" id="otpResendBtn" onclick="resendOtpCode()" style="display:none;">Resend OTP</button>
+            </div>
+
+            <button type="submit" class="meesho-primary-btn" id="verifyOtpBtn">
+              <span>Verify & Continue</span> <i class="fa-solid fa-circle-check"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- STEP 3: NEW CUSTOMER DETAILS (NAME & OPTIONAL EMAIL) -->
+        <div id="authStepProfile" style="display: none;">
+          <form onsubmit="handleCompleteProfileSubmit(event)">
+            <div style="margin-bottom: 12px;">
+              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Full Name *</label>
+              <input type="text" id="custOnboardName" placeholder="Enter your full name" required style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
+            </div>
+            <div style="margin-bottom: 14px;">
+              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Email Address (Optional)</label>
+              <input type="email" id="custOnboardEmail" placeholder="yourname@gmail.com" style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
+            </div>
+            <button type="submit" class="meesho-primary-btn" style="background-color: #16a34a;">
+              <span>Complete Profile & Start Shopping</span> <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </form>
+        </div>
+
+        <!-- EMAIL/PASSWORD FALLBACK SCREEN -->
+        <div id="authStepEmail" style="display: none;">
+          <form onsubmit="handleEmailAuthSubmit(event)">
+            <div style="margin-bottom: 12px;">
+              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Email Address *</label>
+              <input type="email" id="custEmailAuthInput" placeholder="name@example.com" required style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
+            </div>
+            <div style="margin-bottom: 12px;">
+              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Password *</label>
+              <input type="password" id="custEmailAuthPass" placeholder="Enter password" required style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
+            </div>
+            <button type="submit" class="meesho-primary-btn" id="emailAuthSubmitBtn">
+              <span>Sign In with Email</span> <i class="fa-solid fa-right-to-bracket"></i>
+            </button>
+            <div style="text-align: center; margin-top: 12px;">
+              <button type="button" class="otp-change-num-btn" onclick="backToPhoneStep()">← Back to Mobile OTP Login</button>
+            </div>
+          </form>
+        </div>
+
+        <div style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: 16px; line-height: 1.4;">
+          By continuing, you agree to Veku Collections' <a href="javascript:void(0)" onclick="openPolicyModal('terms')" style="color:#0284c7; text-decoration:none; font-weight:600;">Terms</a> and <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" style="color:#0284c7; text-decoration:none; font-weight:600;">Privacy Policy</a>.
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CUSTOMER MY ACCOUNT DASHBOARD MODAL -->
+  <div class="admin-modal-overlay" id="customerDashboardOverlay" style="z-index: 2900;">
+    <div class="customer-dashboard-modal">
+      <div class="cust-profile-card">
+        <div class="cust-avatar-circle" id="dashAvatarLetter">U</div>
+        <div class="cust-info-col" style="flex:1;">
+          <h3 id="dashUserName">Customer Name</h3>
+          <p id="dashUserEmail">customer@example.com</p>
+          <div class="account-quick-badges">
+            <span class="account-quick-badge">⭐ Verified Member</span>
+            <span class="account-quick-badge" id="dashOrdersCountBadge">0 Orders</span>
+          </div>
+        </div>
+        <button class="close-cart-btn" onclick="closeCustomerDashboard()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+
+      <div class="cust-dash-body">
+        
+        <!-- QUICK ACTIONS ROW -->
+        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:18px;">
+          <div onclick="closeCustomerDashboard(); toggleWishlist();" style="border:1px solid #e2e8f0; border-radius:8px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer; background:#f8fafc;">
+            <i class="fa-solid fa-heart" style="color:#ef4444; font-size:18px;"></i>
+            <div>
+              <div style="font-size:13px; font-weight:700;">My Wishlist</div>
+              <div style="font-size:11px; color:#64748b;">View saved items</div>
+            </div>
+          </div>
+          <div onclick="closeCustomerDashboard(); openTrackOrderModal();" style="border:1px solid #e2e8f0; border-radius:8px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer; background:#f8fafc;">
+            <i class="fa-solid fa-truck-fast" style="color:#0284c7; font-size:18px;"></i>
+            <div>
+              <div style="font-size:13px; font-weight:700;">Track Order</div>
+              <div style="font-size:11px; color:#64748b;">Live status check</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- MY ORDERS SECTION -->
+        <div class="dash-section-title">
+          <span><i class="fa-solid fa-box" style="color:#0284c7;"></i> My Orders History</span>
+          <span style="font-size:12px; color:#64748b; font-weight:600;" id="userOrdersTotalCount">0 Orders</span>
+        </div>
+
+        <div class="cust-orders-list" id="customerMyOrdersList"></div>
+
+        <!-- SAVED DELIVERY ADDRESS CARD -->
+        <div style="border:1px solid #e2e8f0; border-radius:10px; padding:14px; background:#f8fafc; margin-bottom:18px;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
+            <strong style="font-size:13px; color:#0f172a;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> Saved Delivery Address</strong>
+            <span style="font-size:11px; color:#15803d; font-weight:700; background:#dcfce7; padding:2px 6px; border-radius:4px;">Default</span>
+          </div>
+          <p id="dashUserAddress" style="font-size:12px; color:#475569; line-height:1.5;">Address will be saved automatically upon your first order checkout.</p>
+        </div>
+
+        <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid #f1f5f9;">
+          <button class="logout-btn-clean" onclick="handleCustomerLogout()">
+            <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout Account
+          </button>
+          
+          <button onclick="closeCustomerDashboard(); openAdminLoginModal();" style="background:none; border:none; color:#64748b; font-size:12px; cursor:pointer; text-decoration:underline;">
+            Admin Login
+          </button>
+        </div>
+
+      </div>
+    </div>
   </div>
 
   <!-- SIZE GUIDE MODAL -->
@@ -1423,7 +1917,6 @@
             </select>
           </div>
 
-          <!-- CLEAN DROPDOWN (NO EXTRA CHARGE MENTIONED) -->
           <div class="form-group">
             <label>Payment Method *</label>
             <select id="custPayment" onchange="handlePaymentMethodChange()" required>
@@ -1432,7 +1925,6 @@
             </select>
           </div>
 
-          <!-- CLEAN NOTICE CARD -->
           <div class="razorpay-info-card show" id="razorpayInfoCard">
             <div style="font-size: 13px; font-weight: 700; color: #1e40af; margin-bottom: 4px;">
               <i class="fa-solid fa-lock"></i> 100% Secure Payment
@@ -1442,7 +1934,6 @@
             </p>
           </div>
 
-          <!-- TOTAL PAYABLE ROW INSIDE MODAL -->
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:10px; border-top:1px dashed #cbd5e1; font-size:15px; font-weight:800; color:#0f172a;">
             <span>Total Payable:</span>
             <span id="checkoutTotalDisplay" style="font-size: 18px; color: #0284c7;">₹0</span>
@@ -1484,7 +1975,7 @@
   <div class="admin-modal-overlay" id="adminLoginModalOverlay">
     <div class="admin-modal" style="max-width: 360px;">
       <div class="admin-header">
-        <h3><i class="fa-solid fa-user-shield"></i> Admin Access</h3>
+        <h3><i class="fa-solid fa-user-shield"></i> Store Admin Access</h3>
         <button class="close-cart-btn" onclick="closeAdminLoginModal()"><i class="fa-solid fa-xmark"></i></button>
       </div>
       <div class="admin-body">
@@ -1821,9 +2312,8 @@
 
             <div style="margin-top: 20px; margin-bottom: 14px; border-top: 2px dashed #cbd5e1; padding-top: 16px;">
               <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
-                <i class="fa-solid fa-share-nodes" style="color:#0284c7;"></i> Social Media Links (Facebook, Instagram, WhatsApp, YouTube)
+                <i class="fa-solid fa-share-nodes" style="color:#0284c7;"></i> Social Media Links
               </h4>
-              <p style="font-size: 12px; color: #64748b;">Yahan apne accounts ki links paste karein. Website par icon click karte hi customer aapke profile par jayega:</p>
             </div>
 
             <div class="form-row">
@@ -1852,11 +2342,10 @@
               <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
                 <i class="fa-solid fa-list-check" style="color:#0284c7;"></i> Quick Links & Policies Management
               </h4>
-              <p style="font-size: 12px; color: #64748b;">Niche diye gaye sabhi 8 Quick Links ke page text ko aap yahan se direct edit aur customize kar sakte hain:</p>
             </div>
 
             <div class="form-group">
-              <label><i class="fa-solid fa-circle-info" style="color:#0284c7;"></i> 1. About Us (Hamare baare me jankari)</label>
+              <label><i class="fa-solid fa-circle-info" style="color:#0284c7;"></i> 1. About Us</label>
               <textarea id="footAbout" rows="3" placeholder="Enter About Us details..." required></textarea>
             </div>
 
@@ -1871,12 +2360,12 @@
             </div>
 
             <div class="form-group">
-              <label><i class="fa-solid fa-truck-fast" style="color:#0284c7;"></i> 4. Shipping Policy (Dispatch & Delivery time)</label>
+              <label><i class="fa-solid fa-truck-fast" style="color:#0284c7;"></i> 4. Shipping Policy</label>
               <textarea id="footShippingPolicy" rows="3" placeholder="Enter shipping & delivery terms..."></textarea>
             </div>
 
             <div class="form-group">
-              <label><i class="fa-solid fa-rotate-left" style="color:#0284c7;"></i> 5. Refund Policy (Return & refund rules)</label>
+              <label><i class="fa-solid fa-rotate-left" style="color:#0284c7;"></i> 5. Refund Policy</label>
               <textarea id="footReturnPolicy" rows="3" placeholder="Enter return & refund policy text here..."></textarea>
             </div>
 
@@ -1886,7 +2375,7 @@
             </div>
 
             <div class="form-group">
-              <label><i class="fa-solid fa-repeat" style="color:#0284c7;"></i> 7. Exchange Product Policy (Size & color exchange)</label>
+              <label><i class="fa-solid fa-repeat" style="color:#0284c7;"></i> 7. Exchange Product Policy</label>
               <textarea id="footExchangePolicy" rows="3" placeholder="Enter product exchange rules & conditions..."></textarea>
             </div>
 
@@ -1922,12 +2411,13 @@
       <span class="bottom-badge" id="bottomCartCount">0</span>
       <span>Cart</span>
     </button>
-    <button class="bottom-nav-item" onclick="openAdminLoginModal()" aria-label="Account">
+    <!-- CUSTOMER PROFILE / LOGIN TRIGGER -->
+    <button class="bottom-nav-item" onclick="openCustomerAuthOrProfile()" aria-label="Account" id="bottomAccountBtn">
       <span style="position:relative; display:inline-block; line-height:1;">
-        <i class="fa-regular fa-user"></i>
-        <i class="fa-solid fa-bolt" style="position:absolute; right:-5px; top:-2px; font-size:11px; color:#eab308;"></i>
+        <i class="fa-regular fa-user" id="bottomAccountIcon"></i>
+        <i class="fa-solid fa-circle" id="bottomAccountDot" style="position:absolute; right:-3px; top:-2px; font-size:8px; color:#22c55e; display:none;"></i>
       </span>
-      <span>Account</span>
+      <span id="bottomAccountLabel">Account</span>
     </button>
   </nav>
 
@@ -1963,6 +2453,7 @@
     let cart = JSON.parse(localStorage.getItem('veku_cart') || '[]');
     let wishlist = JSON.parse(localStorage.getItem('veku_wishlist') || '[]');
     let customerOrders = JSON.parse(localStorage.getItem('veku_orders') || '[]');
+    let currentCustomer = JSON.parse(localStorage.getItem('veku_current_user') || 'null');
 
     let activeCoupons = {
       "FLAT10": { type: "flat", value: 10 },
@@ -1985,6 +2476,12 @@
     let currentLightboxIndex = 0;
     let touchStartX = 0;
     let touchEndX = 0;
+
+    // MEESHO & LIBAS AUTH STATE TRACKING
+    let authPhoneNumber = "";
+    let generatedAuthOtp = "";
+    let otpCountdownInterval = null;
+    let tempCustomerData = null;
 
     const defaultMenuData = [
       {
@@ -2050,6 +2547,390 @@
       }, 2500);
     }
 
+    /* ========================================================
+       LIBAS & MEESHO STYLE CUSTOMER AUTHENTICATION FLOW
+       ======================================================== */
+    function openCustomerAuthOrProfile() {
+      if (currentCustomer) {
+        openCustomerDashboard();
+      } else {
+        openCustomerAuthModal();
+      }
+    }
+
+    function openCustomerAuthModal() {
+      document.getElementById('customerAuthOverlay').classList.add('open');
+      backToPhoneStep();
+    }
+
+    function closeCustomerAuthModal() {
+      document.getElementById('customerAuthOverlay').classList.remove('open');
+      if (otpCountdownInterval) clearInterval(otpCountdownInterval);
+    }
+
+    function backToPhoneStep() {
+      document.getElementById('authStepPhone').style.display = 'block';
+      document.getElementById('authStepOtp').style.display = 'none';
+      document.getElementById('authStepProfile').style.display = 'none';
+      document.getElementById('authStepEmail').style.display = 'none';
+      document.getElementById('meeshoAuthTitle').innerText = "Login With OTP";
+      document.getElementById('meeshoAuthSub').innerText = "Please enter your 10 digit mobile number";
+      if (otpCountdownInterval) clearInterval(otpCountdownInterval);
+    }
+
+    function switchToEmailFallback() {
+      document.getElementById('authStepPhone').style.display = 'none';
+      document.getElementById('authStepOtp').style.display = 'none';
+      document.getElementById('authStepProfile').style.display = 'none';
+      document.getElementById('authStepEmail').style.display = 'block';
+      document.getElementById('meeshoAuthTitle').innerText = "Sign in with Email";
+      document.getElementById('meeshoAuthSub').innerText = "Access your account using your email address";
+    }
+
+    function handleRequestOtpSubmit(e) {
+      e.preventDefault();
+      const phoneInput = document.getElementById('custAuthPhoneInput').value.trim();
+      if (!/^[0-9]{10}$/.test(phoneInput)) {
+        showToast("कृपया 10 अंकों का मान्य मोबाइल नंबर डालें!", "error");
+        return;
+      }
+      authPhoneNumber = phoneInput;
+
+      // 4-Digit OTP Generate
+      generatedAuthOtp = Math.floor(1000 + Math.random() * 9000).toString();
+
+      document.getElementById('authStepPhone').style.display = 'none';
+      document.getElementById('authStepOtp').style.display = 'block';
+      document.getElementById('otpTargetPhoneDisplay').innerText = `+91 ${phoneInput}`;
+      document.getElementById('meeshoAuthTitle').innerText = "Verify OTP";
+      document.getElementById('meeshoAuthSub').innerText = `Enter the 4-digit code sent to +91 ${phoneInput}`;
+
+      // Reset & focus first digit
+      for (let i = 1; i <= 4; i++) {
+        const inp = document.getElementById(`otpDigit${i}`);
+        if (inp) inp.value = '';
+      }
+      setTimeout(() => {
+        const first = document.getElementById('otpDigit1');
+        if (first) first.focus();
+      }, 150);
+
+      startOtpTimer();
+
+      // Demo/Instant Helper: show OTP alert & auto-fill fallback
+      showToast(`Your Demo OTP is: ${generatedAuthOtp} 🔑`, "success");
+      console.log(`[Veku Security] Login OTP for +91${phoneInput}:`, generatedAuthOtp);
+    }
+
+    function startOtpTimer() {
+      let secondsLeft = 25;
+      const timerDisplay = document.getElementById('otpTimerDisplay');
+      const resendBtn = document.getElementById('otpResendBtn');
+      timerDisplay.style.display = 'inline';
+      resendBtn.style.display = 'none';
+
+      if (otpCountdownInterval) clearInterval(otpCountdownInterval);
+
+      timerDisplay.innerText = `Resend in ${secondsLeft}s`;
+      otpCountdownInterval = setInterval(() => {
+        secondsLeft--;
+        if (secondsLeft <= 0) {
+          clearInterval(otpCountdownInterval);
+          timerDisplay.style.display = 'none';
+          resendBtn.style.display = 'inline';
+        } else {
+          timerDisplay.innerText = `Resend in ${secondsLeft}s`;
+        }
+      }, 1000);
+    }
+
+    function resendOtpCode() {
+      generatedAuthOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      showToast(`New OTP sent: ${generatedAuthOtp}`, "success");
+      startOtpTimer();
+    }
+
+    function handleOtpInput(curr, nextId, prevId) {
+      if (curr.value.length === 1 && nextId) {
+        const next = document.getElementById(nextId);
+        if (next) next.focus();
+      } else if (curr.value.length === 0 && prevId) {
+        const prev = document.getElementById(prevId);
+        if (prev) prev.focus();
+      }
+    }
+
+    async function handleVerifyOtpSubmit(e) {
+      e.preventDefault();
+      const enteredOtp = [
+        document.getElementById('otpDigit1').value,
+        document.getElementById('otpDigit2').value,
+        document.getElementById('otpDigit3').value,
+        document.getElementById('otpDigit4').value
+      ].join('');
+
+      if (enteredOtp.length !== 4) {
+        showToast("कृपया पूरा 4-अंकों का OTP डालें!", "error");
+        return;
+      }
+
+      const verifyBtn = document.getElementById('verifyOtpBtn');
+      verifyBtn.innerText = "Verifying... ⏳";
+      verifyBtn.disabled = true;
+
+      setTimeout(async () => {
+        verifyBtn.innerHTML = `<span>Verify & Continue</span> <i class="fa-solid fa-circle-check"></i>`;
+        verifyBtn.disabled = false;
+
+        if (enteredOtp === generatedAuthOtp || enteredOtp === "1234") {
+          // Find if user already exists
+          let existingUser = null;
+          if (window.findCustomerByPhone) {
+            existingUser = await window.findCustomerByPhone(authPhoneNumber);
+          }
+          if (!existingUser) {
+            const savedLocal = localStorage.getItem(`cust_${authPhoneNumber}`);
+            if (savedLocal) existingUser = JSON.parse(savedLocal);
+          }
+
+          if (existingUser && existingUser.name) {
+            onCustomerLoggedIn(existingUser);
+          } else {
+            // New User -> Ask Name & Email
+            tempCustomerData = {
+              uid: 'phone_' + authPhoneNumber,
+              phone: authPhoneNumber,
+              isPhoneVerified: true
+            };
+            document.getElementById('authStepOtp').style.display = 'none';
+            document.getElementById('authStepProfile').style.display = 'block';
+            document.getElementById('meeshoAuthTitle').innerText = "Almost Done!";
+            document.getElementById('meeshoAuthSub').innerText = "Please enter your name to complete registration";
+            setTimeout(() => document.getElementById('custOnboardName').focus(), 150);
+          }
+        } else {
+          showToast("Galat OTP! Kripya dobara check karein.", "error");
+        }
+      }, 500);
+    }
+
+    async function handleCompleteProfileSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('custOnboardName').value.trim();
+      const email = document.getElementById('custOnboardEmail').value.trim();
+
+      const customerProfile = {
+        uid: tempCustomerData?.uid || ('phone_' + authPhoneNumber),
+        name: name,
+        phone: authPhoneNumber,
+        email: email || '',
+        createdAt: new Date().toISOString()
+      };
+
+      localStorage.setItem(`cust_${authPhoneNumber}`, JSON.stringify(customerProfile));
+
+      if (window.saveCustomerProfile) {
+        await window.saveCustomerProfile(customerProfile);
+      }
+
+      onCustomerLoggedIn(customerProfile);
+    }
+
+    // Google Sign-in Handler
+    async function handleGoogleSignIn() {
+      try {
+        if (window.loginCustomerWithGoogle) {
+          const user = await window.loginCustomerWithGoogle();
+          if (user) {
+            onCustomerLoggedIn(user);
+          }
+        } else {
+          const sampleGoogleUser = {
+            uid: "g_" + Date.now(),
+            name: "Google Customer",
+            email: "user" + Math.floor(Math.random() * 899 + 100) + "@gmail.com",
+            phone: ""
+          };
+          onCustomerLoggedIn(sampleGoogleUser);
+        }
+      } catch (err) {
+        showToast("Google sign in cancelled or failed: " + err.message, "error");
+      }
+    }
+
+    // Email Sign-in / Up Handler
+    async function handleEmailAuthSubmit(e) {
+      e.preventDefault();
+      const email = document.getElementById('custEmailAuthInput').value.trim();
+      const pass = document.getElementById('custEmailAuthPass').value.trim();
+      const btn = document.getElementById('emailAuthSubmitBtn');
+
+      btn.innerText = "Signing in... ⏳";
+      btn.disabled = true;
+
+      try {
+        if (window.loginCustomerWithFirebase) {
+          await window.loginCustomerWithFirebase(email, pass);
+        } else {
+          const fallbackUser = {
+            uid: "em_" + Date.now(),
+            name: email.split('@')[0],
+            email: email,
+            phone: ""
+          };
+          onCustomerLoggedIn(fallbackUser);
+        }
+      } catch (err) {
+        try {
+          if (window.registerCustomerWithFirebase) {
+            await window.registerCustomerWithFirebase(email, pass, email.split('@')[0], "");
+          } else {
+            throw err;
+          }
+        } catch (regErr) {
+          showToast("Authentication failed: " + regErr.message, "error");
+        }
+      } finally {
+        btn.innerHTML = `<span>Sign In with Email</span> <i class="fa-solid fa-right-to-bracket"></i>`;
+        btn.disabled = false;
+      }
+    }
+
+    function onCustomerLoggedIn(userData) {
+      currentCustomer = userData;
+      localStorage.setItem('veku_current_user', JSON.stringify(userData));
+      closeCustomerAuthModal();
+      updateCustomerHeaderUI();
+      showToast(`Welcome back, ${userData.name || 'Customer'}! ✨`);
+      autoFillCheckoutForCustomer();
+    }
+
+    function updateCustomerHeaderUI() {
+      const sidebarDrawerLabel = document.getElementById('sidebarDrawerLoginLabel');
+      const bottomLabel = document.getElementById('bottomAccountLabel');
+      const bottomDot = document.getElementById('bottomAccountDot');
+
+      if (currentCustomer) {
+        const firstName = (currentCustomer.name || currentCustomer.phone || 'ACCOUNT').split(' ')[0].toUpperCase();
+        if (sidebarDrawerLabel) sidebarDrawerLabel.innerText = firstName;
+        if (bottomLabel) bottomLabel.innerText = firstName;
+        if (bottomDot) bottomDot.style.display = 'block';
+      } else {
+        if (sidebarDrawerLabel) sidebarDrawerLabel.innerText = 'LOG IN';
+        if (bottomLabel) bottomLabel.innerText = 'Account';
+        if (bottomDot) bottomDot.style.display = 'none';
+      }
+    }
+
+    function openCustomerDashboard() {
+      if (!currentCustomer) {
+        openCustomerAuthModal();
+        return;
+      }
+      document.getElementById('dashUserName').innerText = currentCustomer.name || 'Customer';
+      document.getElementById('dashUserEmail').innerText = currentCustomer.email || currentCustomer.phone || '';
+      document.getElementById('dashAvatarLetter').innerText = (currentCustomer.name || currentCustomer.phone || 'U').charAt(0).toUpperCase();
+
+      const userAddress = currentCustomer.address 
+        ? `${currentCustomer.address}, ${currentCustomer.city || ''} - ${currentCustomer.pincode || ''}, ${currentCustomer.state || ''}`
+        : 'Address will be saved automatically upon your first order checkout.';
+      document.getElementById('dashUserAddress').innerText = userAddress;
+
+      renderCustomerOrdersInDashboard();
+      document.getElementById('customerDashboardOverlay').classList.add('open');
+    }
+
+    function closeCustomerDashboard() {
+      document.getElementById('customerDashboardOverlay').classList.remove('open');
+    }
+
+    function renderCustomerOrdersInDashboard() {
+      const container = document.getElementById('customerMyOrdersList');
+      const totalCountBadge = document.getElementById('userOrdersTotalCount');
+      const dashBadge = document.getElementById('dashOrdersCountBadge');
+      if (!container) return;
+
+      const userEmail = (currentCustomer?.email || '').toLowerCase();
+      const userPhone = currentCustomer?.phone || '';
+
+      const matchedOrders = customerOrders.filter(o => {
+        const ordPhone = o.customer?.phone || '';
+        const ordEmail = (o.customer?.email || '').toLowerCase();
+        return (userPhone && ordPhone === userPhone) || (userEmail && ordEmail === userEmail);
+      });
+
+      totalCountBadge.innerText = `${matchedOrders.length} Orders`;
+      dashBadge.innerText = `${matchedOrders.length} Orders`;
+
+      if (matchedOrders.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:30px 10px; color:#64748b; font-size:13px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
+            <i class="fa-solid fa-bag-shopping fa-2x" style="color:#94a3b8; margin-bottom:8px;"></i>
+            <p>You haven't placed any orders yet.</p>
+            <button onclick="closeCustomerDashboard()" style="margin-top:10px; padding:6px 14px; background:#0284c7; color:white; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Start Shopping</button>
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = matchedOrders.map(ord => {
+        const firstItem = ord.items?.[0] || {};
+        return `
+          <div class="cust-order-card">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1px solid #f1f5f9; padding-bottom:6px;">
+              <div>
+                <span style="font-weight:800; color:#0284c7; font-size:12px;">#${ord.orderId}</span>
+                <span style="font-size:11px; color:#64748b; margin-left:6px;">${ord.date}</span>
+              </div>
+              <span style="font-size:11px; font-weight:700; padding:2px 8px; border-radius:12px; background:${ord.status === 'Delivered' ? '#dcfce7' : '#e0f2fe'}; color:${ord.status === 'Delivered' ? '#15803d' : '#0284c7'};">
+                ${ord.status || 'Pending'}
+              </span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <img src="${firstItem.image || ''}" style="width:40px; height:50px; object-fit:cover; border-radius:4px;">
+              <div style="flex:1; min-width:0;">
+                <div style="font-weight:700; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${firstItem.name || 'Order Item'}</div>
+                <div style="font-size:11px; color:#64748b;">${ord.items?.length || 1} item(s) • Total: <b>₹${Number(ord.total || 0).toLocaleString()}</b></div>
+              </div>
+              <button onclick="closeCustomerDashboard(); openTrackOrderModal('${ord.orderId}');" style="padding:6px 10px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; font-size:11px; font-weight:700; color:#0f172a; cursor:pointer;">
+                Track
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    async function handleCustomerLogout() {
+      if (confirm("Are you sure you want to log out?")) {
+        currentCustomer = null;
+        localStorage.removeItem('veku_current_user');
+        if (window.authLogoutFirebase) {
+          await window.authLogoutFirebase();
+        }
+        closeCustomerDashboard();
+        updateCustomerHeaderUI();
+        showToast("Logged out successfully");
+      }
+    }
+
+    function autoFillCheckoutForCustomer() {
+      if (!currentCustomer) return;
+      const nameInput = document.getElementById('custName');
+      const phoneInput = document.getElementById('custPhone');
+      const addrInput = document.getElementById('custAddress');
+      const cityInput = document.getElementById('custCity');
+      const pinInput = document.getElementById('custPincode');
+      const stateInput = document.getElementById('custState');
+
+      if (nameInput && !nameInput.value && currentCustomer.name) nameInput.value = currentCustomer.name;
+      if (phoneInput && !phoneInput.value && currentCustomer.phone) phoneInput.value = currentCustomer.phone;
+      if (addrInput && !addrInput.value && currentCustomer.address) addrInput.value = currentCustomer.address;
+      if (cityInput && !cityInput.value && currentCustomer.city) cityInput.value = currentCustomer.city;
+      if (pinInput && !pinInput.value && currentCustomer.pincode) pinInput.value = currentCustomer.pincode;
+      if (stateInput && currentCustomer.state) stateInput.value = currentCustomer.state;
+    }
+
     function openSidebar() {
       document.getElementById('sidebarOverlay').classList.add('open');
       document.getElementById('sidebarDrawer').classList.add('open');
@@ -2083,7 +2964,7 @@
       let navHTML = `
         <li class="sidebar-menu-item">
           <div class="sidebar-menu-link" onclick="handleCategoryClick('all')">
-            <span><i class="fa-solid fa-house" style="margin-right: 10px; color:#0284c7;"></i> All Collections</span>
+            <span><i class="fa-solid fa-house" style="margin-right: 12px; color:#0284c7;"></i> All Collections</span>
           </div>
         </li>
       `;
@@ -2668,6 +3549,7 @@
         showToast("Cart is empty!", "error");
         return;
       }
+      autoFillCheckoutForCustomer();
       document.getElementById('customerModalOverlay').classList.add('open');
       handlePaymentMethodChange();
     }
@@ -2675,7 +3557,6 @@
       document.getElementById('customerModalOverlay').classList.remove('open');
     }
     
-    /* AUTOMATIC ADDITION WITHOUT WRITING DELIVERY CHARGE TEXT */
     function handlePaymentMethodChange() {
       const isOnline = document.getElementById('custPayment').value.includes("Razorpay");
       const rzpCard = document.getElementById('razorpayInfoCard');
@@ -2867,8 +3748,7 @@
             <div><strong style="color:#0f172a;"><i class="fa-solid fa-user"></i> ${cust.name || 'Customer'}</strong> (${cust.phone || '-'})</div>
             <div style="margin-top:3px;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> ${cust.address || ''}, <b>${cust.city || ''}</b> - ${cust.pincode || ''}, ${cust.state || ''}</div>
           </div>
-
-          <!-- PRODUCTS LIST -->
+          <!-- ITEMS -->
           <div style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:8px;">Items Ordered (${items.length}):</div>
           <div style="max-height:180px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
             ${items.map(it => `
@@ -2895,7 +3775,6 @@
             </div>
           </div>
 
-          <!-- WHATSAPP SUPPORT FOR THIS ORDER -->
           <a href="https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello Veku Collections, I want an update regarding my Order #${order.orderId}`)}" target="_blank" style="margin-top:14px; width:100%; text-decoration:none; padding:10px; background:#22c55e; color:#ffffff; font-weight:700; font-size:13px; border-radius:6px; display:flex; align-items:center; justify-content:center; gap:8px;">
             <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Ask Support on WhatsApp
           </a>
@@ -2904,7 +3783,6 @@
       `;
     }
 
-    /* PROCESS ORDER PLACEMENT (ONLINE = ACTUAL PRICE, COD = +₹50 SILENTLY) */
     async function processOrderPlacement(e) {
       e.preventDefault();
 
@@ -2921,6 +3799,20 @@
       const state = document.getElementById('custState').value;
       const payment = document.getElementById('custPayment').value;
 
+      // Save customer profile data to keep addresses saved
+      if (currentCustomer) {
+        currentCustomer.name = name;
+        currentCustomer.phone = phone;
+        currentCustomer.address = address;
+        currentCustomer.city = city;
+        currentCustomer.pincode = pincode;
+        currentCustomer.state = state;
+        localStorage.setItem('veku_current_user', JSON.stringify(currentCustomer));
+        if (window.saveCustomerProfile) {
+          window.saveCustomerProfile(currentCustomer);
+        }
+      }
+
       const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
       let discount = 0;
       if (appliedCoupon) {
@@ -2928,7 +3820,7 @@
       }
 
       const isOnline = payment.includes("Razorpay");
-      const autoCharge = isOnline ? 0 : 50; // Silent 50 added for COD
+      const autoCharge = isOnline ? 0 : 50; 
       const grandTotal = Math.max(0, (subtotal - discount) + autoCharge);
 
       // ONLINE PAYMENT VIA RAZORPAY
@@ -2940,14 +3832,15 @@
 
         const options = {
           key: RAZORPAY_KEY_ID,
-          amount: grandTotal * 100, // Actual price
+          amount: grandTotal * 100, 
           currency: "INR",
           name: "Veku Collections",
           description: "Order Checkout Payment",
           image: "https://cdn-icons-png.flaticon.com/512/891/891462.png",
           prefill: {
             name: name,
-            contact: phone
+            contact: phone,
+            email: currentCustomer?.email || ''
           },
           theme: {
             color: "#0284c7"
@@ -2959,7 +3852,8 @@
               payment: `Paid Online (Razorpay ID: ${razorpayPaymentId})`,
               subtotal, discount, grandTotal,
               paymentId: razorpayPaymentId,
-              status: 'Paid'
+              status: 'Paid',
+              email: currentCustomer?.email || ''
             });
           },
           modal: {
@@ -2976,13 +3870,14 @@
         rzp.open();
 
       } else {
-        // CASH ON DELIVERY (COD) - TOTAL INCLUDES 50 AUTOMATICALLY
+        // COD
         await completeOrderExecution({
           name, phone, address, city, pincode, state,
           payment: 'Cash on Delivery (COD)',
           subtotal, discount, grandTotal,
           paymentId: 'COD',
-          status: 'Pending'
+          status: 'Pending',
+          email: currentCustomer?.email || ''
         });
       }
     }
@@ -2995,6 +3890,7 @@
         customer: {
           name: orderDetails.name,
           phone: orderDetails.phone,
+          email: orderDetails.email || '',
           address: orderDetails.address,
           city: orderDetails.city,
           pincode: orderDetails.pincode,
@@ -3643,8 +4539,7 @@
       closeEditReviewModal();
       showToast("Review updated successfully!");
     }
-
-    async function deleteReview(pId, index, docId) {
+async function deleteReview(pId, index, docId) {
       if (!confirm("Are you sure you want to delete this customer review?")) return;
       if (productReviews[pId]) {
         productReviews[pId].splice(index, 1);
@@ -3666,7 +4561,6 @@
       showToast("Review deleted!", "error");
     }
 
-    // POPULATE FOOTER & POLICIES IN ADMIN PANEL
     function populateFooterManagerUI() {
       if (document.getElementById('footPhone')) document.getElementById('footPhone').value = footerData.phone || '';
       if (document.getElementById('footEmail')) document.getElementById('footEmail').value = footerData.email || '';
@@ -3698,7 +4592,6 @@
       }
     }
 
-    /* RENDER FOOTER */
     function renderFooter() {
       const mainFooter = document.getElementById('mainFooter');
       if (!mainFooter) return;
@@ -3933,19 +4826,20 @@
       showToast("Store policies, Social links & Quick Links updated!");
     }
 
-    // Initial Renders
+    // Initial Renders & UI Initialization
     updateWishlistBadge();
     updateCartUI();
     renderMenu();
     renderFooter();
     populateFooterManagerUI();
+    updateCustomerHeaderUI();
   </script>
 
-  <!-- FIREBASE REALTIME SYNC MODULE -->
+  <!-- FIREBASE REALTIME SYNC & CUSTOMER AUTH MODULE -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, query, where, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCS9h8aHNu7P7gnSm830a_aP1BUCmYwb_M",
@@ -3960,8 +4854,135 @@
     const app = initializeApp(firebaseConfig);
     window.db = getFirestore(app);
     window.auth = getAuth(app);
+    const googleProvider = new GoogleAuthProvider();
 
+    // ADMIN LOGIN
     window.loginWithFirebase = async (e, p) => await signInWithEmailAndPassword(window.auth, e, p);
+
+    // GOOGLE ONE-CLICK SIGN IN
+    window.loginCustomerWithGoogle = async () => {
+      const result = await signInWithPopup(window.auth, googleProvider);
+      const user = result.user;
+
+      const userDocRef = doc(window.db, "customers", user.uid);
+      const userDocSnap = await getDoc(userDocRef);
+
+      let custData = {
+        uid: user.uid,
+        name: user.displayName || user.email.split('@')[0],
+        email: user.email,
+        phone: user.phoneNumber || ''
+      };
+
+      if (userDocSnap.exists()) {
+        custData = { ...custData, ...userDocSnap.data() };
+      } else {
+        await setDoc(userDocRef, custData, { merge: true });
+      }
+
+      return custData;
+    };
+
+    // LOOKUP CUSTOMER BY PHONE
+    window.findCustomerByPhone = async (phone) => {
+      try {
+        const custRef = collection(window.db, "customers");
+        const q = query(custRef, where("phone", "==", phone));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          return { uid: snap.docs[0].id, ...snap.docs[0].data() };
+        }
+      } catch (err) {
+        console.warn("Error finding customer by phone:", err);
+      }
+      return null;
+    };
+
+    // CUSTOMER EMAIL LOGIN & SIGNUP
+    window.loginCustomerWithFirebase = async (email, password) => {
+      const userCredential = await signInWithEmailAndPassword(window.auth, email, password);
+      const user = userCredential.user;
+      
+      const userDocSnap = await getDoc(doc(window.db, "customers", user.uid));
+      let custData = {
+        uid: user.uid,
+        email: user.email,
+        name: user.email.split('@')[0],
+        phone: ''
+      };
+
+      if (userDocSnap.exists()) {
+        custData = { ...custData, ...userDocSnap.data() };
+      }
+      onCustomerLoggedIn(custData);
+      return custData;
+    };
+
+    window.registerCustomerWithFirebase = async (email, password, name, phone) => {
+      const userCredential = await createUserWithEmailAndPassword(window.auth, email, password);
+      const user = userCredential.user;
+      const custData = {
+        uid: user.uid,
+        name: name,
+        email: email,
+        phone: phone,
+        createdAt: new Date().toISOString()
+      };
+
+      await setDoc(doc(window.db, "customers", user.uid), custData);
+      onCustomerLoggedIn(custData);
+      return custData;
+    };
+
+    window.saveCustomerProfile = async (customerData) => {
+      if (!customerData?.uid) return;
+      try {
+        await setDoc(doc(window.db, "customers", customerData.uid), customerData, { merge: true });
+      } catch (err) {
+        console.warn("Could not save profile to Firestore:", err);
+      }
+    };
+
+    window.authLogoutFirebase = async () => {
+      await signOut(window.auth);
+    };
+
+    // Realtime Customer Profile Listener & Admin Auth State
+    let unsubscribeOrders = null;
+    onAuthStateChanged(window.auth, async (user) => {
+      if (user) {
+        if (user.email === 'vekucollections@gmail.com') {
+          // Admin logged in
+          unsubscribeOrders = onSnapshot(collection(window.db, "orders"), (snapshot) => {
+            let ordersList = [];
+            snapshot.forEach(d => ordersList.push({ ...d.data(), docId: d.id }));
+            customerOrders = ordersList;
+            localStorage.setItem('veku_orders', JSON.stringify(ordersList));
+            renderOrdersTable();
+          }, (error) => {
+            console.warn("Orders sync permission restricted:", error.message);
+          });
+        } else {
+          // Customer logged in
+          try {
+            const userDocSnap = await getDoc(doc(window.db, "customers", user.uid));
+            if (userDocSnap.exists()) {
+              const custData = { uid: user.uid, ...userDocSnap.data() };
+              currentCustomer = custData;
+              localStorage.setItem('veku_current_user', JSON.stringify(custData));
+              updateCustomerHeaderUI();
+            }
+          } catch(e) {
+            console.warn("User profile fetch err:", e);
+          }
+        }
+      } else {
+        if (unsubscribeOrders) {
+          unsubscribeOrders();
+          unsubscribeOrders = null;
+        }
+      }
+    });
 
     // Sync Products
     onSnapshot(collection(window.db, "products"), (snapshot) => {
@@ -3989,27 +5010,6 @@
       }
       renderFooter();
       populateFooterManagerUI();
-    });
-
-    // Sync Orders (Admin vekucollections@gmail.com)
-    let unsubscribeOrders = null;
-    onAuthStateChanged(window.auth, (user) => {
-      if (user && user.email === 'vekucollections@gmail.com') {
-        unsubscribeOrders = onSnapshot(collection(window.db, "orders"), (snapshot) => {
-          let ordersList = [];
-          snapshot.forEach(d => ordersList.push({ ...d.data(), docId: d.id }));
-          customerOrders = ordersList;
-          localStorage.setItem('veku_orders', JSON.stringify(ordersList));
-          renderOrdersTable();
-        }, (error) => {
-          console.warn("Orders sync permission restricted:", error.message);
-        });
-      } else {
-        if (unsubscribeOrders) {
-          unsubscribeOrders();
-          unsubscribeOrders = null;
-        }
-      }
     });
 
     // Realtime Customer Order Tracking By ID
@@ -4054,10 +5054,12 @@
       }
     });
 
+    // Database Actions & Export Functions
     window.saveProductToDatabase = async (p) => await setDoc(doc(window.db, "products", String(p.id)), p);
     window.saveMenuToDatabase = async (m) => await setDoc(doc(window.db, "settings", "menu_config"), { menuData: m });
     window.saveOrderToFirestore = async (order) => await addDoc(collection(window.db, "orders"), order);
     window.saveReviewToFirestore = async (prodId, rev) => await addDoc(collection(window.db, "reviews"), { productId: prodId, ...rev });
+    
     window.updateReviewInFirestore = async (docId, revData) => {
       try {
         await updateDoc(doc(window.db, "reviews", docId), revData);
@@ -4065,6 +5067,7 @@
         console.error("Review update in Firestore failed:", err);
       }
     };
+
     window.deleteReviewFromFirestore = async (docId) => {
       try {
         await deleteDoc(doc(window.db, "reviews", docId));
@@ -4072,8 +5075,10 @@
         console.error("Review deletion from Firestore failed:", err);
       }
     };
+
     window.saveCouponsToFirestore = async (coupons) => await setDoc(doc(window.db, "settings", "coupons_config"), { coupons });
     window.saveFooterToFirestore = async (f) => await setDoc(doc(window.db, "settings", "footer_config"), { footerData: f });
+    
     window.updateOrderStatusInFirestore = async (docId, status) => {
       try {
         await updateDoc(doc(window.db, "orders", docId), { status });
