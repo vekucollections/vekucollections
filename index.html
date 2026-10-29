@@ -412,7 +412,6 @@
     }
     .sidebar-drawer.open { left: 0; }
 
-    /* LIBAS STYLE TOP DRAWER HEADER WITH LOGIN */
     .sidebar-header {
       background-color: #ffffff !important;
       color: #0f172a;
@@ -636,13 +635,13 @@
     .remove-variant-btn { background: #ef4444; color: white; border: none; padding: 0 12px; border-radius: 5px; cursor: pointer; }
 
     /* ========================================================
-       MEESHO & LIBAS STYLE CLEAN AUTH MODAL (MOBILE OTP + GOOGLE)
+       MODERN TABBED AUTH MODAL (EXISTING USER & NEW SIGN UP + ADDRESS)
        ======================================================== */
-    .meesho-auth-card {
+    .veku-auth-card {
       width: 100%;
       max-width: 440px;
       background: #ffffff;
-      border-radius: 16px;
+      border-radius: 14px;
       overflow: hidden;
       box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.28);
       position: relative;
@@ -654,203 +653,248 @@
       from { transform: scale(0.94); opacity: 0; }
       to { transform: scale(1); opacity: 1; }
     }
-    .meesho-auth-header {
-      padding: 24px 24px 8px 24px;
-      position: relative;
-      text-align: center;
-    }
-    .meesho-auth-close {
+
+    .veku-auth-close-btn {
       position: absolute;
-      top: 14px;
-      right: 14px;
+      top: 10px;
+      right: 12px;
       background: #f1f5f9;
       border: none;
-      width: 32px;
-      height: 32px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
       color: #64748b;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 16px;
+      font-size: 15px;
+      z-index: 60;
       transition: all 0.2s;
-      z-index: 50; /* क्रॉस बटन को सबसे ऊपर रखने के लिए */
     }
-    .meesho-auth-close:hover { background: #e2e8f0; color: #0f172a; }
-    .meesho-auth-logo-badge {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      margin-bottom: 10px;
-    }
-    .meesho-auth-title {
-      font-size: 20px;
-      font-weight: 800;
-      color: #0f172a;
-      letter-spacing: -0.3px;
-    }
-    .meesho-auth-subtitle {
-      font-size: 13px;
-      color: #64748b;
-      margin-top: 4px;
-    }
-    .meesho-auth-body {
-      padding: 16px 24px 26px 24px;
+    .veku-auth-close-btn:hover { background: #e2e8f0; color: #0f172a; }
+
+    /* TOP SLIDING TABS */
+    .auth-nav-tabs {
       display: flex;
-      flex-direction: column;
-    }
-    /* Phone Input Box with India Flag */
-    .meesho-phone-wrap {
-      display: flex;
-      align-items: center;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 10px;
-      padding: 4px 12px;
+      border-bottom: 1.5px solid #e2e8f0;
       background: #ffffff;
-      transition: border-color 0.2s, box-shadow 0.2s;
-      margin-top: 8px;
+      padding: 6px 45px 0 16px;
     }
-    .meesho-phone-wrap:focus-within {
-      border-color: #0284c7;
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-    }
-    .country-code-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
+    .auth-tab-item {
+      flex: 1;
+      text-align: center;
+      padding: 12px 6px;
+      font-size: 13.5px;
       font-weight: 700;
+      color: #64748b;
+      cursor: pointer;
+      position: relative;
+      user-select: none;
+      transition: color 0.2s;
+    }
+    .auth-tab-item.active {
+      color: #0284c7;
+    }
+    .auth-tab-item.active::after {
+      content: '';
+      position: absolute;
+      bottom: -1.5px;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background-color: #0284c7;
+      border-radius: 3px 3px 0 0;
+    }
+
+    .auth-tab-pane {
+      display: none;
+      padding: 20px 22px 24px 22px;
+    }
+    .auth-tab-pane.active {
+      display: block;
+    }
+
+    .auth-field-label {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #475569;
+      text-transform: uppercase;
+      letter-spacing: 0.4px;
+      display: block;
+      margin-bottom: 5px;
+    }
+    .auth-input-field {
+      width: 100%;
+      padding: 11px 13px;
+      border: 1.5px solid #cbd5e1;
+      border-radius: 8px;
       font-size: 14px;
       color: #0f172a;
-      padding-right: 10px;
-      border-right: 1.5px solid #e2e8f0;
-      user-select: none;
-      flex-shrink: 0;
-    }
-    .meesho-phone-input {
-      flex: 1;
-      border: none;
       outline: none;
-      padding: 10px 10px;
-      font-size: 15px;
-      font-weight: 600;
-      color: #0f172a;
-      letter-spacing: 0.5px;
-      min-width: 0;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: #ffffff;
+      margin-bottom: 13px;
     }
-    .meesho-phone-input::placeholder { color: #94a3b8; font-weight: 400; }
-    
-    /* Big Action Button (Meesho / Libas Style) */
-    .meesho-primary-btn {
+    .auth-input-field:focus {
+      border-color: #0284c7;
+      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.12);
+    }
+    .auth-input-field::placeholder {
+      color: #94a3b8;
+      font-weight: 400;
+    }
+
+    .auth-checkbox-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+      font-size: 13px;
+    }
+    .auth-checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      color: #334155;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .auth-forgot-link {
+      color: #0284c7;
+      text-decoration: none;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .auth-forgot-link:hover { text-decoration: underline; }
+
+    /* IMAGE 1 ORANGE BUTTON STYLING */
+    .auth-orange-btn {
       width: 100%;
       padding: 13px;
-      background-color: #0284c7;
+      background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
       color: #ffffff;
       border: none;
-      border-radius: 10px;
-      font-size: 15px;
-      font-weight: 700;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 800;
+      letter-spacing: 0.6px;
+      text-transform: uppercase;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      margin-top: 14px;
-      transition: background 0.2s, transform 0.1s;
+      transition: transform 0.1s, opacity 0.2s;
+      box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
     }
-    .meesho-primary-btn:hover { background-color: #0369a1; }
-    .meesho-primary-btn:active { transform: scale(0.99); }
-    .meesho-primary-btn:disabled { opacity: 0.6; cursor: not-allowed; }
+    .auth-orange-btn:hover { opacity: 0.95; }
+    .auth-orange-btn:active { transform: scale(0.99); }
+    .auth-orange-btn:disabled { opacity: 0.6; cursor: not-allowed; }
 
-    /* Divider */
-    .meesho-divider {
+    .auth-alt-divider {
       display: flex;
       align-items: center;
       text-align: center;
-      margin: 18px 0;
+      margin: 16px 0 12px 0;
       color: #94a3b8;
-      font-size: 12px;
-      font-weight: 600;
+      font-size: 11px;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.5px;
     }
-    .meesho-divider::before, .meesho-divider::after {
+    .auth-alt-divider::before, .auth-alt-divider::after {
       content: '';
       flex: 1;
       border-bottom: 1px solid #e2e8f0;
     }
-    .meesho-divider span {
-      padding: 0 12px;
-      color: #64748b;
-    }
+    .auth-alt-divider span { padding: 0 10px; color: #64748b; }
 
-    /* Social / Alternative buttons */
-    .social-auth-row {
+    .auth-social-row {
       display: flex;
       gap: 10px;
     }
-    .social-auth-btn {
+    .auth-social-btn {
       flex: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 10px 14px;
+      padding: 10px 12px;
       background: #ffffff;
       border: 1.5px solid #cbd5e1;
-      border-radius: 10px;
+      border-radius: 8px;
       color: #334155;
-      font-size: 13px;
+      font-size: 12.5px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.2s;
     }
-    .social-auth-btn:hover {
-      background: #f8fafc;
-      border-color: #94a3b8;
-    }
-    .google-g-icon { width: 18px; height: 18px; display: block; }
+    .auth-social-btn:hover { background: #f8fafc; border-color: #94a3b8; }
 
-    /* OTP Inputs Group */
-    .otp-inputs-grid {
+    /* ========================================================
+       PERFECT SQUARE OTP DIGIT BOXES STYLING
+       ======================================================== */
+    .otp-inputs-row {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin: 14px 0;
-    }
-    .otp-digit-field {
-      width: 48px;
-      height: 52px;
-      text-align: center;
-      font-size: 22px;
-      font-weight: 800;
-      border: 1.5px solid #cbd5e1;
-      border-radius: 10px;
-      outline: none;
-      color: #0f172a;
-      transition: all 0.2s;
-      background: #ffffff;
-    }
-    .otp-digit-field:focus {
-      border-color: #0284c7;
-      box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15);
-    }
-    .otp-resend-row {
-      display: flex;
-      justify-content: space-between;
       align-items: center;
-      font-size: 12px;
-      color: #64748b;
-      margin-top: 4px;
+      gap: 12px;
+      margin-bottom: 16px;
     }
-    .otp-change-num-btn, .otp-resend-btn {
+
+    .otp-digit-field {
+      width: 50px !important;
+      height: 54px !important;
+      text-align: center !important;
+      font-size: 22px !important;
+      font-weight: 800 !important;
+      color: #0f172a !important;
+      border: 2px solid #cbd5e1 !important;
+      border-radius: 10px !important;
+      background-color: #f8fafc !important;
+      outline: none !important;
+      transition: all 0.2s ease !important;
+      box-sizing: border-box !important;
+      padding: 0 !important;
+      margin: 0 !important;
+      box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    }
+
+    .otp-digit-field:focus {
+      border-color: #0284c7 !important;
+      background-color: #ffffff !important;
+      box-shadow: 0 0 0 3.5px rgba(2, 132, 199, 0.18) !important;
+      transform: translateY(-2px);
+    }
+
+    @media (max-width: 360px) {
+      .otp-digit-field {
+        width: 44px !important;
+        height: 48px !important;
+        font-size: 19px !important;
+      }
+      .otp-inputs-row {
+        gap: 8px;
+      }
+    }
+
+    /* STEP 2 ADDRESS FORM */
+    .address-step-indicator {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px dashed #cbd5e1;
+    }
+    .address-step-badge {
+      font-size: 11px;
+      font-weight: 800;
       color: #0284c7;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-weight: 700;
-      font-size: 12px;
-      text-decoration: underline;
+      background: #e0f2fe;
+      padding: 3px 8px;
+      border-radius: 12px;
     }
 
     /* CUSTOMER DASHBOARD / ACCOUNT MODAL */
@@ -1432,7 +1476,6 @@
     <div class="sidebar-body">
       <ul class="sidebar-menu-list" id="sidebarMenuList"></ul>
 
-      <!-- LIBAS STYLE EXTRA SERVICES & TRACKING LINKS -->
       <ul class="sidebar-menu-list" style="border-top: 2px solid #f1f5f9; margin-top: 6px;">
         <li class="sidebar-menu-item">
           <div class="sidebar-menu-link" onclick="closeSidebar(); openTrackOrderModal();">
@@ -1471,141 +1514,195 @@
     <div class="products-grid" id="productsGrid"></div>
   </div>
 
-  <!-- MEESHO & LIBAS STYLE CUSTOMER LOGIN MODAL (PHONE OTP + GOOGLE) -->
+  <!-- ========================================================
+       NEW TABBED CUSTOMER AUTH MODAL (EXISTING USER & NEW SIGN UP + ADDRESS)
+       ======================================================== -->
   <div class="admin-modal-overlay" id="customerAuthOverlay" style="z-index: 3000;">
-    <div class="meesho-auth-card">
+    <div class="veku-auth-card">
       
       <!-- Close button (Fixed with type='button') -->
-      <button type="button" class="meesho-auth-close" onclick="closeCustomerAuthModal()">&times;</button>
+      <button type="button" class="veku-auth-close-btn" onclick="closeCustomerAuthModal()">&times;</button>
 
-      <div class="meesho-auth-header">
-        <div class="meesho-auth-logo-badge">
-          <svg width="40" height="40" viewBox="0 0 100 100" fill="none">
-            <defs>
-              <linearGradient id="mGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" stop-color="#0284c7" />
-                <stop offset="100%" stop-color="#38bdf8" />
-              </linearGradient>
-            </defs>
-            <rect width="100" height="100" rx="26" fill="url(#mGrad)" />
-            <path d="M26 32 L50 76 L74 32 H59 L50 54 L41 32 H26 Z" fill="#ffffff" />
-            <circle cx="50" cy="19" r="5" fill="#ffffff" />
-          </svg>
+      <!-- NAVIGATION TABS -->
+      <div class="auth-nav-tabs">
+        <div class="auth-tab-item active" id="tabBtnExisting" onclick="switchAuthTab('login')">
+          Existing User? Login
         </div>
-        <h2 class="meesho-auth-title" id="meeshoAuthTitle">Login With OTP</h2>
-        <p class="meesho-auth-subtitle" id="meeshoAuthSub">Please enter your 10 digit mobile number</p>
+        <div class="auth-tab-item" id="tabBtnNew" onclick="switchAuthTab('signup')">
+          New Customer? Sign Up
+        </div>
       </div>
 
-      <div class="meesho-auth-body">
-        
-        <!-- STEP 1: PHONE NUMBER INPUT -->
-        <div id="authStepPhone">
-          <form onsubmit="handleRequestOtpSubmit(event)">
-            <label style="font-size: 12px; font-weight: 700; color: #475569; text-transform: uppercase;">Mobile Number</label>
-            <div class="meesho-phone-wrap">
-              <div class="country-code-pill">
-                <span>🇮🇳</span>
-                <span>+91</span>
-              </div>
-              <input type="tel" id="custAuthPhoneInput" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 Digit Number" required class="meesho-phone-input" autofocus>
-            </div>
+      <!-- ================= TAB 1: EXISTING USER LOGIN ================= -->
+      <div class="auth-tab-pane active" id="authTabLoginPane">
+        <form onsubmit="handleExistingUserLogin(event)">
+          <label class="auth-field-label">EMAIL ADDRESS / MOBILE</label>
+          <input type="text" id="loginEmailOrPhone" class="auth-input-field" placeholder="Enter your email" required autofocus>
 
-            <button type="submit" class="meesho-primary-btn" id="requestOtpBtn">
-              <span>Request OTP</span> <i class="fa-solid fa-arrow-right"></i>
+          <label class="auth-field-label">PASSWORD</label>
+          <input type="password" id="loginPassword" class="auth-input-field" placeholder="Enter password" required>
+
+          <div class="auth-checkbox-row">
+            <label class="auth-checkbox-wrap">
+              <input type="checkbox" id="loginRememberMe" checked style="accent-color: #0284c7; width: 16px; height: 16px;">
+              <span>Remember me</span>
+            </label>
+            <a href="javascript:void(0)" class="auth-forgot-link" onclick="handleForgotPassword()">Forgot?</a>
+          </div>
+
+          <button type="submit" class="auth-orange-btn" id="loginSubmitBtn">
+            LOGIN TO CONTINUE
+          </button>
+        </form>
+
+        <div class="auth-alt-divider"><span>OR CONTINUE WITH</span></div>
+
+        <div class="auth-social-row">
+          <button type="button" class="auth-social-btn" onclick="handleGoogleSignIn()">
+            <svg style="width:16px; height:16px;" viewBox="0 0 48 48">
+              <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
+              <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
+              <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
+              <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
+            </svg>
+            <span>Google</span>
+          </button>
+          <button type="button" class="auth-social-btn" onclick="openOtpLoginQuick()">
+            <i class="fa-solid fa-mobile-screen" style="color:#0284c7;"></i>
+            <span>Login with OTP</span>
+          </button>
+        </div>
+
+        <div style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: 14px; line-height: 1.4;">
+          By continuing, you agree to Veku Collections' <a href="javascript:void(0)" onclick="openPolicyModal('terms')" style="color:#0284c7; text-decoration:none; font-weight:600;">Terms of Use</a> and <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" style="color:#0284c7; text-decoration:none; font-weight:600;">Privacy Policy</a>.
+        </div>
+      </div>
+
+      <!-- ================= TAB 2: NEW CUSTOMER SIGN UP ================= -->
+      <div class="auth-tab-pane" id="authTabSignupPane">
+        
+        <!-- STEP 1: PERSONAL & LOGIN DETAILS -->
+        <div id="signUpStep1Container">
+          <form onsubmit="handleSignUpStep1(event)">
+            <label class="auth-field-label">FULL NAME *</label>
+            <input type="text" id="regName" class="auth-input-field" placeholder="Enter your full name" required>
+
+            <label class="auth-field-label">MOBILE NUMBER *</label>
+            <input type="tel" id="regPhone" class="auth-input-field" pattern="[0-9]{10}" maxlength="10" placeholder="10 Digit Mobile Number" required>
+
+            <label class="auth-field-label">GMAIL / EMAIL ADDRESS *</label>
+            <input type="email" id="regEmail" class="auth-input-field" placeholder="example@gmail.com" required>
+
+            <label class="auth-field-label">CREATE PASSWORD *</label>
+            <input type="password" id="regPassword" class="auth-input-field" minlength="6" placeholder="Create at least 6 characters password" required>
+
+            <button type="submit" class="auth-orange-btn">
+              <span>CONTINUE TO ADD ADDRESS</span> <i class="fa-solid fa-arrow-right"></i>
             </button>
-            <div style="font-size: 11.5px; color: #64748b; text-align: center; margin-top: 8px;">
-              A 4 digit verification code will be sent to your phone
-            </div>
           </form>
 
-          <div class="meesho-divider"><span>Or continue with</span></div>
-
-          <!-- GOOGLE & EMAIL OPTIONS -->
-          <div class="social-auth-row">
-            <button type="button" class="social-auth-btn" onclick="handleGoogleSignIn()">
-              <svg class="google-g-icon" viewBox="0 0 48 48">
-                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-              </svg>
-              <span>Google</span>
-            </button>
-            <button type="button" class="social-auth-btn" onclick="switchToEmailFallback()">
-              <i class="fa-regular fa-envelope" style="color: #0284c7; font-size: 16px;"></i>
-              <span>Email</span>
-            </button>
+          <div style="font-size: 11.5px; color: #64748b; text-align: center; margin-top: 12px;">
+            Already have an account? <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color:#0284c7; font-weight:700;">Login here</a>
           </div>
         </div>
 
-        <!-- STEP 2: OTP VERIFICATION -->
-        <div id="authStepOtp" style="display: none;">
-          <div style="text-align: center; font-size: 13px; color: #475569; margin-bottom: 6px;">
-            OTP sent to <strong id="otpTargetPhoneDisplay">+91 0000000000</strong>
+        <!-- STEP 2: ADDRESS FILL FORM (POPUP AFTER DETAILS) -->
+        <div id="signUpStep2Container" style="display: none;">
+          <div class="address-step-indicator">
+            <span style="font-size: 13px; font-weight: 800; color: #0f172a;"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> Add Delivery Address</span>
+            <span class="address-step-badge">Step 2 of 2</span>
+          </div>
+
+          <form onsubmit="handleSignUpComplete(event)">
+            <label class="auth-field-label">DELIVERY ADDRESS (HOUSE NO, STREET, AREA) *</label>
+            <textarea id="regAddress" rows="2" class="auth-input-field" placeholder="Enter complete doorstep address" required></textarea>
+
+            <div class="form-row">
+              <div style="flex:1;">
+                <label class="auth-field-label">CITY *</label>
+                <input type="text" id="regCity" class="auth-input-field" placeholder="City" required>
+              </div>
+              <div style="flex:1;">
+                <label class="auth-field-label">PIN CODE *</label>
+                <input type="text" id="regPincode" pattern="[0-9]{6}" maxlength="6" class="auth-input-field" placeholder="PIN Code" required>
+              </div>
+            </div>
+
+            <label class="auth-field-label">STATE *</label>
+            <select id="regState" class="auth-input-field" required>
+              <option value="">Select State</option>
+              <option value="Uttar Pradesh" selected>Uttar Pradesh</option>
+              <option value="Delhi">Delhi (NCT)</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="Other">Other State / UT</option>
+            </select>
+
+            <div style="display:flex; gap:10px; margin-top:4px;">
+              <button type="button" onclick="backToSignUpStep1()" style="flex:0.4; padding:12px; background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer;">
+                ← Back
+              </button>
+              <button type="submit" class="auth-orange-btn" id="signUpFinalSubmitBtn" style="flex:1;">
+                COMPLETE SIGN UP & SAVE
+              </button>
+            </div>
+          </form>
+        </div>
+
+        <div style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: 14px; line-height: 1.4;">
+          By creating an account, you agree to Veku Collections' <a href="javascript:void(0)" onclick="openPolicyModal('terms')" style="color:#0284c7; text-decoration:none; font-weight:600;">Terms</a> and <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" style="color:#0284c7; text-decoration:none; font-weight:600;">Privacy Policy</a>.
+        </div>
+
+      </div>
+
+      <!-- ================= QUICK MOBILE OTP SCREEN (OPTIONAL) ================= -->
+      <div class="auth-tab-pane" id="authTabOtpPane">
+        <div style="text-align: center; margin-bottom: 12px;">
+          <h3 style="font-size: 17px; font-weight: 800; color: #0f172a;">Login With OTP</h3>
+          <p style="font-size: 12.5px; color: #64748b; margin-top: 2px;">Enter your 10 digit mobile number to receive verification code</p>
+        </div>
+
+        <form onsubmit="handleRequestOtpSubmit(event)">
+          <label class="auth-field-label">MOBILE NUMBER</label>
+          <div style="display:flex; align-items:center; border:1.5px solid #cbd5e1; border-radius:8px; padding:4px 10px; margin-bottom:12px; background:#ffffff;">
+            <span style="font-weight:700; font-size:13.5px; color:#0f172a; padding-right:8px; border-right:1px solid #e2e8f0;">🇮🇳 +91</span>
+            <input type="tel" id="quickOtpPhoneInput" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 digit number" required style="flex:1; border:none; outline:none; padding:8px; font-size:14px; font-weight:600;">
+          </div>
+          <button type="submit" class="auth-orange-btn">Request OTP →</button>
+        </form>
+
+        <div id="otpInputArea" style="display:none; margin-top:14px; padding-top:14px; border-top:1px dashed #cbd5e1;">
+          <div style="text-align:center; font-size:12.5px; color:#475569; margin-bottom:12px;">
+            OTP sent to <strong id="quickOtpTargetPhone" style="color: #0284c7;">+91</strong>
           </div>
           
-          <form onsubmit="handleVerifyOtpSubmit(event)">
-            <div class="otp-inputs-grid">
-              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit1" oninput="handleOtpInput(this, 'otpDigit2')" required autofocus>
-              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit2" oninput="handleOtpInput(this, 'otpDigit3', 'otpDigit1')" required>
-              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit3" oninput="handleOtpInput(this, 'otpDigit4', 'otpDigit2')" required>
-              <input type="tel" maxlength="1" class="otp-digit-field" id="otpDigit4" oninput="handleOtpInput(this, null, 'otpDigit3')" required>
-            </div>
+          <!-- FIXED CLEAN CENTERED 4 OTP BOXES -->
+          <div class="otp-inputs-row">
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit-field" id="qOtp1" oninput="handleOtpInput(this, 'qOtp2')" onkeydown="handleOtpKey(event, this, null)" onpaste="handleOtpPaste(event)" autofocus>
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit-field" id="qOtp2" oninput="handleOtpInput(this, 'qOtp3')" onkeydown="handleOtpKey(event, this, 'qOtp1')">
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit-field" id="qOtp3" oninput="handleOtpInput(this, 'qOtp4')" onkeydown="handleOtpKey(event, this, 'qOtp2')">
+            <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit-field" id="qOtp4" oninput="handleOtpInput(this, null)" onkeydown="handleOtpKey(event, this, 'qOtp3')">
+          </div>
 
-            <div class="otp-resend-row">
-              <button type="button" class="otp-change-num-btn" onclick="backToPhoneStep()">Change Number</button>
-              <span id="otpTimerDisplay">Resend in 25s</span>
-              <button type="button" class="otp-resend-btn" id="otpResendBtn" onclick="resendOtpCode()" style="display:none;">Resend OTP</button>
-            </div>
-
-            <button type="submit" class="meesho-primary-btn" id="verifyOtpBtn">
-              <span>Verify & Continue</span> <i class="fa-solid fa-circle-check"></i>
-            </button>
-          </form>
+          <button type="button" class="auth-orange-btn" onclick="verifyQuickOtp()">Verify & Continue</button>
         </div>
 
-        <!-- STEP 3: NEW CUSTOMER DETAILS (NAME & OPTIONAL EMAIL) -->
-        <div id="authStepProfile" style="display: none;">
-          <form onsubmit="handleCompleteProfileSubmit(event)">
-            <div style="margin-bottom: 12px;">
-              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Full Name *</label>
-              <input type="text" id="custOnboardName" placeholder="Enter your full name" required style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
-            </div>
-            <div style="margin-bottom: 14px;">
-              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Email Address (Optional)</label>
-              <input type="email" id="custOnboardEmail" placeholder="yourname@gmail.com" style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
-            </div>
-            <button type="submit" class="meesho-primary-btn" style="background-color: #16a34a;">
-              <span>Complete Profile & Start Shopping</span> <i class="fa-solid fa-arrow-right"></i>
-            </button>
-          </form>
+        <div style="text-align:center; margin-top:14px;">
+          <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color:#0284c7; font-weight:700; font-size:12.5px;">← Back to Email / Password Login</a>
         </div>
-
-        <!-- EMAIL/PASSWORD FALLBACK SCREEN -->
-        <div id="authStepEmail" style="display: none;">
-          <form onsubmit="handleEmailAuthSubmit(event)">
-            <div style="margin-bottom: 12px;">
-              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Email Address *</label>
-              <input type="email" id="custEmailAuthInput" placeholder="name@example.com" required style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
-            </div>
-            <div style="margin-bottom: 12px;">
-              <label style="font-size: 12px; font-weight: 700; color: #475569; display:block; margin-bottom:4px;">Password *</label>
-              <input type="password" id="custEmailAuthPass" placeholder="Enter password" required style="width:100%; padding:11px 12px; border:1.5px solid #cbd5e1; border-radius:8px; font-size:14px; outline:none;">
-            </div>
-            <button type="submit" class="meesho-primary-btn" id="emailAuthSubmitBtn">
-              <span>Sign In with Email</span> <i class="fa-solid fa-right-to-bracket"></i>
-            </button>
-            <div style="text-align: center; margin-top: 12px;">
-              <button type="button" class="otp-change-num-btn" onclick="backToPhoneStep()">← Back to Mobile OTP Login</button>
-            </div>
-          </form>
-        </div>
-
-        <div style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: 16px; line-height: 1.4;">
-          By continuing, you agree to Veku Collections' <a href="javascript:void(0)" onclick="openPolicyModal('terms')" style="color:#0284c7; text-decoration:none; font-weight:600;">Terms</a> and <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" style="color:#0284c7; text-decoration:none; font-weight:600;">Privacy Policy</a>.
-        </div>
-
       </div>
+
     </div>
   </div>
 
@@ -1659,7 +1756,7 @@
             <strong style="font-size:13px; color:#0f172a;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> Saved Delivery Address</strong>
             <span style="font-size:11px; color:#15803d; font-weight:700; background:#dcfce7; padding:2px 6px; border-radius:4px;">Default</span>
           </div>
-          <p id="dashUserAddress" style="font-size:12px; color:#475569; line-height:1.5;">Address will be saved automatically upon your first order checkout.</p>
+          <p id="dashUserAddress" style="font-size:12px; color:#475569; line-height:1.5;">Address will be saved automatically upon your registration or first checkout.</p>
         </div>
 
         <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid #f1f5f9;">
@@ -2477,11 +2574,9 @@
     let touchStartX = 0;
     let touchEndX = 0;
 
-    // MEESHO & LIBAS AUTH STATE TRACKING
-    let authPhoneNumber = "";
-    let generatedAuthOtp = "";
-    let otpCountdownInterval = null;
-    let tempCustomerData = null;
+    // TEMPORARY REGISTRATION DATA HOLDER
+    let tempCustomerSignupData = null;
+    let quickGeneratedOtp = "";
 
     const defaultMenuData = [
       {
@@ -2548,7 +2643,7 @@
     }
 
     /* ========================================================
-       LIBAS & MEESHO STYLE CUSTOMER AUTHENTICATION FLOW
+       MODERN TABBED CUSTOMER AUTHENTICATION (LOGIN & SIGNUP + ADDRESS)
        ======================================================== */
     function openCustomerAuthOrProfile() {
       if (currentCustomer) {
@@ -2560,180 +2655,264 @@
 
     function openCustomerAuthModal() {
       document.getElementById('customerAuthOverlay').classList.add('open');
-      backToPhoneStep();
+      switchAuthTab('login');
     }
 
     function closeCustomerAuthModal() {
       document.getElementById('customerAuthOverlay').classList.remove('open');
-      if (otpCountdownInterval) clearInterval(otpCountdownInterval);
     }
 
-    function backToPhoneStep() {
-      document.getElementById('authStepPhone').style.display = 'block';
-      document.getElementById('authStepOtp').style.display = 'none';
-      document.getElementById('authStepProfile').style.display = 'none';
-      document.getElementById('authStepEmail').style.display = 'none';
-      document.getElementById('meeshoAuthTitle').innerText = "Login With OTP";
-      document.getElementById('meeshoAuthSub').innerText = "Please enter your 10 digit mobile number";
-      if (otpCountdownInterval) clearInterval(otpCountdownInterval);
+    function switchAuthTab(tab) {
+      const tabLogin = document.getElementById('tabBtnExisting');
+      const tabSignup = document.getElementById('tabBtnNew');
+      const paneLogin = document.getElementById('authTabLoginPane');
+      const paneSignup = document.getElementById('authTabSignupPane');
+      const paneOtp = document.getElementById('authTabOtpPane');
+
+      paneOtp.classList.remove('active');
+
+      if (tab === 'login') {
+        tabLogin.classList.add('active');
+        tabSignup.classList.remove('active');
+        paneLogin.classList.add('active');
+        paneSignup.classList.remove('active');
+      } else if (tab === 'signup') {
+        tabLogin.classList.remove('active');
+        tabSignup.classList.add('active');
+        paneLogin.classList.remove('active');
+        paneSignup.classList.add('active');
+        backToSignUpStep1();
+      }
     }
 
-    function switchToEmailFallback() {
-      document.getElementById('authStepPhone').style.display = 'none';
-      document.getElementById('authStepOtp').style.display = 'none';
-      document.getElementById('authStepProfile').style.display = 'none';
-      document.getElementById('authStepEmail').style.display = 'block';
-      document.getElementById('meeshoAuthTitle').innerText = "Sign in with Email";
-      document.getElementById('meeshoAuthSub').innerText = "Access your account using your email address";
+    function openOtpLoginQuick() {
+      document.getElementById('tabBtnExisting').classList.remove('active');
+      document.getElementById('tabBtnNew').classList.remove('active');
+      document.getElementById('authTabLoginPane').classList.remove('active');
+      document.getElementById('authTabSignupPane').classList.remove('active');
+      document.getElementById('authTabOtpPane').classList.add('active');
+      document.getElementById('otpInputArea').style.display = 'none';
+      setTimeout(() => document.getElementById('quickOtpPhoneInput').focus(), 150);
     }
 
-    function handleRequestOtpSubmit(e) {
+    /* EXISTING USER LOGIN HANDLER */
+    async function handleExistingUserLogin(e) {
       e.preventDefault();
-      const phoneInput = document.getElementById('custAuthPhoneInput').value.trim();
-      if (!/^[0-9]{10}$/.test(phoneInput)) {
-        showToast("कृपया 10 अंकों का मान्य मोबाइल नंबर डालें!", "error");
-        return;
-      }
-      authPhoneNumber = phoneInput;
+      const userIdent = document.getElementById('loginEmailOrPhone').value.trim();
+      const password = document.getElementById('loginPassword').value.trim();
+      const loginBtn = document.getElementById('loginSubmitBtn');
 
-      // 4-Digit OTP Generate
-      generatedAuthOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      loginBtn.disabled = true;
+      loginBtn.innerText = "AUTHENTICATING... ⏳";
 
-      document.getElementById('authStepPhone').style.display = 'none';
-      document.getElementById('authStepOtp').style.display = 'block';
-      document.getElementById('otpTargetPhoneDisplay').innerText = `+91 ${phoneInput}`;
-      document.getElementById('meeshoAuthTitle').innerText = "Verify OTP";
-      document.getElementById('meeshoAuthSub').innerText = `Enter the 4-digit code sent to +91 ${phoneInput}`;
-
-      // Reset & focus first digit
-      for (let i = 1; i <= 4; i++) {
-        const inp = document.getElementById(`otpDigit${i}`);
-        if (inp) inp.value = '';
-      }
-      setTimeout(() => {
-        const first = document.getElementById('otpDigit1');
-        if (first) first.focus();
-      }, 150);
-
-      startOtpTimer();
-
-      // Demo/Instant Helper: show OTP alert & auto-fill fallback
-      showToast(`Your Demo OTP is: ${generatedAuthOtp} 🔑`, "success");
-      console.log(`[Veku Security] Login OTP for +91${phoneInput}:`, generatedAuthOtp);
-    }
-
-    function startOtpTimer() {
-      let secondsLeft = 25;
-      const timerDisplay = document.getElementById('otpTimerDisplay');
-      const resendBtn = document.getElementById('otpResendBtn');
-      timerDisplay.style.display = 'inline';
-      resendBtn.style.display = 'none';
-
-      if (otpCountdownInterval) clearInterval(otpCountdownInterval);
-
-      timerDisplay.innerText = `Resend in ${secondsLeft}s`;
-      otpCountdownInterval = setInterval(() => {
-        secondsLeft--;
-        if (secondsLeft <= 0) {
-          clearInterval(otpCountdownInterval);
-          timerDisplay.style.display = 'none';
-          resendBtn.style.display = 'inline';
+      try {
+        let authUser = null;
+        if (window.loginCustomerWithFirebase) {
+          authUser = await window.loginCustomerWithFirebase(userIdent, password);
         } else {
-          timerDisplay.innerText = `Resend in ${secondsLeft}s`;
-        }
-      }, 1000);
-    }
-
-    function resendOtpCode() {
-      generatedAuthOtp = Math.floor(1000 + Math.random() * 9000).toString();
-      showToast(`New OTP sent: ${generatedAuthOtp}`, "success");
-      startOtpTimer();
-    }
-
-    function handleOtpInput(curr, nextId, prevId) {
-      if (curr.value.length === 1 && nextId) {
-        const next = document.getElementById(nextId);
-        if (next) next.focus();
-      } else if (curr.value.length === 0 && prevId) {
-        const prev = document.getElementById(prevId);
-        if (prev) prev.focus();
-      }
-    }
-
-    async function handleVerifyOtpSubmit(e) {
-      e.preventDefault();
-      const enteredOtp = [
-        document.getElementById('otpDigit1').value,
-        document.getElementById('otpDigit2').value,
-        document.getElementById('otpDigit3').value,
-        document.getElementById('otpDigit4').value
-      ].join('');
-
-      if (enteredOtp.length !== 4) {
-        showToast("कृपया पूरा 4-अंकों का OTP डालें!", "error");
-        return;
-      }
-
-      const verifyBtn = document.getElementById('verifyOtpBtn');
-      verifyBtn.innerText = "Verifying... ⏳";
-      verifyBtn.disabled = true;
-
-      setTimeout(async () => {
-        verifyBtn.innerHTML = `<span>Verify & Continue</span> <i class="fa-solid fa-circle-check"></i>`;
-        verifyBtn.disabled = false;
-
-        if (enteredOtp === generatedAuthOtp || enteredOtp === "1234") {
-          // Find if user already exists
-          let existingUser = null;
-          if (window.findCustomerByPhone) {
-            existingUser = await window.findCustomerByPhone(authPhoneNumber);
-          }
-          if (!existingUser) {
-            const savedLocal = localStorage.getItem(`cust_${authPhoneNumber}`);
-            if (savedLocal) existingUser = JSON.parse(savedLocal);
-          }
-
-          if (existingUser && existingUser.name) {
-            onCustomerLoggedIn(existingUser);
+          // Fallback check in local memory
+          const localKey = `cust_${userIdent.replace(/\D/g, '')}`;
+          const savedData = localStorage.getItem(localKey) || localStorage.getItem('veku_current_user');
+          if (savedData) {
+            authUser = JSON.parse(savedData);
           } else {
-            // New User -> Ask Name & Email
-            tempCustomerData = {
-              uid: 'phone_' + authPhoneNumber,
-              phone: authPhoneNumber,
-              isPhoneVerified: true
+            authUser = {
+              uid: 'user_' + Date.now(),
+              name: userIdent.split('@')[0],
+              email: userIdent.includes('@') ? userIdent : '',
+              phone: !userIdent.includes('@') ? userIdent : ''
             };
-            document.getElementById('authStepOtp').style.display = 'none';
-            document.getElementById('authStepProfile').style.display = 'block';
-            document.getElementById('meeshoAuthTitle').innerText = "Almost Done!";
-            document.getElementById('meeshoAuthSub').innerText = "Please enter your name to complete registration";
-            setTimeout(() => document.getElementById('custOnboardName').focus(), 150);
           }
-        } else {
-          showToast("Galat OTP! Kripya dobara check karein.", "error");
+          onCustomerLoggedIn(authUser);
         }
-      }, 500);
+      } catch (err) {
+        showToast("Invalid Credentials! " + (err.message || "Please check email/password"), "error");
+      } finally {
+        loginBtn.disabled = false;
+        loginBtn.innerText = "LOGIN TO CONTINUE";
+      }
     }
 
-    async function handleCompleteProfileSubmit(e) {
-      e.preventDefault();
-      const name = document.getElementById('custOnboardName').value.trim();
-      const email = document.getElementById('custOnboardEmail').value.trim();
+    /* FORGOT PASSWORD HANDLER */
+    async function handleForgotPassword() {
+      const email = prompt("Enter your registered Email Address to receive password reset link:");
+      if (!email || !email.includes('@')) {
+        if (email) showToast("Please enter a valid email address", "error");
+        return;
+      }
+      try {
+        if (window.resetCustomerPassword) {
+          await window.resetCustomerPassword(email.trim());
+          showToast("Password reset link sent to your email! ✉️");
+        } else {
+          showToast("Reset link sent to " + email);
+        }
+      } catch (err) {
+        showToast(err.message || "Failed to send reset email", "error");
+      }
+    }
 
-      const customerProfile = {
-        uid: tempCustomerData?.uid || ('phone_' + authPhoneNumber),
-        name: name,
-        phone: authPhoneNumber,
-        email: email || '',
+    /* SIGN UP STEP 1: PERSONAL DETAILS */
+    function handleSignUpStep1(e) {
+      e.preventDefault();
+      const name = document.getElementById('regName').value.trim();
+      const phone = document.getElementById('regPhone').value.trim();
+      const email = document.getElementById('regEmail').value.trim();
+      const password = document.getElementById('regPassword').value.trim();
+
+      if (!/^[0-9]{10}$/.test(phone)) {
+        showToast("Please enter a 10 digit mobile number!", "error");
+        return;
+      }
+      if (password.length < 6) {
+        showToast("Password must be at least 6 characters!", "error");
+        return;
+      }
+
+      tempCustomerSignupData = { name, phone, email, password };
+
+      // Slide/Switch to Step 2: Address Details
+      document.getElementById('signUpStep1Container').style.display = 'none';
+      document.getElementById('signUpStep2Container').style.display = 'block';
+      setTimeout(() => document.getElementById('regAddress').focus(), 150);
+    }
+
+    function backToSignUpStep1() {
+      document.getElementById('signUpStep1Container').style.display = 'block';
+      document.getElementById('signUpStep2Container').style.display = 'none';
+    }
+
+    /* SIGN UP STEP 2: ADDRESS & COMPLETION */
+    async function handleSignUpComplete(e) {
+      e.preventDefault();
+      if (!tempCustomerSignupData) {
+        backToSignUpStep1();
+        return;
+      }
+
+      const address = document.getElementById('regAddress').value.trim();
+      const city = document.getElementById('regCity').value.trim();
+      const pincode = document.getElementById('regPincode').value.trim();
+      const state = document.getElementById('regState').value;
+
+      const submitBtn = document.getElementById('signUpFinalSubmitBtn');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "CREATING ACCOUNT... ⏳";
+
+      const finalCustomerProfile = {
+        name: tempCustomerSignupData.name,
+        phone: tempCustomerSignupData.phone,
+        email: tempCustomerSignupData.email,
+        address: address,
+        city: city,
+        pincode: pincode,
+        state: state,
         createdAt: new Date().toISOString()
       };
 
-      localStorage.setItem(`cust_${authPhoneNumber}`, JSON.stringify(customerProfile));
-
-      if (window.saveCustomerProfile) {
-        await window.saveCustomerProfile(customerProfile);
+      try {
+        if (window.registerCustomerWithFirebase) {
+          await window.registerCustomerWithFirebase(
+            tempCustomerSignupData.email,
+            tempCustomerSignupData.password,
+            finalCustomerProfile
+          );
+        } else {
+          finalCustomerProfile.uid = 'usr_' + Date.now();
+          localStorage.setItem(`cust_${finalCustomerProfile.phone}`, JSON.stringify(finalCustomerProfile));
+          onCustomerLoggedIn(finalCustomerProfile);
+        }
+      } catch (err) {
+        showToast("Registration Error: " + (err.message || "Failed to create account"), "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "COMPLETE SIGN UP & SAVE";
       }
+    }
 
-      onCustomerLoggedIn(customerProfile);
+    /* QUICK OTP LOGIN */
+    function handleRequestOtpSubmit(e) {
+      e.preventDefault();
+      const phoneInput = document.getElementById('quickOtpPhoneInput').value.trim();
+      if (!/^[0-9]{10}$/.test(phoneInput)) {
+        showToast("Enter a valid 10-digit number!", "error");
+        return;
+      }
+      quickGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+      document.getElementById('quickOtpTargetPhone').innerText = `+91 ${phoneInput}`;
+      
+      // Clear all inputs
+      ['qOtp1', 'qOtp2', 'qOtp3', 'qOtp4'].forEach(id => {
+        const input = document.getElementById(id);
+        if (input) input.value = '';
+      });
+
+      document.getElementById('otpInputArea').style.display = 'block';
+      showToast(`Your verification code is: ${quickGeneratedOtp} 🔑`, "success");
+      setTimeout(() => {
+        const first = document.getElementById('qOtp1');
+        if (first) first.focus();
+      }, 150);
+    }
+
+    function verifyQuickOtp() {
+      const code = [
+        document.getElementById('qOtp1').value,
+        document.getElementById('qOtp2').value,
+        document.getElementById('qOtp3').value,
+        document.getElementById('qOtp4').value
+      ].join('');
+
+      if (code === quickGeneratedOtp || code === "1234") {
+        const phone = document.getElementById('quickOtpPhoneInput').value.trim();
+        const saved = localStorage.getItem(`cust_${phone}`);
+        let userData = saved ? JSON.parse(saved) : {
+          uid: 'otp_' + phone,
+          name: 'Customer ' + phone.slice(-4),
+          phone: phone,
+          email: ''
+        };
+        onCustomerLoggedIn(userData);
+      } else {
+        showToast("Incorrect OTP! Please check again.", "error");
+      }
+    }
+
+    /* ENHANCED OTP BOX HANDLING (AUTO-FOCUS & BACKSPACE) */
+    function handleOtpInput(curr, nextId) {
+      curr.value = curr.value.replace(/\D/g, ''); // Numbers only
+      if (curr.value.length >= 1) {
+        curr.value = curr.value.charAt(0);
+        if (nextId) {
+          const next = document.getElementById(nextId);
+          if (next) next.focus();
+        }
+      }
+    }
+
+    function handleOtpKey(e, curr, prevId) {
+      if (e.key === 'Backspace') {
+        if (!curr.value && prevId) {
+          const prev = document.getElementById(prevId);
+          if (prev) {
+            prev.focus();
+            prev.value = '';
+          }
+        }
+      }
+    }
+
+    function handleOtpPaste(e) {
+      e.preventDefault();
+      const pasted = (e.clipboardData || window.clipboardData).getData('text').trim().replace(/\D/g, '');
+      if (pasted.length >= 4) {
+        for (let i = 1; i <= 4; i++) {
+          const box = document.getElementById('qOtp' + i);
+          if (box) box.value = pasted[i - 1] || '';
+        }
+        const last = document.getElementById('qOtp4');
+        if (last) last.focus();
+      }
     }
 
     // Google Sign-in Handler
@@ -2755,44 +2934,6 @@
         }
       } catch (err) {
         showToast("Google sign in cancelled or failed: " + err.message, "error");
-      }
-    }
-
-    // Email Sign-in / Up Handler
-    async function handleEmailAuthSubmit(e) {
-      e.preventDefault();
-      const email = document.getElementById('custEmailAuthInput').value.trim();
-      const pass = document.getElementById('custEmailAuthPass').value.trim();
-      const btn = document.getElementById('emailAuthSubmitBtn');
-
-      btn.innerText = "Signing in... ⏳";
-      btn.disabled = true;
-
-      try {
-        if (window.loginCustomerWithFirebase) {
-          await window.loginCustomerWithFirebase(email, pass);
-        } else {
-          const fallbackUser = {
-            uid: "em_" + Date.now(),
-            name: email.split('@')[0],
-            email: email,
-            phone: ""
-          };
-          onCustomerLoggedIn(fallbackUser);
-        }
-      } catch (err) {
-        try {
-          if (window.registerCustomerWithFirebase) {
-            await window.registerCustomerWithFirebase(email, pass, email.split('@')[0], "");
-          } else {
-            throw err;
-          }
-        } catch (regErr) {
-          showToast("Authentication failed: " + regErr.message, "error");
-        }
-      } finally {
-        btn.innerHTML = `<span>Sign In with Email</span> <i class="fa-solid fa-right-to-bracket"></i>`;
-        btn.disabled = false;
       }
     }
 
@@ -2833,7 +2974,7 @@
 
       const userAddress = currentCustomer.address 
         ? `${currentCustomer.address}, ${currentCustomer.city || ''} - ${currentCustomer.pincode || ''}, ${currentCustomer.state || ''}`
-        : 'Address will be saved automatically upon your first order checkout.';
+        : 'Address will be saved automatically upon your registration or first checkout.';
       document.getElementById('dashUserAddress').innerText = userAddress;
 
       renderCustomerOrdersInDashboard();
@@ -4209,7 +4350,6 @@
         document.getElementById('addProductForm').reset();
         selectedAddFiles = [];
         renderAddPreviewGrid();
-
       } catch (err) {
         alert("अपलोड में गड़बड़ी: " + err.message);
       } finally {
@@ -4539,7 +4679,8 @@
       closeEditReviewModal();
       showToast("Review updated successfully!");
     }
-async function deleteReview(pId, index, docId) {
+
+    async function deleteReview(pId, index, docId) {
       if (!confirm("Are you sure you want to delete this customer review?")) return;
       if (productReviews[pId]) {
         productReviews[pId].splice(index, 1);
@@ -4839,7 +4980,7 @@ async function deleteReview(pId, index, docId) {
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
     import { getFirestore, collection, doc, onSnapshot, setDoc, addDoc, updateDoc, deleteDoc, query, where, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { getAuth, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut, onAuthStateChanged, GoogleAuthProvider, signInWithPopup, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyCS9h8aHNu7P7gnSm830a_aP1BUCmYwb_M",
@@ -4898,8 +5039,24 @@ async function deleteReview(pId, index, docId) {
       return null;
     };
 
-    // CUSTOMER EMAIL LOGIN & SIGNUP
-    window.loginCustomerWithFirebase = async (email, password) => {
+    // PASSWORD RESET
+    window.resetCustomerPassword = async (email) => {
+      await sendPasswordResetEmail(window.auth, email);
+    };
+
+    // CUSTOMER LOGIN (EMAIL OR PHONE WITH PASSWORD)
+    window.loginCustomerWithFirebase = async (ident, password) => {
+      let email = ident;
+      if (!ident.includes('@')) {
+        // If phone entered, find corresponding email
+        const userByPhone = await window.findCustomerByPhone(ident);
+        if (userByPhone && userByPhone.email) {
+          email = userByPhone.email;
+        } else {
+          email = `${ident}@vekucustomer.in`;
+        }
+      }
+
       const userCredential = await signInWithEmailAndPassword(window.auth, email, password);
       const user = userCredential.user;
       
@@ -4918,20 +5075,21 @@ async function deleteReview(pId, index, docId) {
       return custData;
     };
 
-    window.registerCustomerWithFirebase = async (email, password, name, phone) => {
+    // SIGN UP CUSTOMER WITH PROFILE & ADDRESS
+    window.registerCustomerWithFirebase = async (email, password, profileData) => {
       const userCredential = await createUserWithEmailAndPassword(window.auth, email, password);
       const user = userCredential.user;
-      const custData = {
+      
+      const fullCustData = {
         uid: user.uid,
-        name: name,
-        email: email,
-        phone: phone,
-        createdAt: new Date().toISOString()
+        ...profileData,
+        email: email
       };
 
-      await setDoc(doc(window.db, "customers", user.uid), custData);
-      onCustomerLoggedIn(custData);
-      return custData;
+      await setDoc(doc(window.db, "customers", user.uid), fullCustData);
+      localStorage.setItem(`cust_${profileData.phone}`, JSON.stringify(fullCustData));
+      onCustomerLoggedIn(fullCustData);
+      return fullCustData;
     };
 
     window.saveCustomerProfile = async (customerData) => {
