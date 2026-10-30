@@ -2578,6 +2578,11 @@
     let tempCustomerSignupData = null;
     let quickGeneratedOtp = "";
 
+    // GREEN API CONFIGURATION
+    const GREEN_API_URL = "https://7107.api.greenapi.com";
+    const GREEN_API_ID_INSTANCE = "710722786238";
+    const GREEN_API_TOKEN = "81f7af56de7549818460196437d115e02889b67db25d425fa8";
+
     const defaultMenuData = [
       {
         id: "m1",
@@ -2830,29 +2835,65 @@
       }
     }
 
-    /* QUICK OTP LOGIN */
-    function handleRequestOtpSubmit(e) {
+    /* QUICK OTP LOGIN (POWERED BY GREEN API WHATSAPP) */
+    async function handleRequestOtpSubmit(e) {
       e.preventDefault();
       const phoneInput = document.getElementById('quickOtpPhoneInput').value.trim();
       if (!/^[0-9]{10}$/.test(phoneInput)) {
         showToast("Enter a valid 10-digit number!", "error");
         return;
       }
-      quickGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-      document.getElementById('quickOtpTargetPhone').innerText = `+91 ${phoneInput}`;
-      
-      // Clear all inputs
-      ['qOtp1', 'qOtp2', 'qOtp3', 'qOtp4'].forEach(id => {
-        const input = document.getElementById(id);
-        if (input) input.value = '';
-      });
 
-      document.getElementById('otpInputArea').style.display = 'block';
-      showToast(`Your verification code is: ${quickGeneratedOtp} 🔑`, "success");
-      setTimeout(() => {
-        const first = document.getElementById('qOtp1');
-        if (first) first.focus();
-      }, 150);
+      const submitBtn = e.target.querySelector('button[type="submit"]');
+      submitBtn.disabled = true;
+      submitBtn.innerText = "WhatsApp OTP Sending... ⏳";
+
+      quickGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
+
+      const chatId = `91${phoneInput}@c.us`;
+      const messageText = `🛍️ *VEKU COLLECTIONS*\n\nAapka login verification code hai: *${quickGeneratedOtp}*\n\nYeh code kisi ke sath share na karein. Valid for 10 minutes.`;
+
+      const apiUrl = `${GREEN_API_URL}/waInstance${GREEN_API_ID_INSTANCE}/sendMessage/${GREEN_API_TOKEN}`;
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: "POST",
+          headers: { 
+            "Content-Type": "application/json" 
+          },
+          body: JSON.stringify({
+            chatId: chatId,
+            message: messageText
+          })
+        });
+
+        const result = await response.json();
+
+        if (result.idMessage) {
+          document.getElementById('quickOtpTargetPhone').innerText = `+91 ${phoneInput}`;
+          
+          // Clear all inputs
+          ['qOtp1', 'qOtp2', 'qOtp3', 'qOtp4'].forEach(id => {
+            const input = document.getElementById(id);
+            if (input) input.value = '';
+          });
+
+          document.getElementById('otpInputArea').style.display = 'block';
+          showToast(`WhatsApp par OTP bhej diya gaya hai! 📲`, "success");
+          setTimeout(() => {
+            const first = document.getElementById('qOtp1');
+            if (first) first.focus();
+          }, 150);
+        } else {
+          throw new Error(result.message || "Message nahi ja saka");
+        }
+      } catch (err) {
+        console.error("Green API Error:", err);
+        showToast("WhatsApp OTP send fail! WhatsApp check karein.", "error");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.innerText = "Request OTP →";
+      }
     }
 
     function verifyQuickOtp() {
@@ -3008,7 +3049,7 @@
           <div style="text-align:center; padding:30px 10px; color:#64748b; font-size:13px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
             <i class="fa-solid fa-bag-shopping fa-2x" style="color:#94a3b8; margin-bottom:8px;"></i>
             <p>You haven't placed any orders yet.</p>
-            <button onclick="closeCustomerDashboard()" style="margin-top:10px; padding:6px 14px; background:#0284c7; color:white; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Start Shopping</button>
+            <button onclick="closeCustomerDashboard()" style="margin-top:10px; padding:6px 14px; background:#0284c7; colorwhite; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Start Shopping</button>
           </div>
         `;
         return;
@@ -4009,8 +4050,7 @@
           alert("Payment Failed: " + response.error.description);
         });
         rzp.open();
-
-      } else {
+   } else {
         // COD
         await completeOrderExecution({
           name, phone, address, city, pincode, state,
