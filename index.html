@@ -634,9 +634,7 @@
     .add-variant-btn { background: #e2e8f0; border: none; padding: 6px 12px; border-radius: 5px; font-weight: 600; font-size: 12px; cursor: pointer; margin-bottom: 10px; }
     .remove-variant-btn { background: #ef4444; color: white; border: none; padding: 0 12px; border-radius: 5px; cursor: pointer; }
 
-    /* ========================================================
-       MODERN TABBED AUTH MODAL (EXISTING USER & NEW SIGN UP + ADDRESS)
-       ======================================================== */
+    /* TABBED AUTH MODAL */
     .veku-auth-card {
       width: 100%;
       max-width: 440px;
@@ -674,7 +672,6 @@
     }
     .veku-auth-close-btn:hover { background: #e2e8f0; color: #0f172a; }
 
-    /* TOP SLIDING TABS */
     .auth-nav-tabs {
       display: flex;
       border-bottom: 1.5px solid #e2e8f0;
@@ -768,7 +765,6 @@
     }
     .auth-forgot-link:hover { text-decoration: underline; }
 
-    /* IMAGE 1 ORANGE BUTTON STYLING */
     .auth-orange-btn {
       width: 100%;
       padding: 13px;
@@ -832,9 +828,7 @@
     }
     .auth-social-btn:hover { background: #f8fafc; border-color: #94a3b8; }
 
-    /* ========================================================
-       PERFECT SQUARE OTP DIGIT BOXES STYLING
-       ======================================================== */
+    /* OTP DIGIT BOXES */
     .otp-inputs-row {
       display: flex;
       justify-content: center;
@@ -879,7 +873,6 @@
       }
     }
 
-    /* STEP 2 ADDRESS FORM */
     .address-step-indicator {
       display: flex;
       align-items: center;
@@ -897,29 +890,32 @@
       border-radius: 12px;
     }
 
-    /* CUSTOMER DASHBOARD / ACCOUNT MODAL */
+    /* ========================================================
+       ADVANCED E-COMMERCE CUSTOMER DASHBOARD STYLING
+       ======================================================== */
     .customer-dashboard-modal {
       width: 100%;
-      max-width: 640px;
+      max-width: 880px;
       background: #ffffff;
-      border-radius: 14px;
+      border-radius: 16px;
       overflow: hidden;
-      box-shadow: 0 25px 50px rgba(0,0,0,0.25);
-      max-height: 90vh;
+      box-shadow: 0 25px 60px rgba(15, 23, 42, 0.35);
+      max-height: 92vh;
       display: flex;
       flex-direction: column;
     }
     .cust-profile-card {
-      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      background: linear-gradient(135deg, #0f172a 0%, #0284c7 100%);
       color: #ffffff;
-      padding: 22px;
+      padding: 20px 24px;
       display: flex;
       align-items: center;
       gap: 16px;
+      position: relative;
     }
     .cust-avatar-circle {
-      width: 58px;
-      height: 58px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       background: #ffffff;
       color: #0284c7;
@@ -928,77 +924,232 @@
       justify-content: center;
       font-size: 26px;
       font-weight: 900;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      box-shadow: 0 4px 14px rgba(0,0,0,0.2);
       flex-shrink: 0;
+      border: 2px solid rgba(255,255,255,0.4);
     }
     .cust-info-col h3 {
-      font-size: 18px;
+      font-size: 19px;
       font-weight: 800;
       letter-spacing: -0.2px;
     }
     .cust-info-col p {
       font-size: 12.5px;
       opacity: 0.92;
-      margin-top: 3px;
+      margin-top: 2px;
     }
     .account-quick-badges {
       display: flex;
       gap: 8px;
       margin-top: 6px;
+      flex-wrap: wrap;
     }
     .account-quick-badge {
-      background: rgba(255,255,255,0.2);
-      padding: 2px 8px;
+      background: rgba(255,255,255,0.22);
+      padding: 2px 9px;
       border-radius: 12px;
       font-size: 11px;
       font-weight: 700;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
     }
-    .cust-dash-body {
-      padding: 18px 22px;
-      overflow-y: auto;
-      flex: 1;
+
+    /* DASHBOARD NAVIGATION BAR (SCROLLABLE TABS) */
+    .cust-dash-nav {
+      display: flex;
+      background: #f1f5f9;
+      border-bottom: 1px solid #cbd5e1;
+      overflow-x: auto;
+      flex-shrink: 0;
+      scrollbar-width: thin;
     }
-    .dash-section-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: #0f172a;
-      margin-bottom: 12px;
+    .cust-dash-tab {
+      padding: 12px 16px;
+      border: none;
+      background: transparent;
+      font-weight: 700;
+      font-size: 12.5px;
+      color: #64748b;
+      cursor: pointer;
+      white-space: nowrap;
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 7px;
+      transition: all 0.2s;
     }
-    .cust-orders-list {
-      display: flex;
-      flex-direction: column;
+    .cust-dash-tab:hover {
+      color: #0284c7;
+      background: rgba(2, 132, 199, 0.05);
+    }
+    .cust-dash-tab.active {
+      color: #0284c7;
+      background: #ffffff;
+      border-bottom: 2.5px solid #0284c7;
+    }
+
+    .cust-dash-body {
+      padding: 20px 24px;
+      overflow-y: auto;
+      flex: 1;
+      background-color: #f8fafc;
+    }
+    .dash-pane {
+      display: none;
+    }
+    .dash-pane.active {
+      display: block;
+      animation: fadeInPane 0.2s ease-out;
+    }
+    @keyframes fadeInPane {
+      from { opacity: 0; transform: translateY(4px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* STATS ROW (WALLET, REWARDS, ORDERS) */
+    .dash-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
       gap: 12px;
       margin-bottom: 20px;
     }
-    .cust-order-card {
-      border: 1px solid #e2e8f0;
-      border-radius: 10px;
-      padding: 12px 14px;
+    .dash-stat-box {
       background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 14px 16px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+    .dash-stat-icon {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 20px;
+      flex-shrink: 0;
+    }
+    .stat-val { font-size: 18px; font-weight: 900; color: #0f172a; line-height: 1.1; }
+    .stat-lbl { font-size: 11.5px; color: #64748b; font-weight: 600; margin-top: 3px; }
+
+    /* ORDER CARDS IN DASHBOARD */
+    .dash-order-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.03);
       transition: all 0.2s;
     }
-    .cust-order-card:hover {
+    .dash-order-card:hover {
       border-color: #cbd5e1;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.06);
     }
-    .logout-btn-clean {
-      padding: 10px 18px;
-      background: #fee2e2;
-      color: #dc2626;
-      border: 1px solid #fecdd3;
-      border-radius: 8px;
+    .order-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 10px;
+      margin-bottom: 12px;
+    }
+    .dash-order-action-btn {
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 11.5px;
       font-weight: 700;
       cursor: pointer;
-      font-size: 13px;
+      border: 1px solid #cbd5e1;
+      background: #f8fafc;
+      color: #0f172a;
       display: inline-flex;
       align-items: center;
       gap: 6px;
-      transition: background 0.2s;
+      transition: all 0.2s;
     }
-    .logout-btn-clean:hover { background: #fecdd3; }
+    .dash-order-action-btn:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+    }
+    .dash-order-action-btn.primary {
+      background: #0284c7;
+      color: #ffffff;
+      border-color: #0284c7;
+    }
+    .dash-order-action-btn.primary:hover {
+      background: #0369a1;
+    }
+
+    /* ADDRESS MANAGER CARDS */
+    .address-card-item {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 16px;
+      position: relative;
+      margin-bottom: 12px;
+    }
+    .address-card-item.default {
+      border-color: #0284c7;
+      background: #f0f9ff;
+    }
+    .address-type-badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: #e2e8f0;
+      color: #334155;
+    }
+
+    /* COUPON PILL */
+    .dash-coupon-card {
+      border: 1.5px dashed #0284c7;
+      background: #f0fdf4;
+      border-radius: 10px;
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    /* SUPPORT TICKET & FAQ ACCORDION */
+    .faq-item-dash {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      margin-bottom: 8px;
+      overflow: hidden;
+    }
+    .faq-q-dash {
+      padding: 12px 16px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #0f172a;
+    }
+    .faq-a-dash {
+      padding: 0 16px 12px 16px;
+      font-size: 12.5px;
+      color: #475569;
+      line-height: 1.5;
+      display: none;
+    }
+    .faq-item-dash.open .faq-a-dash {
+      display: block;
+    }
 
     /* FOOTER STYLING */
     footer {
@@ -1457,7 +1608,7 @@
       <h3><i class="fa-solid fa-fire"></i> FESTIVE OFFER!</h3>
       <p>Code: <strong>FLAT10</strong> or <strong>OFF10</strong> for instant discounts.</p>
     </div>
-    <div class="hero-pill">✓ 100% Premium Fabric</div>
+    <div class="hero-pill">  100% Premium Fabric</div>
   </div>
 
   <!-- SIDEBAR NAVIGATION DRAWER (LIBAS STYLE LOG IN HEADER) -->
@@ -1514,16 +1665,11 @@
     <div class="products-grid" id="productsGrid"></div>
   </div>
 
-  <!-- ========================================================
-       NEW TABBED CUSTOMER AUTH MODAL (EXISTING USER & NEW SIGN UP + ADDRESS)
-       ======================================================== -->
+  <!-- TABBED CUSTOMER AUTH MODAL -->
   <div class="admin-modal-overlay" id="customerAuthOverlay" style="z-index: 3000;">
     <div class="veku-auth-card">
-      
-      <!-- Close button (Fixed with type='button') -->
       <button type="button" class="veku-auth-close-btn" onclick="closeCustomerAuthModal()">&times;</button>
 
-      <!-- NAVIGATION TABS -->
       <div class="auth-nav-tabs">
         <div class="auth-tab-item active" id="tabBtnExisting" onclick="switchAuthTab('login')">
           Existing User? Login
@@ -1533,7 +1679,7 @@
         </div>
       </div>
 
-      <!-- ================= TAB 1: EXISTING USER LOGIN ================= -->
+      <!-- TAB 1: EXISTING USER LOGIN -->
       <div class="auth-tab-pane active" id="authTabLoginPane">
         <form onsubmit="handleExistingUserLogin(event)">
           <label class="auth-field-label">EMAIL ADDRESS / MOBILE</label>
@@ -1578,10 +1724,8 @@
         </div>
       </div>
 
-      <!-- ================= TAB 2: NEW CUSTOMER SIGN UP ================= -->
+      <!-- TAB 2: NEW CUSTOMER SIGN UP -->
       <div class="auth-tab-pane" id="authTabSignupPane">
-        
-        <!-- STEP 1: PERSONAL & LOGIN DETAILS -->
         <div id="signUpStep1Container">
           <form onsubmit="handleSignUpStep1(event)">
             <label class="auth-field-label">FULL NAME *</label>
@@ -1606,7 +1750,6 @@
           </div>
         </div>
 
-        <!-- STEP 2: ADDRESS FILL FORM (POPUP AFTER DETAILS) -->
         <div id="signUpStep2Container" style="display: none;">
           <div class="address-step-indicator">
             <span style="font-size: 13px; font-weight: 800; color: #0f172a;"><i class="fa-solid fa-location-dot" style="color: #0284c7;"></i> Add Delivery Address</span>
@@ -1651,7 +1794,7 @@
 
             <div style="display:flex; gap:10px; margin-top:4px;">
               <button type="button" onclick="backToSignUpStep1()" style="flex:0.4; padding:12px; background:#f1f5f9; color:#475569; border:1px solid #cbd5e1; border-radius:8px; font-weight:700; font-size:13px; cursor:pointer;">
-                ← Back
+                  Back
               </button>
               <button type="submit" class="auth-orange-btn" id="signUpFinalSubmitBtn" style="flex:1;">
                 COMPLETE SIGN UP & SAVE
@@ -1663,10 +1806,9 @@
         <div style="font-size: 11px; color: #94a3b8; text-align: center; margin-top: 14px; line-height: 1.4;">
           By creating an account, you agree to Veku Collections' <a href="javascript:void(0)" onclick="openPolicyModal('terms')" style="color:#0284c7; text-decoration:none; font-weight:600;">Terms</a> and <a href="javascript:void(0)" onclick="openPolicyModal('privacy')" style="color:#0284c7; text-decoration:none; font-weight:600;">Privacy Policy</a>.
         </div>
-
       </div>
 
-      <!-- ================= QUICK MOBILE OTP SCREEN (OPTIONAL) ================= -->
+      <!-- QUICK MOBILE OTP SCREEN -->
       <div class="auth-tab-pane" id="authTabOtpPane">
         <div style="text-align: center; margin-bottom: 12px;">
           <h3 style="font-size: 17px; font-weight: 800; color: #0f172a;">Login With OTP</h3>
@@ -1676,10 +1818,10 @@
         <form onsubmit="handleRequestOtpSubmit(event)">
           <label class="auth-field-label">MOBILE NUMBER</label>
           <div style="display:flex; align-items:center; border:1.5px solid #cbd5e1; border-radius:8px; padding:4px 10px; margin-bottom:12px; background:#ffffff;">
-            <span style="font-weight:700; font-size:13.5px; color:#0f172a; padding-right:8px; border-right:1px solid #e2e8f0;">🇮🇳 +91</span>
+            <span style="font-weight:700; font-size:13.5px; color:#0f172a; padding-right:8px; border-right:1px solid #e2e8f0;">   +91</span>
             <input type="tel" id="quickOtpPhoneInput" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 digit number" required style="flex:1; border:none; outline:none; padding:8px; font-size:14px; font-weight:600;">
           </div>
-          <button type="submit" class="auth-orange-btn">Request OTP →</button>
+          <button type="submit" class="auth-orange-btn">Request OTP  </button>
         </form>
 
         <div id="otpInputArea" style="display:none; margin-top:14px; padding-top:14px; border-top:1px dashed #cbd5e1;">
@@ -1687,7 +1829,6 @@
             OTP sent to <strong id="quickOtpTargetPhone" style="color: #0284c7;">+91</strong>
           </div>
           
-          <!-- FIXED CLEAN CENTERED 4 OTP BOXES -->
           <div class="otp-inputs-row">
             <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit-field" id="qOtp1" oninput="handleOtpInput(this, 'qOtp2')" onkeydown="handleOtpKey(event, this, null)" onpaste="handleOtpPaste(event)" autofocus>
             <input type="tel" inputmode="numeric" pattern="[0-9]*" maxlength="1" class="otp-digit-field" id="qOtp2" oninput="handleOtpInput(this, 'qOtp3')" onkeydown="handleOtpKey(event, this, 'qOtp1')">
@@ -1699,77 +1840,392 @@
         </div>
 
         <div style="text-align:center; margin-top:14px;">
-          <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color:#0284c7; font-weight:700; font-size:12.5px;">← Back to Email / Password Login</a>
+          <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color:#0284c7; font-weight:700; font-size:12.5px;">  Back to Email / Password Login</a>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- CUSTOMER MY ACCOUNT DASHBOARD MODAL -->
+  <!-- ========================================================
+       FEATURE-RICH CUSTOMER ACCOUNT DASHBOARD MODAL
+       ======================================================== -->
   <div class="admin-modal-overlay" id="customerDashboardOverlay" style="z-index: 2900;">
     <div class="customer-dashboard-modal">
+      
+      <!-- TOP PROFILE HERO CARD -->
       <div class="cust-profile-card">
         <div class="cust-avatar-circle" id="dashAvatarLetter">U</div>
         <div class="cust-info-col" style="flex:1;">
           <h3 id="dashUserName">Customer Name</h3>
           <p id="dashUserEmail">customer@example.com</p>
           <div class="account-quick-badges">
-            <span class="account-quick-badge">⭐ Verified Member</span>
+            <span class="account-quick-badge"><i class="fa-solid fa-crown" style="color:#f59e0b;"></i> Veku Club Member</span>
             <span class="account-quick-badge" id="dashOrdersCountBadge">0 Orders</span>
+            <span class="account-quick-badge" style="background:#10b981;"><i class="fa-solid fa-shield-check"></i> Verified</span>
           </div>
         </div>
-        <button class="close-cart-btn" onclick="closeCustomerDashboard()"><i class="fa-solid fa-xmark"></i></button>
+        <button class="close-cart-btn" onclick="closeCustomerDashboard()" aria-label="Close Dashboard"><i class="fa-solid fa-xmark"></i></button>
       </div>
 
+      <!-- DASHBOARD TAB NAVIGATION -->
+      <div class="cust-dash-nav">
+        <button class="cust-dash-tab active" onclick="switchCustomerDashTab('dashOverviewPane', this)">
+          <i class="fa-solid fa-gauge-high"></i> Overview
+        </button>
+        <button class="cust-dash-tab" onclick="switchCustomerDashTab('dashOrdersPane', this)">
+          <i class="fa-solid fa-box-open"></i> My Orders
+        </button>
+        <button class="cust-dash-tab" onclick="switchCustomerDashTab('dashAddressesPane', this)">
+          <i class="fa-solid fa-map-location-dot"></i> Saved Addresses
+        </button>
+        <button class="cust-dash-tab" onclick="switchCustomerDashTab('dashWalletPane', this)">
+          <i class="fa-solid fa-wallet"></i> Wallet & Rewards
+        </button>
+        <button class="cust-dash-tab" onclick="switchCustomerDashTab('dashProfilePane', this)">
+          <i class="fa-solid fa-user-gear"></i> Settings
+        </button>
+        <button class="cust-dash-tab" onclick="switchCustomerDashTab('dashRefundBankPane', this)">
+          <i class="fa-solid fa-building-columns"></i> Refund / Bank
+        </button>
+        <button class="cust-dash-tab" onclick="switchCustomerDashTab('dashSupportPane', this)">
+          <i class="fa-solid fa-headset"></i> Help & Support
+        </button>
+      </div>
+
+      <!-- DASHBOARD CONTENT PANES -->
       <div class="cust-dash-body">
         
-        <!-- QUICK ACTIONS ROW -->
-        <div style="display:grid; grid-template-columns:repeat(2, 1fr); gap:10px; margin-bottom:18px;">
-          <div onclick="closeCustomerDashboard(); toggleWishlist();" style="border:1px solid #e2e8f0; border-radius:8px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer; background:#f8fafc;">
-            <i class="fa-solid fa-heart" style="color:#ef4444; font-size:18px;"></i>
-            <div>
-              <div style="font-size:13px; font-weight:700;">My Wishlist</div>
-              <div style="font-size:11px; color:#64748b;">View saved items</div>
+        <!-- PANE 1: OVERVIEW -->
+        <div class="dash-pane active" id="dashOverviewPane">
+          <div class="dash-stats-grid">
+            <div class="dash-stat-box">
+              <div class="dash-stat-icon" style="background:#e0f2fe; color:#0284c7;">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+              <div>
+                <div class="stat-val" id="dashStatWallet"> 50</div>
+                <div class="stat-lbl">Store Wallet</div>
+              </div>
+            </div>
+            <div class="dash-stat-box">
+              <div class="dash-stat-icon" style="background:#fef3c7; color:#d97706;">
+                <i class="fa-solid fa-coins"></i>
+              </div>
+              <div>
+                <div class="stat-val" id="dashStatCoins">50</div>
+                <div class="stat-lbl">Veku Coins (Points)</div>
+              </div>
+            </div>
+            <div class="dash-stat-box">
+              <div class="dash-stat-icon" style="background:#dcfce7; color:#15803d;">
+                <i class="fa-solid fa-bag-shopping"></i>
+              </div>
+              <div>
+                <div class="stat-val" id="dashStatOrdersCount">0</div>
+                <div class="stat-lbl">Total Purchases</div>
+              </div>
             </div>
           </div>
-          <div onclick="closeCustomerDashboard(); openTrackOrderModal();" style="border:1px solid #e2e8f0; border-radius:8px; padding:12px; display:flex; align-items:center; gap:10px; cursor:pointer; background:#f8fafc;">
-            <i class="fa-solid fa-truck-fast" style="color:#0284c7; font-size:18px;"></i>
-            <div>
-              <div style="font-size:13px; font-weight:700;">Track Order</div>
-              <div style="font-size:11px; color:#64748b;">Live status check</div>
+
+          <!-- Quick Action Buttons -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:18px;">
+            <div onclick="switchCustomerDashTabByName('dashOrdersPane')" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:12px; cursor:pointer;">
+              <i class="fa-solid fa-truck-fast" style="color:#0284c7; font-size:20px;"></i>
+              <div>
+                <strong style="font-size:13px; color:#0f172a;">Track Active Order</strong>
+                <div style="font-size:11px; color:#64748b;">Live delivery status</div>
+              </div>
+            </div>
+            <div onclick="closeCustomerDashboard(); toggleWishlist();" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:12px; cursor:pointer;">
+              <i class="fa-solid fa-heart" style="color:#ef4444; font-size:20px;"></i>
+              <div>
+                <strong style="font-size:13px; color:#0f172a;">My Wishlist</strong>
+                <div style="font-size:11px; color:#64748b;">Saved favorites</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Order Snippet -->
+          <div class="dash-section-title">
+            <span><i class="fa-solid fa-clock-rotate-left" style="color:#0284c7;"></i> Most Recent Order</span>
+            <a href="javascript:void(0)" onclick="switchCustomerDashTabByName('dashOrdersPane')" style="font-size:12px; color:#0284c7; text-decoration:none; font-weight:700;">View All  </a>
+          </div>
+          <div id="dashRecentOrderContainer"></div>
+        </div>
+
+        <!-- PANE 2: MY ORDERS & ORDER HISTORY -->
+        <div class="dash-pane" id="dashOrdersPane">
+          <div class="dash-section-title">
+            <span><i class="fa-solid fa-box" style="color:#0284c7;"></i> Order History & Tracking</span>
+            <span style="font-size:12px; color:#64748b; font-weight:600;" id="userOrdersTotalCount">0 Orders</span>
+          </div>
+
+          <div class="cust-orders-list" id="customerMyOrdersList"></div>
+        </div>
+
+        <!-- PANE 3: SAVED ADDRESSES -->
+        <div class="dash-pane" id="dashAddressesPane">
+          <div class="dash-section-title">
+            <span><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> Manage Delivery Addresses</span>
+            <button type="button" onclick="toggleAddAddressForm()" class="dash-order-action-btn primary" style="font-size:11px;">
+              <i class="fa-solid fa-plus"></i> Add New Address
+            </button>
+          </div>
+
+          <!-- New Address Form (Hidden by default) -->
+          <div id="dashNewAddressBox" style="display:none; background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:16px; margin-bottom:16px;">
+            <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px;">Add New Delivery Address</h4>
+            <form onsubmit="handleSaveNewAddress(event)">
+              <div class="form-row">
+                <div class="form-group" style="flex:1;">
+                  <label>Address Type</label>
+                  <select id="addrType" style="padding:9px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px; width:100%;">
+                    <option value="Home">Home (All Day Delivery)</option>
+                    <option value="Work">Work / Office</option>
+                    <option value="Other">Other</option>
+                  </select>
+                </div>
+                <div class="form-group" style="flex:1;">
+                  <label>Contact Phone *</label>
+                  <input type="tel" id="addrPhone" pattern="[0-9]{10}" maxlength="10" placeholder="10 Digit Phone" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Street Address / House No *</label>
+                <textarea id="addrText" rows="2" placeholder="House/Flat No, Landmark, Area" required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>City *</label>
+                  <input type="text" id="addrCity" placeholder="City" required>
+                </div>
+                <div class="form-group">
+                  <label>Pincode *</label>
+                  <input type="text" id="addrPincode" pattern="[0-9]{6}" maxlength="6" placeholder="PIN" required>
+                </div>
+                <div class="form-group">
+                  <label>State *</label>
+                  <input type="text" id="addrState" placeholder="State" required>
+                </div>
+              </div>
+
+              <div style="display:flex; gap:10px;">
+                <button type="button" onclick="toggleAddAddressForm()" style="padding:10px 16px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; font-weight:700; cursor:pointer;">Cancel</button>
+                <button type="submit" class="dash-order-action-btn primary" style="padding:10px 18px; font-size:13px;">Save Address</button>
+              </div>
+            </form>
+          </div>
+
+          <div id="dashAddressesList"></div>
+        </div>
+
+        <!-- PANE 4: WALLET, REWARDS & REFERRAL -->
+        <div class="dash-pane" id="dashWalletPane">
+          <div class="dash-stats-grid">
+            <div class="dash-stat-box" style="border-left: 4px solid #0284c7;">
+              <div class="dash-stat-icon" style="background:#e0f2fe; color:#0284c7;">
+                <i class="fa-solid fa-wallet"></i>
+              </div>
+              <div>
+                <div class="stat-val" id="dashWalletBalDisplay"> 50.00</div>
+                <div class="stat-lbl">Usable Wallet Balance</div>
+              </div>
+            </div>
+            <div class="dash-stat-box" style="border-left: 4px solid #f59e0b;">
+              <div class="dash-stat-icon" style="background:#fef3c7; color:#f59e0b;">
+                <i class="fa-solid fa-award"></i>
+              </div>
+              <div>
+                <div class="stat-val" id="dashLoyaltyPointsDisplay">50 Coins</div>
+                <div class="stat-lbl">Worth  50 on next order</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- REFER & EARN CARD -->
+          <div style="background:linear-gradient(135deg, #0284c7 0%, #0f172a 100%); color:white; border-radius:12px; padding:18px 20px; margin-bottom:18px;">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+              <div>
+                <h4 style="font-size:16px; font-weight:800;"><i class="fa-solid fa-gift" style="color:#facc15;"></i> Refer & Earn  100!</h4>
+                <p style="font-size:12px; opacity:0.9; margin-top:3px;">Invite your friends. When they place their first order, you both get  100 in wallet!</p>
+              </div>
+              <button onclick="shareReferralWhatsApp()" style="background:#22c55e; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12.5px; display:inline-flex; align-items:center; gap:6px;">
+                <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Invite on WhatsApp
+              </button>
+            </div>
+            <div style="margin-top:12px; display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.18); padding:6px 14px; border-radius:8px; font-size:12px;">
+              <span>Your Referral Code:</span> <strong id="dashReferralCode" style="letter-spacing:1px; color:#facc15;">VEKUFRIEND</strong>
+              <button onclick="copyReferralCode()" style="background:none; border:none; color:white; cursor:pointer; margin-left:6px;" title="Copy Code"><i class="fa-solid fa-copy"></i></button>
+            </div>
+          </div>
+
+          <!-- ACTIVE STORE COUPONS -->
+          <div class="dash-section-title">
+            <span><i class="fa-solid fa-tags" style="color:#0284c7;"></i> Available Coupons For You</span>
+          </div>
+          <div id="dashCouponsList"></div>
+        </div>
+
+        <!-- PANE 5: PROFILE & SECURITY SETTINGS -->
+        <div class="dash-pane" id="dashProfilePane">
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; margin-bottom:16px;">
+            <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px;"><i class="fa-solid fa-id-badge" style="color:#0284c7;"></i> Personal Details</h4>
+            <form onsubmit="handleUpdateCustomerProfile(event)">
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Full Name *</label>
+                  <input type="text" id="dashEditName" required>
+                </div>
+                <div class="form-group">
+                  <label>Mobile Number *</label>
+                  <input type="tel" id="dashEditPhone" pattern="[0-9]{10}" maxlength="10" required>
+                </div>
+              </div>
+              <div class="form-group">
+                <label>Email Address</label>
+                <input type="email" id="dashEditEmail" readonly style="background:#f1f5f9; color:#64748b;">
+              </div>
+              <button type="submit" class="dash-order-action-btn primary" style="padding:10px 18px; font-size:13px;">Save Profile Changes</button>
+            </form>
+          </div>
+
+          <!-- SECURITY & PASSWORD -->
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; margin-bottom:16px;">
+            <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:8px;"><i class="fa-solid fa-shield-halved" style="color:#0284c7;"></i> Security & Password</h4>
+            <p style="font-size:12px; color:#64748b; margin-bottom:12px;">Need to update your password? Click below to receive a secure reset link.</p>
+            <button type="button" onclick="handleSendPasswordResetFromProfile()" class="dash-order-action-btn" style="padding:9px 16px;">
+              <i class="fa-solid fa-key"></i> Send Password Reset Link to Email
+            </button>
+          </div>
+
+          <!-- COMMUNICATION PREFERENCES -->
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:18px;">
+            <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px;"><i class="fa-solid fa-bell" style="color:#0284c7;"></i> Communication Preferences</h4>
+            <div style="display:flex; flex-direction:column; gap:10px; font-size:13px;">
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="prefWhatsapp" checked style="width:16px; height:16px; accent-color:#22c55e;">
+                <span>WhatsApp Order & Delivery Tracking Updates</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="prefEmail" checked style="width:16px; height:16px; accent-color:#0284c7;">
+                <span>Email Invoices & Exclusive Promotional Coupons</span>
+              </label>
+              <label style="display:flex; align-items:center; gap:8px; cursor:pointer;">
+                <input type="checkbox" id="prefSms" checked style="width:16px; height:16px; accent-color:#0284c7;">
+                <span>SMS Delivery Partner Alerts</span>
+              </label>
             </div>
           </div>
         </div>
 
-        <!-- MY ORDERS SECTION -->
-        <div class="dash-section-title">
-          <span><i class="fa-solid fa-box" style="color:#0284c7;"></i> My Orders History</span>
-          <span style="font-size:12px; color:#64748b; font-weight:600;" id="userOrdersTotalCount">0 Orders</span>
-        </div>
+        <!-- PANE 6: REFUND BANK & UPI DETAILS -->
+        <div class="dash-pane" id="dashRefundBankPane">
+          <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:18px;">
+            <div style="margin-bottom:14px;">
+              <h4 style="font-size:15px; font-weight:800; color:#0f172a;"><i class="fa-solid fa-building-columns" style="color:#0284c7;"></i> Refund Bank Account / UPI ID</h4>
+              <p style="font-size:12px; color:#64748b; margin-top:2px;">Agar aap Cash on Delivery (COD) order return karte hain, to aapka refund seedhe is account ya UPI mein transfer hoga.</p>
+            </div>
 
-        <div class="cust-orders-list" id="customerMyOrdersList"></div>
+            <form onsubmit="handleSaveRefundDetails(event)">
+              <div class="form-group">
+                <label>Preferred UPI ID (e.g. mobile@upi / yourname@okaxis)</label>
+                <input type="text" id="refundUpiId" placeholder="name@upi">
+              </div>
 
-        <!-- SAVED DELIVERY ADDRESS CARD -->
-        <div style="border:1px solid #e2e8f0; border-radius:10px; padding:14px; background:#f8fafc; margin-bottom:18px;">
-          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:6px;">
-            <strong style="font-size:13px; color:#0f172a;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> Saved Delivery Address</strong>
-            <span style="font-size:11px; color:#15803d; font-weight:700; background:#dcfce7; padding:2px 6px; border-radius:4px;">Default</span>
+              <div style="display:flex; align-items:center; margin:14px 0; color:#94a3b8; font-size:11px; font-weight:700;">
+                <span style="flex:1; border-bottom:1px solid #e2e8f0;"></span>
+                <span style="padding:0 8px;">OR BANK ACCOUNT</span>
+                <span style="flex:1; border-bottom:1px solid #e2e8f0;"></span>
+              </div>
+
+              <div class="form-group">
+                <label>Account Holder Name</label>
+                <input type="text" id="refundAccName" placeholder="As per bank passbook">
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label>Bank Account Number</label>
+                  <input type="text" id="refundAccNumber" placeholder="Account Number">
+                </div>
+                <div class="form-group">
+                  <label>Bank IFSC Code</label>
+                  <input type="text" id="refundIfsc" placeholder="e.g. SBIN0001234" style="text-transform:uppercase;">
+                </div>
+              </div>
+
+              <button type="submit" class="dash-order-action-btn primary" style="padding:10px 18px; font-size:13px;">Save Refund Information</button>
+            </form>
           </div>
-          <p id="dashUserAddress" style="font-size:12px; color:#475569; line-height:1.5;">Address will be saved automatically upon your registration or first checkout.</p>
         </div>
 
-        <div style="display:flex; justify-content:space-between; align-items:center; padding-top:10px; border-top:1px solid #f1f5f9;">
-          <button class="logout-btn-clean" onclick="handleCustomerLogout()">
-            <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout Account
-          </button>
-          
-          <button onclick="closeCustomerDashboard(); openAdminLoginModal();" style="background:none; border:none; color:#64748b; font-size:12px; cursor:pointer; text-decoration:underline;">
-            Admin Login
-          </button>
+        <!-- PANE 7: HELP & CUSTOMER SUPPORT -->
+        <div class="dash-pane" id="dashSupportPane">
+          <!-- 24x7 Direct Buttons -->
+          <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:18px;">
+            <a href="https://wa.me/917088484025" target="_blank" style="text-decoration:none; background:#22c55e; color:white; padding:14px; border-radius:10px; display:flex; align-items:center; gap:12px; font-weight:800; font-size:13px;">
+              <i class="fa-brands fa-whatsapp fa-2x"></i>
+              <div>
+                <div>WhatsApp 24x7 Help</div>
+                <div style="font-size:11px; font-weight:500; opacity:0.9;">Instant Agent Chat</div>
+              </div>
+            </a>
+            <a href="tel:+917088484025" style="text-decoration:none; background:#0284c7; color:white; padding:14px; border-radius:10px; display:flex; align-items:center; gap:12px; font-weight:800; font-size:13px;">
+              <i class="fa-solid fa-phone-volume fa-2x"></i>
+              <div>
+                <div>Call Customer Care</div>
+                <div style="font-size:11px; font-weight:500; opacity:0.9;">Mon - Sat (10am - 7pm)</div>
+              </div>
+            </a>
+          </div>
+
+          <!-- FAQs -->
+          <div class="dash-section-title">
+            <span><i class="fa-solid fa-circle-question" style="color:#0284c7;"></i> Frequently Asked Questions</span>
+          </div>
+
+          <div class="faq-item-dash">
+            <div class="faq-q-dash" onclick="toggleFaqDash(this)">
+              <span>How do I track my order?</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-a-dash">
+              You can track your package directly from the "My Orders" tab by clicking the "Track" button, or enter your Order ID in the "Track Your Order" search bar.
+            </div>
+          </div>
+
+          <div class="faq-item-dash">
+            <div class="faq-q-dash" onclick="toggleFaqDash(this)">
+              <span>What is the Return & Exchange policy?</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-a-dash">
+              We offer 7 days easy size exchange and returns. Simply click "Return / Exchange" next to your order or chat with our team on WhatsApp.
+            </div>
+          </div>
+
+          <div class="faq-item-dash">
+            <div class="faq-q-dash" onclick="toggleFaqDash(this)">
+              <span>When will I receive my refund for COD?</span> <i class="fa-solid fa-chevron-down"></i>
+            </div>
+            <div class="faq-a-dash">
+              Once the returned product passes quality inspection at our warehouse, your refund will be transferred to your saved UPI or Bank account within 24-48 business hours.
+            </div>
+          </div>
         </div>
 
       </div>
+
+      <!-- DASHBOARD FOOTER (LOGOUT & ADMIN) -->
+      <div style="padding:12px 24px; background:#ffffff; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
+        <button class="dash-order-action-btn" onclick="handleCustomerLogout()" style="color:#dc2626; border-color:#fecdd3; background:#fee2e2;">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout Account
+        </button>
+        <button onclick="closeCustomerDashboard(); openAdminLoginModal();" style="background:none; border:none; color:#64748b; font-size:11.5px; cursor:pointer; text-decoration:underline;">
+          Admin Access
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -1834,13 +2290,13 @@
             <h3 class="detail-title" id="detailModalName">Product Name</h3>
             <div id="detailModalRatingBadge" style="font-size: 13px; color: #eab308; margin-bottom: 8px;"></div>
             
-            <div class="detail-price-box" id="detailModalPrice">₹0</div>
+            <div class="detail-price-box" id="detailModalPrice"> 0</div>
             
             <p id="detailModalDesc" style="font-size: 13px; color: #475569; margin-bottom: 14px; line-height: 1.6;"></p>
 
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
               <span style="font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase;">Select Size:</span>
-              <a href="#" class="size-guide-link" onclick="openSizeGuide(event)">📏 Size Guide</a>
+              <a href="#" class="size-guide-link" onclick="openSizeGuide(event)">  Size Guide</a>
             </div>
             <div class="size-options" id="detailModalSizes"></div>
 
@@ -1944,13 +2400,13 @@
         </div>
 
         <div class="cart-summary-row">
-          <span>Subtotal:</span><span id="cartSubtotal">₹0</span>
+          <span>Subtotal:</span><span id="cartSubtotal"> 0</span>
         </div>
         <div class="cart-summary-row" id="discountRow" style="display: none; color: #16a34a;">
-          <span>Discount:</span><span id="cartDiscount">-₹0</span>
+          <span>Discount:</span><span id="cartDiscount">- 0</span>
         </div>
         <div class="cart-total">
-          <span>Total:</span><span id="cartTotal">₹0</span>
+          <span>Total:</span><span id="cartTotal"> 0</span>
         </div>
         <button class="whatsapp-btn" onclick="openCustomerDetailsModal()">
           <i class="fa-solid fa-shield-halved" style="font-size: 16px;"></i> Proceed to Checkout
@@ -2014,6 +2470,29 @@
             </select>
           </div>
 
+          <!-- WALLET & COINS REDEMPTION CHECKBOXES -->
+          <div id="walletCoinsCheckoutBox" style="background:#f8fafc; border:1.5px solid #e2e8f0; border-radius:8px; padding:12px; margin-bottom:14px;">
+            <div style="font-size:12.5px; font-weight:800; color:#0f172a; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+              <i class="fa-solid fa-gift" style="color:#0284c7;"></i> STORE WALLET & COINS
+            </div>
+            <div style="display:flex; flex-direction:column; gap:9px; font-size:13px;">
+              <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+                <span style="display:flex; align-items:center; gap:8px;">
+                  <input type="checkbox" id="useWalletCheckbox" onchange="handlePaymentMethodChange()" style="width:16px; height:16px; accent-color:#0284c7; cursor:pointer;">
+                  <span>Use Store Wallet (<strong id="checkoutWalletBal" style="color:#0284c7;"> 50</strong>)</span>
+                </span>
+                <span id="walletDeductionText" style="color:#16a34a; font-weight:800; display:none;">-  0</span>
+              </label>
+              <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
+                <span style="display:flex; align-items:center; gap:8px;">
+                  <input type="checkbox" id="useCoinsCheckbox" onchange="handlePaymentMethodChange()" style="width:16px; height:16px; accent-color:#d97706; cursor:pointer;">
+                  <span>Use Veku Coins (<strong id="checkoutCoinsBal" style="color:#d97706;">50 Coins</strong>)</span>
+                </span>
+                <span id="coinsDeductionText" style="color:#16a34a; font-weight:800; display:none;">-  0</span>
+              </label>
+            </div>
+          </div>
+
           <div class="form-group">
             <label>Payment Method *</label>
             <select id="custPayment" onchange="handlePaymentMethodChange()" required>
@@ -2033,7 +2512,7 @@
 
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:10px; border-top:1px dashed #cbd5e1; font-size:15px; font-weight:800; color:#0f172a;">
             <span>Total Payable:</span>
-            <span id="checkoutTotalDisplay" style="font-size: 18px; color: #0284c7;">₹0</span>
+            <span id="checkoutTotalDisplay" style="font-size: 18px; color: #0284c7;"> 0</span>
           </div>
 
           <button type="submit" id="checkoutSubmitBtn" class="whatsapp-btn" style="margin-top: 12px; background-color: #0284c7;">
@@ -2044,7 +2523,7 @@
     </div>
   </div>
 
-  <!-- TRACK ORDER MODAL FOR CUSTOMERS -->
+  <!-- TRACK ORDER MODAL -->
   <div class="admin-modal-overlay" id="trackOrderModalOverlay" style="z-index: 2400;">
     <div class="admin-modal" style="max-width: 520px;">
       <div class="admin-header">
@@ -2157,11 +2636,11 @@
           <div class="form-group">
             <label>Rating (1 to 5 Stars)</label>
             <select id="editReviewRating" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px; font-weight:600;">
-              <option value="5">⭐⭐⭐⭐⭐ (5 Star)</option>
-              <option value="4">⭐⭐⭐⭐ (4 Star)</option>
-              <option value="3">⭐⭐⭐ (3 Star)</option>
-              <option value="2">⭐⭐ (2 Star)</option>
-              <option value="1">⭐ (1 Star)</option>
+              <option value="5">      (5 Star)</option>
+              <option value="4">     (4 Star)</option>
+              <option value="3">    (3 Star)</option>
+              <option value="2">   (2 Star)</option>
+              <option value="1">  (1 Star)</option>
             </select>
           </div>
           <div class="form-group">
@@ -2193,7 +2672,6 @@
       </div>
 
       <div class="admin-body">
-        <!-- TAB 1: ORDERS DASHBOARD -->
         <div id="ordersManagerTab" class="admin-tab-content active">
           <h4>Customer Orders</h4>
           <div style="overflow-x:auto;">
@@ -2216,7 +2694,6 @@
           </div>
         </div>
 
-        <!-- TAB 2: ADD PRODUCT -->
         <div id="addProductTab" class="admin-tab-content">
           <form id="addProductForm" onsubmit="handleNewProductSubmit(event)">
             <div class="form-group">
@@ -2249,8 +2726,8 @@
               <div id="variantsContainer">
                 <div class="variant-row" style="display: flex; gap: 8px; margin-bottom: 8px;">
                   <input type="text" placeholder="Size (e.g. M, L)" class="variant-size" style="flex:1;" required>
-                  <input type="number" placeholder="Selling Price (₹)" class="variant-price" style="flex:1;" required>
-                  <input type="number" placeholder="MRP (₹)" class="variant-mrp" style="flex:1;">
+                  <input type="number" placeholder="Selling Price ( )" class="variant-price" style="flex:1;" required>
+                  <input type="number" placeholder="MRP ( )" class="variant-mrp" style="flex:1;">
                 </div>
               </div>
               <button type="button" class="add-variant-btn" onclick="addVariantRow('variantsContainer')">+ Add Another Size</button>
@@ -2259,7 +2736,6 @@
           </form>
         </div>
 
-        <!-- TAB 3: MANAGE PRODUCTS -->
         <div id="manageProductsTab" class="admin-tab-content">
           <div style="overflow-x:auto;">
             <table class="menu-manager-table">
@@ -2277,7 +2753,6 @@
           </div>
         </div>
 
-        <!-- TAB 4: MENU MANAGER -->
         <div id="menuManagerTab" class="admin-tab-content">
           <form id="addMenuForm" onsubmit="handleNewMenuSubmit(event)" style="background:#f8fafc; padding:12px; border-radius:8px; margin-bottom:14px; border:1px solid #e2e8f0;">
             <div class="form-group">
@@ -2322,7 +2797,6 @@
           </div>
         </div>
 
-        <!-- TAB 5: COUPONS -->
         <div id="couponManagerTab" class="admin-tab-content">
           <form id="addCouponForm" onsubmit="handleNewCouponSubmit(event)" style="background:#f8fafc; padding:12px; border-radius:8px; margin-bottom:14px; border:1px solid #e2e8f0;">
             <div class="form-row">
@@ -2333,7 +2807,7 @@
               <div class="form-group">
                 <label>Type</label>
                 <select id="couponTypeSelect">
-                  <option value="flat">Flat ₹</option>
+                  <option value="flat">Flat  </option>
                   <option value="percent">Percentage %</option>
                 </select>
               </div>
@@ -2352,7 +2826,6 @@
           </table>
         </div>
 
-        <!-- TAB 6: REVIEWS -->
         <div id="reviewsManagerTab" class="admin-tab-content">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px; flex-wrap:wrap; gap:6px;">
             <h4 style="font-size:15px; font-weight:800; color:#0f172a;"><i class="fa-solid fa-comments"></i> Ratings & Customer Reviews</h4>
@@ -2375,10 +2848,8 @@
           </div>
         </div>
 
-        <!-- TAB 7: SETTINGS & FOOTER -->
         <div id="footerManagerTab" class="admin-tab-content">
           <form id="footerForm" onsubmit="handleFooterSubmit(event)">
-            
             <div style="margin-bottom: 16px;">
               <h4 style="font-size: 15px; font-weight: 800; color: #0f172a; margin-bottom: 4px;">
                 <i class="fa-solid fa-store" style="color:#0284c7;"></i> Store & Brand Details
@@ -2404,7 +2875,7 @@
 
             <div class="form-group">
               <label>Copyright Text *</label>
-              <input type="text" id="footCopyright" placeholder="© 2026 Veku Collections. All rights reserved." required>
+              <input type="text" id="footCopyright" placeholder="  2026 Veku Collections. All rights reserved." required>
             </div>
 
             <div style="margin-top: 20px; margin-bottom: 14px; border-top: 2px dashed #cbd5e1; padding-top: 16px;">
@@ -2574,7 +3045,6 @@
     let touchStartX = 0;
     let touchEndX = 0;
 
-    // TEMPORARY REGISTRATION DATA HOLDER
     let tempCustomerSignupData = null;
     let quickGeneratedOtp = "";
 
@@ -2614,13 +3084,12 @@
 
     let menuData = defaultMenuData;
 
-    // DEFAULT FOOTER DATA
     const defaultFooterData = {
       aboutText: "Welcome to Veku Collections. Your destination for high-quality ethnic wear, footwear, and apparel.",
       phone: "+91 7088484025",
       email: "support@vekucollections.com",
       address: "Main Market, Aligarh, Uttar Pradesh, 202001",
-      copyright: "© 2026 Veku Collections. All rights reserved.",
+      copyright: "  2026 Veku Collections. All rights reserved.",
       blogText: "Stay tuned for the latest ethnic fashion guides, styling tips, artisan weaves, and festive collections!",
       privacyPolicy: "We value your privacy. We only collect basic shipping and payment information to deliver your order safely and never share your data with third parties.",
       shippingPolicy: "All orders are safely packed and dispatched within 24 to 48 hours. Standard delivery across India takes 3 to 7 business days with real-time tracking.",
@@ -2647,9 +3116,7 @@
       }, 2500);
     }
 
-    /* ========================================================
-       MODERN TABBED CUSTOMER AUTHENTICATION (LOGIN & SIGNUP + ADDRESS)
-       ======================================================== */
+    /* CUSTOMER AUTHENTICATION LOGIC */
     function openCustomerAuthOrProfile() {
       if (currentCustomer) {
         openCustomerDashboard();
@@ -2700,7 +3167,6 @@
       setTimeout(() => document.getElementById('quickOtpPhoneInput').focus(), 150);
     }
 
-    /* EXISTING USER LOGIN HANDLER */
     async function handleExistingUserLogin(e) {
       e.preventDefault();
       const userIdent = document.getElementById('loginEmailOrPhone').value.trim();
@@ -2708,14 +3174,13 @@
       const loginBtn = document.getElementById('loginSubmitBtn');
 
       loginBtn.disabled = true;
-      loginBtn.innerText = "AUTHENTICATING... ⏳";
+      loginBtn.innerText = "AUTHENTICATING...  ";
 
       try {
         let authUser = null;
         if (window.loginCustomerWithFirebase) {
           authUser = await window.loginCustomerWithFirebase(userIdent, password);
         } else {
-          // Fallback check in local memory
           const localKey = `cust_${userIdent.replace(/\D/g, '')}`;
           const savedData = localStorage.getItem(localKey) || localStorage.getItem('veku_current_user');
           if (savedData) {
@@ -2738,7 +3203,6 @@
       }
     }
 
-    /* FORGOT PASSWORD HANDLER */
     async function handleForgotPassword() {
       const email = prompt("Enter your registered Email Address to receive password reset link:");
       if (!email || !email.includes('@')) {
@@ -2748,7 +3212,7 @@
       try {
         if (window.resetCustomerPassword) {
           await window.resetCustomerPassword(email.trim());
-          showToast("Password reset link sent to your email! ✉️");
+          showToast("Password reset link sent to your email!   ");
         } else {
           showToast("Reset link sent to " + email);
         }
@@ -2757,7 +3221,6 @@
       }
     }
 
-    /* SIGN UP STEP 1: PERSONAL DETAILS */
     function handleSignUpStep1(e) {
       e.preventDefault();
       const name = document.getElementById('regName').value.trim();
@@ -2775,8 +3238,6 @@
       }
 
       tempCustomerSignupData = { name, phone, email, password };
-
-      // Slide/Switch to Step 2: Address Details
       document.getElementById('signUpStep1Container').style.display = 'none';
       document.getElementById('signUpStep2Container').style.display = 'block';
       setTimeout(() => document.getElementById('regAddress').focus(), 150);
@@ -2787,7 +3248,6 @@
       document.getElementById('signUpStep2Container').style.display = 'none';
     }
 
-    /* SIGN UP STEP 2: ADDRESS & COMPLETION */
     async function handleSignUpComplete(e) {
       e.preventDefault();
       if (!tempCustomerSignupData) {
@@ -2802,7 +3262,18 @@
 
       const submitBtn = document.getElementById('signUpFinalSubmitBtn');
       submitBtn.disabled = true;
-      submitBtn.innerText = "CREATING ACCOUNT... ⏳";
+      submitBtn.innerText = "CREATING ACCOUNT...  ";
+
+      const initialAddress = {
+        id: 'addr_' + Date.now(),
+        type: 'Home',
+        address: address,
+        city: city,
+        pincode: pincode,
+        state: state,
+        phone: tempCustomerSignupData.phone,
+        isDefault: true
+      };
 
       const finalCustomerProfile = {
         name: tempCustomerSignupData.name,
@@ -2812,6 +3283,11 @@
         city: city,
         pincode: pincode,
         state: state,
+        walletBalance: 50,
+        rewardPoints: 50,
+        referralCode: 'VEKU' + Math.floor(1000 + Math.random() * 9000),
+        addresses: [initialAddress],
+        refundDetails: { upiId: '', accName: '', accNumber: '', ifsc: '' },
         createdAt: new Date().toISOString()
       };
 
@@ -2835,7 +3311,6 @@
       }
     }
 
-    /* QUICK OTP LOGIN (POWERED BY GREEN API WHATSAPP) */
     async function handleRequestOtpSubmit(e) {
       e.preventDefault();
       const phoneInput = document.getElementById('quickOtpPhoneInput').value.trim();
@@ -2846,40 +3321,29 @@
 
       const submitBtn = e.target.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
-      submitBtn.innerText = "WhatsApp OTP Sending... ⏳";
+      submitBtn.innerText = "WhatsApp OTP Sending...  ";
 
       quickGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-
       const chatId = `91${phoneInput}@c.us`;
-      const messageText = `🛍️ *VEKU COLLECTIONS*\n\nAapka login verification code hai: *${quickGeneratedOtp}*\n\nYeh code kisi ke sath share na karein. Valid for 10 minutes.`;
-
+      const messageText = `   *VEKU COLLECTIONS*\n\nAapka login verification code hai: *${quickGeneratedOtp}*\n\nYeh code kisi ke sath share na karein. Valid for 10 minutes.`;
       const apiUrl = `${GREEN_API_URL}/waInstance${GREEN_API_ID_INSTANCE}/sendMessage/${GREEN_API_TOKEN}`;
 
       try {
         const response = await fetch(apiUrl, {
           method: "POST",
-          headers: { 
-            "Content-Type": "application/json" 
-          },
-          body: JSON.stringify({
-            chatId: chatId,
-            message: messageText
-          })
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ chatId, message: messageText })
         });
-
         const result = await response.json();
 
         if (result.idMessage) {
           document.getElementById('quickOtpTargetPhone').innerText = `+91 ${phoneInput}`;
-          
-          // Clear all inputs
           ['qOtp1', 'qOtp2', 'qOtp3', 'qOtp4'].forEach(id => {
             const input = document.getElementById(id);
             if (input) input.value = '';
           });
-
           document.getElementById('otpInputArea').style.display = 'block';
-          showToast(`WhatsApp par OTP bhej diya gaya hai! 📲`, "success");
+          showToast(`WhatsApp par OTP bhej diya gaya hai!  `, "success");
           setTimeout(() => {
             const first = document.getElementById('qOtp1');
             if (first) first.focus();
@@ -2892,7 +3356,7 @@
         showToast("WhatsApp OTP send fail! WhatsApp check karein.", "error");
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerText = "Request OTP →";
+        submitBtn.innerText = "Request OTP  ";
       }
     }
 
@@ -2911,7 +3375,12 @@
           uid: 'otp_' + phone,
           name: 'Customer ' + phone.slice(-4),
           phone: phone,
-          email: ''
+          email: '',
+          walletBalance: 50,
+          rewardPoints: 50,
+          referralCode: 'VEKU' + Math.floor(1000 + Math.random() * 9000),
+          addresses: [],
+          refundDetails: { upiId: '', accName: '', accNumber: '', ifsc: '' }
         };
         onCustomerLoggedIn(userData);
       } else {
@@ -2919,9 +3388,8 @@
       }
     }
 
-    /* ENHANCED OTP BOX HANDLING (AUTO-FOCUS & BACKSPACE) */
     function handleOtpInput(curr, nextId) {
-      curr.value = curr.value.replace(/\D/g, ''); // Numbers only
+      curr.value = curr.value.replace(/\D/g, '');
       if (curr.value.length >= 1) {
         curr.value = curr.value.charAt(0);
         if (nextId) {
@@ -2932,13 +3400,11 @@
     }
 
     function handleOtpKey(e, curr, prevId) {
-      if (e.key === 'Backspace') {
-        if (!curr.value && prevId) {
-          const prev = document.getElementById(prevId);
-          if (prev) {
-            prev.focus();
-            prev.value = '';
-          }
+      if (e.key === 'Backspace' && !curr.value && prevId) {
+        const prev = document.getElementById(prevId);
+        if (prev) {
+          prev.focus();
+          prev.value = '';
         }
       }
     }
@@ -2956,34 +3422,42 @@
       }
     }
 
-    // Google Sign-in Handler
     async function handleGoogleSignIn() {
       try {
         if (window.loginCustomerWithGoogle) {
           const user = await window.loginCustomerWithGoogle();
-          if (user) {
-            onCustomerLoggedIn(user);
-          }
+          if (user) onCustomerLoggedIn(user);
         } else {
           const sampleGoogleUser = {
             uid: "g_" + Date.now(),
             name: "Google Customer",
             email: "user" + Math.floor(Math.random() * 899 + 100) + "@gmail.com",
-            phone: ""
+            phone: "",
+            walletBalance: 50,
+            rewardPoints: 50,
+            referralCode: 'VEKU' + Math.floor(1000 + Math.random() * 9000),
+            addresses: [],
+            refundDetails: { upiId: '', accName: '', accNumber: '', ifsc: '' }
           };
           onCustomerLoggedIn(sampleGoogleUser);
         }
       } catch (err) {
-        showToast("Google sign in cancelled or failed: " + err.message, "error");
+        showToast("Google sign in cancelled: " + err.message, "error");
       }
     }
 
     function onCustomerLoggedIn(userData) {
       currentCustomer = userData;
-      localStorage.setItem('veku_current_user', JSON.stringify(userData));
+      if (!currentCustomer.walletBalance && currentCustomer.walletBalance !== 0) currentCustomer.walletBalance = 50;
+      if (!currentCustomer.rewardPoints && currentCustomer.rewardPoints !== 0) currentCustomer.rewardPoints = 50;
+      if (!currentCustomer.referralCode) currentCustomer.referralCode = 'VEKU' + Math.floor(1000 + Math.random() * 9000);
+      if (!currentCustomer.addresses) currentCustomer.addresses = [];
+      if (!currentCustomer.refundDetails) currentCustomer.refundDetails = { upiId: '', accName: '', accNumber: '', ifsc: '' };
+
+      localStorage.setItem('veku_current_user', JSON.stringify(currentCustomer));
       closeCustomerAuthModal();
       updateCustomerHeaderUI();
-      showToast(`Welcome back, ${userData.name || 'Customer'}! ✨`);
+      showToast(`Welcome back, ${currentCustomer.name || 'Customer'}!  `);
       autoFillCheckoutForCustomer();
     }
 
@@ -3004,32 +3478,71 @@
       }
     }
 
+    /* ========================================================
+       ENHANCED CUSTOMER DASHBOARD CONTROLLER & FEATURES
+       ======================================================== */
     function openCustomerDashboard() {
       if (!currentCustomer) {
         openCustomerAuthModal();
         return;
       }
+
       document.getElementById('dashUserName').innerText = currentCustomer.name || 'Customer';
       document.getElementById('dashUserEmail').innerText = currentCustomer.email || currentCustomer.phone || '';
       document.getElementById('dashAvatarLetter').innerText = (currentCustomer.name || currentCustomer.phone || 'U').charAt(0).toUpperCase();
 
-      const userAddress = currentCustomer.address 
-        ? `${currentCustomer.address}, ${currentCustomer.city || ''} - ${currentCustomer.pincode || ''}, ${currentCustomer.state || ''}`
-        : 'Address will be saved automatically upon your registration or first checkout.';
-      document.getElementById('dashUserAddress').innerText = userAddress;
+      // Wallet & stats
+      const walletBal = currentCustomer.walletBalance ?? 50;
+      const rewardPts = currentCustomer.rewardPoints ?? 50;
+      document.getElementById('dashStatWallet').innerText = ` ${walletBal}`;
+      document.getElementById('dashStatCoins').innerText = rewardPts;
+      document.getElementById('dashWalletBalDisplay').innerText = ` ${walletBal}.00`;
+      document.getElementById('dashLoyaltyPointsDisplay').innerText = `${rewardPts} Coins`;
+      document.getElementById('dashReferralCode').innerText = currentCustomer.referralCode || 'VEKU2026';
+
+      // Settings inputs
+      document.getElementById('dashEditName').value = currentCustomer.name || '';
+      document.getElementById('dashEditPhone').value = currentCustomer.phone || '';
+      document.getElementById('dashEditEmail').value = currentCustomer.email || (currentCustomer.phone ? `${currentCustomer.phone}@mobile` : '');
+
+      // Refund bank inputs
+      const ref = currentCustomer.refundDetails || {};
+      document.getElementById('refundUpiId').value = ref.upiId || '';
+      document.getElementById('refundAccName').value = ref.accName || '';
+      document.getElementById('refundAccNumber').value = ref.accNumber || '';
+      document.getElementById('refundIfsc').value = ref.ifsc || '';
 
       renderCustomerOrdersInDashboard();
+      renderDashboardAddresses();
+      renderDashboardCoupons();
       document.getElementById('customerDashboardOverlay').classList.add('open');
+      switchCustomerDashTabByName('dashOverviewPane');
     }
 
     function closeCustomerDashboard() {
       document.getElementById('customerDashboardOverlay').classList.remove('open');
     }
 
+    function switchCustomerDashTab(paneId, btn) {
+      document.querySelectorAll('.cust-dash-tab').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.dash-pane').forEach(p => p.classList.remove('active'));
+      if (btn) btn.classList.add('active');
+      const pane = document.getElementById(paneId);
+      if (pane) pane.classList.add('active');
+    }
+
+    function switchCustomerDashTabByName(paneId) {
+      const tabs = Array.from(document.querySelectorAll('.cust-dash-tab'));
+      const targetBtn = tabs.find(t => t.getAttribute('onclick') && t.getAttribute('onclick').includes(paneId));
+      switchCustomerDashTab(paneId, targetBtn || tabs[0]);
+    }
+
     function renderCustomerOrdersInDashboard() {
       const container = document.getElementById('customerMyOrdersList');
+      const recentContainer = document.getElementById('dashRecentOrderContainer');
       const totalCountBadge = document.getElementById('userOrdersTotalCount');
       const dashBadge = document.getElementById('dashOrdersCountBadge');
+      const statOrdersCount = document.getElementById('dashStatOrdersCount');
       if (!container) return;
 
       const userEmail = (currentCustomer?.email || '').toLowerCase();
@@ -3041,46 +3554,375 @@
         return (userPhone && ordPhone === userPhone) || (userEmail && ordEmail === userEmail);
       });
 
-      totalCountBadge.innerText = `${matchedOrders.length} Orders`;
-      dashBadge.innerText = `${matchedOrders.length} Orders`;
+      if (totalCountBadge) totalCountBadge.innerText = `${matchedOrders.length} Orders`;
+      if (dashBadge) dashBadge.innerText = `${matchedOrders.length} Orders`;
+      if (statOrdersCount) statOrdersCount.innerText = matchedOrders.length;
 
       if (matchedOrders.length === 0) {
-        container.innerHTML = `
-          <div style="text-align:center; padding:30px 10px; color:#64748b; font-size:13px; background:#f8fafc; border-radius:8px; border:1px dashed #cbd5e1;">
+        const emptyHtml = `
+          <div style="text-align:center; padding:32px 10px; color:#64748b; font-size:13px; background:#ffffff; border-radius:12px; border:1px dashed #cbd5e1;">
             <i class="fa-solid fa-bag-shopping fa-2x" style="color:#94a3b8; margin-bottom:8px;"></i>
             <p>You haven't placed any orders yet.</p>
-            <button onclick="closeCustomerDashboard()" style="margin-top:10px; padding:6px 14px; background:#0284c7; colorwhite; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Start Shopping</button>
+            <button onclick="closeCustomerDashboard()" style="margin-top:10px; padding:7px 16px; background:#0284c7; color:white; border:none; border-radius:6px; font-size:12px; font-weight:700; cursor:pointer;">Start Shopping</button>
+          </div>
+        `;
+        container.innerHTML = emptyHtml;
+        if (recentContainer) recentContainer.innerHTML = emptyHtml;
+        return;
+      }
+
+      // Render All Orders in Tab
+      container.innerHTML = matchedOrders.map(ord => renderSingleOrderCardHTML(ord)).join('');
+
+      // Render Recent Order in Overview
+      if (recentContainer) {
+        recentContainer.innerHTML = renderSingleOrderCardHTML(matchedOrders[0]);
+      }
+    }
+
+    function renderSingleOrderCardHTML(ord) {
+      const firstItem = ord.items?.[0] || {};
+      const status = ord.status || 'Pending';
+      const isDelivered = status === 'Delivered';
+
+      return `
+        <div class="dash-order-card">
+          <div class="order-card-header">
+            <div>
+              <span style="font-weight:900; color:#0284c7; font-size:13.5px;">#${ord.orderId}</span>
+              <span style="font-size:11.5px; color:#64748b; margin-left:8px;">Placed on: <b>${ord.date}</b></span>
+            </div>
+            <div>
+              <span style="font-size:11px; font-weight:800; padding:3px 10px; border-radius:20px; background:${isDelivered ? '#dcfce7' : '#e0f2fe'}; color:${isDelivered ? '#15803d' : '#0284c7'};">
+                <i class="fa-solid ${isDelivered ? 'fa-check' : 'fa-truck-fast'}"></i> ${status}
+              </span>
+            </div>
+          </div>
+
+          <!-- Items row -->
+          <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
+            <img src="${firstItem.image || ''}" style="width:48px; height:58px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0;">
+            <div style="flex:1; min-width:0;">
+              <div style="font-weight:700; font-size:13.5px; color:#0f172a; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">
+                ${firstItem.name || 'Order Item'}
+              </div>
+              <div style="font-size:12px; color:#64748b; margin-top:2px;">
+                ${ord.items?.length || 1} item(s)   Size: <b>${firstItem.size || 'M'}</b>   Total: <strong style="color:#0f172a;"> ${Number(ord.total || 0).toLocaleString()}</strong>
+              </div>
+              <div style="font-size:11px; color:#15803d; font-weight:600; margin-top:2px;">
+                Mode: ${ord.paymentMethod || ord.payment || 'COD'}
+              </div>
+            </div>
+          </div>
+
+          <!-- Action buttons (Track, Invoice, Re-order, Return) -->
+          <div style="display:flex; flex-wrap:wrap; gap:8px; border-top:1px dashed #e2e8f0; padding-top:10px;">
+            <button onclick="closeCustomerDashboard(); openTrackOrderModal('${ord.orderId}');" class="dash-order-action-btn primary">
+              <i class="fa-solid fa-truck-fast"></i> Track
+            </button>
+            <button onclick="downloadOrderInvoice('${ord.orderId}')" class="dash-order-action-btn">
+              <i class="fa-solid fa-file-invoice"></i> Bill / Invoice
+            </button>
+            <button onclick="handleBuyAgain('${ord.orderId}')" class="dash-order-action-btn">
+              <i class="fa-solid fa-rotate-right"></i> Buy Again
+            </button>
+            <button onclick="handleReturnExchangeRequest('${ord.orderId}')" class="dash-order-action-btn" style="color:#d97706;">
+              <i class="fa-solid fa-repeat"></i> Return / Exchange
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // BUY AGAIN (1-CLICK REORDER)
+    function handleBuyAgain(orderId) {
+      const ord = customerOrders.find(o => o.orderId === orderId);
+      if (!ord || !ord.items) return;
+
+      ord.items.forEach(it => {
+        const existing = cart.find(ci => ci.id === it.id && ci.size === it.size);
+        if (existing) {
+          existing.qty += it.qty;
+        } else {
+          cart.push({ ...it });
+        }
+      });
+
+      saveCart();
+      closeCustomerDashboard();
+      toggleCart();
+      showToast("Order items added back to your cart!");
+    }
+
+    // RETURN & EXCHANGE REQUEST VIA WHATSAPP
+    function handleReturnExchangeRequest(orderId) {
+      const ord = customerOrders.find(o => o.orderId === orderId);
+      const itemsText = ord?.items?.map(i => `${i.name} (Size: ${i.size})`).join(', ') || 'Ordered Items';
+      const message = `Hello Veku Collections Support,\nI would like to request a Return / Exchange for my Order #${orderId}.\nProducts: ${itemsText}\nPlease guide me with the pickup process.`;
+      const url = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank');
+    }
+
+    // INVOICE PRINT / DOWNLOAD
+    function downloadOrderInvoice(orderId) {
+      const ord = customerOrders.find(o => o.orderId === orderId);
+      if (!ord) {
+        showToast("Invoice not found", "error");
+        return;
+      }
+
+      const invoiceWindow = window.open('', '_blank');
+      invoiceWindow.document.write(`
+        <html>
+        <head>
+          <title>Invoice - ${ord.orderId}</title>
+          <style>
+            body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 30px; color: #0f172a; max-width: 700px; margin: 0 auto; }
+            .inv-header { display: flex; justify-content: space-between; border-bottom: 2px solid #0284c7; padding-bottom: 15px; margin-bottom: 20px; }
+            .inv-title { font-size: 24px; font-weight: 900; color: #0284c7; }
+            .table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+            .table th, .table td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; font-size: 13px; }
+            .table th { background: #f8fafc; font-weight: 700; }
+            .totals { text-align: right; margin-top: 15px; font-size: 15px; font-weight: 800; }
+            .btn-print { background: #0284c7; color: white; padding: 10px 18px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 20px; }
+            @media print { .btn-print { display: none; } }
+          </style>
+        </head>
+        <body>
+          <div class="inv-header">
+            <div>
+              <div class="inv-title">VEKU COLLECTIONS</div>
+              <div style="font-size: 12px; color: #64748b; margin-top: 4px;">Main Market, Aligarh, UP - 202001<br>Phone: +91 7088484025</div>
+            </div>
+            <div style="text-align: right;">
+              <h3 style="margin: 0; color: #0f172a;">TAX INVOICE</h3>
+              <div style="font-size: 12px; color: #64748b; margin-top: 4px;"><b>Order ID:</b> #${ord.orderId}<br><b>Date:</b> ${ord.date}</div>
+            </div>
+          </div>
+
+          <div style="font-size: 13px; line-height: 1.5; margin-bottom: 20px;">
+            <strong>Billed To:</strong><br>
+            ${ord.customer?.name || 'Customer'}<br>
+            Phone: ${ord.customer?.phone || '-'}<br>
+            ${ord.customer?.address || ''}, ${ord.customer?.city || ''} - ${ord.customer?.pincode || ''}, ${ord.customer?.state || ''}
+          </div>
+
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Item Description</th>
+                <th>Size</th>
+                <th>Qty</th>
+                <th>Price</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${(ord.items || []).map(it => `
+                <tr>
+                  <td><b>${it.name}</b></td>
+                  <td>${it.size}</td>
+                  <td>${it.qty}</td>
+                  <td> ${it.price.toLocaleString()}</td>
+                  <td> ${(it.price * it.qty).toLocaleString()}</td>
+                </tr>
+              `).join('')}
+            </tbody>
+          </table>
+
+          <div class="totals">
+            Subtotal:  ${Number(ord.subtotal || ord.total).toLocaleString()}<br>
+            ${ord.discount ? `Discount: - ${Number(ord.discount).toLocaleString()}<br>` : ''}
+            Grand Total:  ${Number(ord.total).toLocaleString()}
+          </div>
+          <div style="font-size: 12px; color: #15803d; font-weight: 700; margin-top: 5px; text-align: right;">
+            Payment: ${ord.paymentMethod || ord.payment || 'COD'}
+          </div>
+
+          <div style="text-align: center; margin-top: 40px;">
+            <button class="btn-print" onclick="window.print()">   Print / Save as PDF</button>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 15px;">Thank you for shopping with Veku Collections!</div>
+          </div>
+        </body>
+        </html>
+      `);
+      invoiceWindow.document.close();
+    }
+
+    // SAVED ADDRESSES MANAGER
+    function toggleAddAddressForm() {
+      const box = document.getElementById('dashNewAddressBox');
+      box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function renderDashboardAddresses() {
+      const container = document.getElementById('dashAddressesList');
+      if (!container) return;
+      const addresses = currentCustomer?.addresses || [];
+
+      if (addresses.length === 0) {
+        container.innerHTML = `
+          <div style="text-align:center; padding:24px; color:#64748b; font-size:13px; background:#ffffff; border-radius:12px; border:1px dashed #cbd5e1;">
+            No saved addresses found. Click "Add New Address" above.
           </div>
         `;
         return;
       }
+ container.innerHTML = addresses.map((addr, idx) => `
+        <div class="address-card-item ${addr.isDefault ? 'default' : ''}">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div style="display:flex; align-items:center; gap:8px;">
+              <span class="address-type-badge">${addr.type || 'Home'}</span>
+              ${addr.isDefault ? '<span style="font-size:11px; font-weight:800; color:#15803d; background:#dcfce7; padding:2px 8px; border-radius:4px;">DEFAULT</span>' : ''}
+            </div>
+            <button onclick="handleDeleteAddress(${idx})" style="background:none; border:none; color:#ef4444; cursor:pointer;" title="Delete Address"><i class="fa-solid fa-trash-can"></i></button>
+          </div>
+          <div style="font-size:13px; color:#0f172a; line-height:1.5;">
+            <strong>${currentCustomer.name}</strong> (${addr.phone || currentCustomer.phone})<br>
+            ${addr.address}, <b>${addr.city}</b> - ${addr.pincode}, ${addr.state}
+          </div>
+          ${!addr.isDefault ? `
+            <button onclick="handleSetDefaultAddress(${idx})" class="dash-order-action-btn" style="margin-top:10px; font-size:11px;">
+              Set as Default
+            </button>
+          ` : ''}
+        </div>
+      `).join('');
+    }
 
-      container.innerHTML = matchedOrders.map(ord => {
-        const firstItem = ord.items?.[0] || {};
+    async function handleSaveNewAddress(e) {
+      e.preventDefault();
+      const type = document.getElementById('addrType').value;
+      const phone = document.getElementById('addrPhone').value.trim();
+      const address = document.getElementById('addrText').value.trim();
+      const city = document.getElementById('addrCity').value.trim();
+      const pincode = document.getElementById('addrPincode').value.trim();
+      const state = document.getElementById('addrState').value.trim();
+
+      const newAddr = {
+        id: 'addr_' + Date.now(),
+        type, phone, address, city, pincode, state,
+        isDefault: (currentCustomer.addresses || []).length === 0
+      };
+
+      if (!currentCustomer.addresses) currentCustomer.addresses = [];
+      currentCustomer.addresses.push(newAddr);
+      saveCustomerState();
+      toggleAddAddressForm();
+      renderDashboardAddresses();
+      showToast("New address saved!");
+    }
+
+    function handleSetDefaultAddress(idx) {
+      if (!currentCustomer.addresses) return;
+      currentCustomer.addresses.forEach((a, i) => a.isDefault = (i === idx));
+      const def = currentCustomer.addresses[idx];
+      currentCustomer.address = def.address;
+      currentCustomer.city = def.city;
+      currentCustomer.pincode = def.pincode;
+      currentCustomer.state = def.state;
+      saveCustomerState();
+      renderDashboardAddresses();
+      showToast("Default address updated!");
+    }
+
+    function handleDeleteAddress(idx) {
+      if (confirm("Delete this address?")) {
+        currentCustomer.addresses.splice(idx, 1);
+        saveCustomerState();
+        renderDashboardAddresses();
+        showToast("Address deleted.");
+      }
+    }
+
+    // COUPONS LIST IN DASHBOARD
+    function renderDashboardCoupons() {
+      const container = document.getElementById('dashCouponsList');
+      if (!container) return;
+      container.innerHTML = Object.keys(activeCoupons).map(code => {
+        const c = activeCoupons[code];
+        const discountText = c.type === 'flat' ? `Flat ₹${c.value} OFF` : `${c.value}% Instant Discount`;
         return `
-          <div class="cust-order-card">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px; border-bottom:1px solid #f1f5f9; padding-bottom:6px;">
-              <div>
-                <span style="font-weight:800; color:#0284c7; font-size:12px;">#${ord.orderId}</span>
-                <span style="font-size:11px; color:#64748b; margin-left:6px;">${ord.date}</span>
-              </div>
-              <span style="font-size:11px; font-weight:700; padding:2px 8px; border-radius:12px; background:${ord.status === 'Delivered' ? '#dcfce7' : '#e0f2fe'}; color:${ord.status === 'Delivered' ? '#15803d' : '#0284c7'};">
-                ${ord.status || 'Pending'}
-              </span>
+          <div class="dash-coupon-card">
+            <div>
+              <strong style="color:#0284c7; font-size:14px; letter-spacing:0.5px;">${code}</strong>
+              <div style="font-size:11.5px; color:#475569; margin-top:2px;">${discountText} on any order!</div>
             </div>
-            <div style="display:flex; align-items:center; gap:10px;">
-              <img src="${firstItem.image || ''}" style="width:40px; height:50px; object-fit:cover; border-radius:4px;">
-              <div style="flex:1; min-width:0;">
-                <div style="font-weight:700; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${firstItem.name || 'Order Item'}</div>
-                <div style="font-size:11px; color:#64748b;">${ord.items?.length || 1} item(s) • Total: <b>₹${Number(ord.total || 0).toLocaleString()}</b></div>
-              </div>
-              <button onclick="closeCustomerDashboard(); openTrackOrderModal('${ord.orderId}');" style="padding:6px 10px; background:#f1f5f9; border:1px solid #cbd5e1; border-radius:6px; font-size:11px; font-weight:700; color:#0f172a; cursor:pointer;">
-                Track
-              </button>
-            </div>
+            <button onclick="copyCouponToClipboard('${code}')" class="dash-order-action-btn primary" style="font-size:11px;">
+              Copy Code
+            </button>
           </div>
         `;
       }).join('');
+    }
+
+    function copyCouponToClipboard(code) {
+      navigator.clipboard.writeText(code);
+      showToast(`Coupon ${code} copied! Apply at checkout.`);
+    }
+
+    function copyReferralCode() {
+      const code = document.getElementById('dashReferralCode').innerText;
+      navigator.clipboard.writeText(code);
+      showToast(`Referral Code ${code} copied!`);
+    }
+
+    function shareReferralWhatsApp() {
+      const code = currentCustomer?.referralCode || 'VEKU2026';
+      const text = `Hey! Shop the latest ethnic wear on Veku Collections using my referral code *${code}* and get ₹50 instant bonus on your first order!\n${window.location.origin}`;
+      window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+    }
+
+    // PROFILE SETTINGS & PASSWORD UPDATE
+    async function handleUpdateCustomerProfile(e) {
+      e.preventDefault();
+      currentCustomer.name = document.getElementById('dashEditName').value.trim();
+      currentCustomer.phone = document.getElementById('dashEditPhone').value.trim();
+      saveCustomerState();
+      updateCustomerHeaderUI();
+      document.getElementById('dashUserName').innerText = currentCustomer.name;
+      showToast("Personal details updated successfully!");
+    }
+
+    async function handleSendPasswordResetFromProfile() {
+      if (!currentCustomer?.email) {
+        showToast("No registered email found for this account", "error");
+        return;
+      }
+      try {
+        if (window.resetCustomerPassword) {
+          await window.resetCustomerPassword(currentCustomer.email);
+          showToast(`Password reset link sent to ${currentCustomer.email}! 📧`);
+        } else {
+          showToast(`Reset email sent to ${currentCustomer.email}`);
+        }
+      } catch (err) {
+        showToast(err.message || "Failed to send reset link", "error");
+      }
+    }
+
+    // REFUND BANK & UPI SAVE
+    function handleSaveRefundDetails(e) {
+      e.preventDefault();
+      currentCustomer.refundDetails = {
+        upiId: document.getElementById('refundUpiId').value.trim(),
+        accName: document.getElementById('refundAccName').value.trim(),
+        accNumber: document.getElementById('refundAccNumber').value.trim(),
+        ifsc: document.getElementById('refundIfsc').value.trim()
+      };
+      saveCustomerState();
+      showToast("Refund Bank / UPI details saved!");
+    }
+
+    function saveCustomerState() {
+      localStorage.setItem('veku_current_user', JSON.stringify(currentCustomer));
+      if (window.saveCustomerProfile) {
+        window.saveCustomerProfile(currentCustomer);
+      }
+    }
+
+    function toggleFaqDash(header) {
+      header.parentElement.classList.toggle('open');
     }
 
     async function handleCustomerLogout() {
@@ -3111,6 +3953,12 @@
       if (cityInput && !cityInput.value && currentCustomer.city) cityInput.value = currentCustomer.city;
       if (pinInput && !pinInput.value && currentCustomer.pincode) pinInput.value = currentCustomer.pincode;
       if (stateInput && currentCustomer.state) stateInput.value = currentCustomer.state;
+
+      // Update available wallet & coins labels in checkout
+      const walletBalEl = document.getElementById('checkoutWalletBal');
+      const coinsBalEl = document.getElementById('checkoutCoinsBal');
+      if (walletBalEl) walletBalEl.innerText = `₹${currentCustomer.walletBalance ?? 50}`;
+      if (coinsBalEl) coinsBalEl.innerText = `${currentCustomer.rewardPoints ?? 50} Coins`;
     }
 
     function openSidebar() {
@@ -3233,7 +4081,7 @@
         parentOptionsHTML += `<option value="${mainMenu.id}">${mainMenu.title}</option>`;
         if (mainMenu.submenus && mainMenu.submenus.length > 0) {
           mainMenu.submenus.forEach(sub => {
-            optionsHTML += `<option value="${sub.category}">${mainMenu.title} → ${sub.title}</option>`;
+            optionsHTML += `<option value="${sub.category}">${mainMenu.title} ➔ ${sub.title}</option>`;
           });
         } else {
           optionsHTML += `<option value="${mainMenu.category}">${mainMenu.title}</option>`;
@@ -3262,7 +4110,7 @@
           m.submenus.forEach(s => {
             tbody.innerHTML += `
               <tr>
-                <td style="padding-left:16px; color:#64748b;">└ Sub</td>
+                <td style="padding-left:16px; color:#64748b;">↳ Sub</td>
                 <td>${s.title}</td>
                 <td>${s.category}</td>
                 <td><button class="delete-menu-btn" onclick="deleteMenu('${s.id}','sub','${m.id}')">Delete</button></td>
@@ -3344,7 +4192,7 @@
       updateWishlistBadge();
 
       if (wishlist.length === 0) {
-        body.innerHTML = `<div style="text-align:center; padding:50px 10px; color:#64748b; font-size:14px;">Wishlist is empty ❤️</div>`;
+        body.innerHTML = `<div style="text-align:center; padding:50px 10px; color:#64748b; font-size:14px;">Wishlist is empty 🤍</div>`;
         return;
       }
 
@@ -3455,7 +4303,7 @@
               <div class="product-price-row">
                 ${priceHtml}
               </div>
-              <div class="product-sizes-preview">${(product.variants || []).map(v => v.size).join('  ')}</div>
+              <div class="product-sizes-preview">${(product.variants || []).map(v => v.size).join(' • ')}</div>
             </div>
           </div>
         `;
@@ -3680,7 +4528,7 @@
       if (appliedCoupon) {
         discount = appliedCoupon.type === 'flat' ? appliedCoupon.value : Math.round((subtotal * appliedCoupon.value) / 100);
         document.getElementById('discountRow').style.display = 'flex';
-        document.getElementById('cartDiscount').innerText = `-₹${discount.toLocaleString()}`;
+        document.getElementById('cartDiscount').innerText = `- ₹${discount.toLocaleString()}`;
       } else {
         document.getElementById('discountRow').style.display = 'none';
       }
@@ -3739,6 +4587,7 @@
       document.getElementById('customerModalOverlay').classList.remove('open');
     }
     
+    // UPDATED PAYMENT METHOD CHANGE WITH WALLET & COIN CALCULATION
     function handlePaymentMethodChange() {
       const isOnline = document.getElementById('custPayment').value.includes("Razorpay");
       const rzpCard = document.getElementById('razorpayInfoCard');
@@ -3751,10 +4600,50 @@
         discount = appliedCoupon.type === 'flat' ? appliedCoupon.value : Math.round((subtotal * appliedCoupon.value) / 100);
       }
 
-      // Online: Actual Price | COD: Automatically +₹50
-      const finalAmount = isOnline 
-        ? Math.max(0, subtotal - discount) 
-        : Math.max(0, subtotal - discount) + 50;
+      const deliveryCharge = isOnline ? 0 : 50;
+      let runningTotal = Math.max(0, (subtotal - discount) + deliveryCharge);
+
+      // Wallet & Coins calculations
+      const useWallet = document.getElementById('useWalletCheckbox')?.checked || false;
+      const useCoins = document.getElementById('useCoinsCheckbox')?.checked || false;
+      
+      let walletDeduction = 0;
+      let coinsDeduction = 0;
+
+      const availableWallet = currentCustomer ? (currentCustomer.walletBalance ?? 50) : 0;
+      const availableCoins = currentCustomer ? (currentCustomer.rewardPoints ?? 50) : 0;
+
+      if (useWallet && availableWallet > 0 && runningTotal > 0) {
+        walletDeduction = Math.min(availableWallet, runningTotal);
+        runningTotal -= walletDeduction;
+      }
+
+      if (useCoins && availableCoins > 0 && runningTotal > 0) {
+        coinsDeduction = Math.min(availableCoins, runningTotal);
+        runningTotal -= coinsDeduction;
+      }
+
+      const walletTxt = document.getElementById('walletDeductionText');
+      if (walletTxt) {
+        if (walletDeduction > 0) {
+          walletTxt.style.display = 'inline-block';
+          walletTxt.innerText = `- ₹${walletDeduction.toLocaleString()}`;
+        } else {
+          walletTxt.style.display = 'none';
+        }
+      }
+
+      const coinsTxt = document.getElementById('coinsDeductionText');
+      if (coinsTxt) {
+        if (coinsDeduction > 0) {
+          coinsTxt.style.display = 'inline-block';
+          coinsTxt.innerText = `- ₹${coinsDeduction.toLocaleString()}`;
+        } else {
+          coinsTxt.style.display = 'none';
+        }
+      }
+
+      const finalAmount = Math.max(0, runningTotal);
 
       if (totalDisplay) {
         totalDisplay.innerText = `₹${finalAmount.toLocaleString()}`;
@@ -3780,7 +4669,7 @@
         rzpCard.style.borderColor = '#cbd5e1';
         rzpCard.innerHTML = `
           <div style="font-size: 13px; font-weight: 700; color: #0f172a; margin-bottom: 3px;">
-            <i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery
+            <i class="fa-solid fa-hand-holding-dollar"></i> Cash on Delivery (COD)
           </div>
           <p style="font-size: 12px; color: #475569;">
             Pay cash to the delivery partner when your package arrives.
@@ -3822,7 +4711,7 @@
       const resContainer = document.getElementById('trackOrderResult');
 
       if (!inputVal) {
-        showToast("कृपया अपना Order Number डालें", "error");
+        showToast("कृपया Order Number दर्ज करें", "error");
         return;
       }
 
@@ -3889,7 +4778,6 @@
 
       resContainer.innerHTML = `
         <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:16px; box-shadow:0 4px 12px rgba(0,0,0,0.03);">
-          
           <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px; border-bottom:1px solid #f1f5f9; padding-bottom:12px;">
             <div>
               <span style="font-size:11px; font-weight:700; color:#64748b; text-transform:uppercase;">Order ID</span>
@@ -3930,6 +4818,7 @@
             <div><strong style="color:#0f172a;"><i class="fa-solid fa-user"></i> ${cust.name || 'Customer'}</strong> (${cust.phone || '-'})</div>
             <div style="margin-top:3px;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> ${cust.address || ''}, <b>${cust.city || ''}</b> - ${cust.pincode || ''}, ${cust.state || ''}</div>
           </div>
+
           <!-- ITEMS -->
           <div style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:8px;">Items Ordered (${items.length}):</div>
           <div style="max-height:180px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
@@ -3960,7 +4849,6 @@
           <a href="https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(`Hello Veku Collections, I want an update regarding my Order #${order.orderId}`)}" target="_blank" style="margin-top:14px; width:100%; text-decoration:none; padding:10px; background:#22c55e; color:#ffffff; font-weight:700; font-size:13px; border-radius:6px; display:flex; align-items:center; justify-content:center; gap:8px;">
             <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Ask Support on WhatsApp
           </a>
-
         </div>
       `;
     }
@@ -3981,7 +4869,6 @@
       const state = document.getElementById('custState').value;
       const payment = document.getElementById('custPayment').value;
 
-      // Save customer profile data to keep addresses saved
       if (currentCustomer) {
         currentCustomer.name = name;
         currentCustomer.phone = phone;
@@ -4003,12 +4890,33 @@
 
       const isOnline = payment.includes("Razorpay");
       const autoCharge = isOnline ? 0 : 50; 
-      const grandTotal = Math.max(0, (subtotal - discount) + autoCharge);
+      let runningTotal = Math.max(0, (subtotal - discount) + autoCharge);
 
-      // ONLINE PAYMENT VIA RAZORPAY
+      // Check wallet & coin selections
+      const useWallet = document.getElementById('useWalletCheckbox')?.checked || false;
+      const useCoins = document.getElementById('useCoinsCheckbox')?.checked || false;
+
+      let walletUsed = 0;
+      let coinsUsed = 0;
+
+      const availableWallet = currentCustomer ? (currentCustomer.walletBalance ?? 50) : 0;
+      const availableCoins = currentCustomer ? (currentCustomer.rewardPoints ?? 50) : 0;
+
+      if (useWallet && availableWallet > 0 && runningTotal > 0) {
+        walletUsed = Math.min(availableWallet, runningTotal);
+        runningTotal -= walletUsed;
+      }
+
+      if (useCoins && availableCoins > 0 && runningTotal > 0) {
+        coinsUsed = Math.min(availableCoins, runningTotal);
+        runningTotal -= coinsUsed;
+      }
+
+      const grandTotal = Math.max(0, runningTotal);
+
       if (isOnline) {
         if (!RAZORPAY_KEY_ID || RAZORPAY_KEY_ID === "rzp_test_YOUR_RAZORPAY_KEY_ID") {
-          alert("कृपया कोड में अपनी असली Razorpay Key ID डालें (RAZORPAY_KEY_ID)!");
+          alert("कृपया सही Razorpay Key ID सेट करें (RAZORPAY_KEY_ID)!");
           return;
         }
 
@@ -4033,6 +4941,7 @@
               name, phone, address, city, pincode, state,
               payment: `Paid Online (Razorpay ID: ${razorpayPaymentId})`,
               subtotal, discount, grandTotal,
+              walletUsed, coinsUsed,
               paymentId: razorpayPaymentId,
               status: 'Paid',
               email: currentCustomer?.email || ''
@@ -4050,12 +4959,12 @@
           alert("Payment Failed: " + response.error.description);
         });
         rzp.open();
-   } else {
-        // COD
+      } else {
         await completeOrderExecution({
           name, phone, address, city, pincode, state,
           payment: 'Cash on Delivery (COD)',
           subtotal, discount, grandTotal,
+          walletUsed, coinsUsed,
           paymentId: 'COD',
           status: 'Pending',
           email: currentCustomer?.email || ''
@@ -4080,11 +4989,24 @@
         items: [...cart],
         subtotal: orderDetails.subtotal,
         discount: orderDetails.discount,
+        walletUsed: orderDetails.walletUsed || 0,
+        coinsUsed: orderDetails.coinsUsed || 0,
         total: orderDetails.grandTotal,
         paymentMethod: orderDetails.payment,
         paymentId: orderDetails.paymentId || 'COD',
         status: orderDetails.status || 'Pending'
       };
+
+      // Deduct used wallet & coins from customer balance
+      if (currentCustomer) {
+        if (orderDetails.walletUsed > 0) {
+          currentCustomer.walletBalance = Math.max(0, (currentCustomer.walletBalance ?? 50) - orderDetails.walletUsed);
+        }
+        if (orderDetails.coinsUsed > 0) {
+          currentCustomer.rewardPoints = Math.max(0, (currentCustomer.rewardPoints ?? 50) - orderDetails.coinsUsed);
+        }
+        saveCustomerState();
+      }
 
       customerOrders.unshift(orderData);
       localStorage.setItem('veku_orders', JSON.stringify(customerOrders));
@@ -4099,7 +5021,7 @@
       msg += `📞 *Phone:* ${orderDetails.phone}\n`;
       msg += `📍 *Address:* ${orderDetails.address}, ${orderDetails.city} - ${orderDetails.pincode}, ${orderDetails.state}\n`;
       msg += `💳 *Payment:* ${orderDetails.payment}\n\n`;
-      msg += `🛒 *Items Ordered:*\n`;
+      msg += `📦 *Items Ordered:*\n`;
       
       cart.forEach((item, i) => {
         msg += `${i+1}. ${item.name} (${item.size}) x ${item.qty} = ₹${(item.price * item.qty).toLocaleString()}\n`;
@@ -4107,6 +5029,12 @@
       
       if (orderDetails.discount > 0) {
         msg += `\n🏷️ Coupon Discount: -₹${orderDetails.discount.toLocaleString()}`;
+      }
+      if (orderDetails.walletUsed > 0) {
+        msg += `\n👛 Wallet Used: -₹${orderDetails.walletUsed.toLocaleString()}`;
+      }
+      if (orderDetails.coinsUsed > 0) {
+        msg += `\n🪙 Coins Used: -₹${orderDetails.coinsUsed.toLocaleString()}`;
       }
       msg += `\n💰 *Total Amount:* ₹${orderDetails.grandTotal.toLocaleString()}\n\n`;
       msg += `Track this order: Search #${orderData.orderId} on our website.\n`;
@@ -4385,13 +5313,13 @@
         }
 
         closeAdminPanel();
-        showToast("Product Cloudinary लिंक के साथ सेव हो गया! 🚀");
+        showToast("Product Cloudinary पर अपलोड हो गया! 🎉");
 
         document.getElementById('addProductForm').reset();
         selectedAddFiles = [];
         renderAddPreviewGrid();
       } catch (err) {
-        alert("अपलोड में गड़बड़ी: " + err.message);
+        alert("अपलोड में समस्या: " + err.message);
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Upload & Add Product";
@@ -4554,7 +5482,7 @@
         closeEditProductModal();
         showToast("Product updated!");
       } catch (err) {
-        alert("अपडेट में गड़बड़ी: " + err.message);
+        alert("अपलोड में समस्या: " + err.message);
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Update & Save Product";
@@ -4748,13 +5676,11 @@
       if (document.getElementById('footAddress')) document.getElementById('footAddress').value = footerData.address || '';
       if (document.getElementById('footCopyright')) document.getElementById('footCopyright').value = footerData.copyright || '';
       
-      // Social Links
       if (document.getElementById('footFacebook')) document.getElementById('footFacebook').value = footerData.facebookUrl || '';
       if (document.getElementById('footInstagram')) document.getElementById('footInstagram').value = footerData.instagramUrl || '';
       if (document.getElementById('footYouTube')) document.getElementById('footYouTube').value = footerData.youtubeUrl || '';
       if (document.getElementById('footWhatsApp')) document.getElementById('footWhatsApp').value = footerData.whatsappUrl || '';
 
-      // Quick Links Content
       if (document.getElementById('footAbout')) document.getElementById('footAbout').value = footerData.aboutText || '';
       if (document.getElementById('footBlog')) document.getElementById('footBlog').value = footerData.blogText || '';
       if (document.getElementById('footPrivacyPolicy')) document.getElementById('footPrivacyPolicy').value = footerData.privacyPolicy || '';
@@ -4814,8 +5740,6 @@
 
       mainFooter.innerHTML = `
         <div class="footer-grid">
-          
-          <!-- COL 1: BRAND DETAILS & ADDRESS -->
           <div class="footer-col footer-brand-info">
             <a href="#" class="footer-brand-title" onclick="resetFilter(); return false;">
               <div class="logo-badge">
@@ -4849,7 +5773,6 @@
               Get direction <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:11px;"></i>
             </a>
 
-            <!-- 4 ROUND SOCIAL ICONS -->
             <div class="footer-social-icons">
               <a href="${footerData.facebookUrl || '#'}" target="_blank" class="social-icon-circle" aria-label="Facebook">
                 <i class="fa-brands fa-facebook-f"></i>
@@ -4866,7 +5789,6 @@
             </div>
           </div>
 
-          <!-- COL 2: COLLECTION -->
           <div class="footer-col footer-col-accordion">
             <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
               <h4>Collection</h4>
@@ -4879,7 +5801,6 @@
             </div>
           </div>
 
-          <!-- COL 3: QUICK LINKS -->
           <div class="footer-col footer-col-accordion">
             <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
               <h4>Quick Links</h4>
@@ -4900,7 +5821,6 @@
             </div>
           </div>
 
-          <!-- COL 4: SIGN UP FOR EMAIL -->
           <div class="footer-col footer-col-accordion">
             <div class="footer-accordion-header" onclick="toggleFooterAccordion(this)">
               <h4>Sign Up for Email</h4>
@@ -4909,7 +5829,7 @@
             <div class="footer-accordion-content">
               <p style="margin-bottom: 12px; color: #475569;">Sign up to get first dibs on new arrivals, sales, exclusive content, events and more!</p>
 
-              <form class="newsletter-form-box" onsubmit="event.preventDefault(); showToast('Thank you for subscribing! ✨'); this.reset();">
+              <form class="newsletter-form-box" onsubmit="event.preventDefault(); showToast('Thank you for subscribing! 🎉'); this.reset();">
                 <input type="email" class="newsletter-input" placeholder="Enter email address" required>
                 <button type="submit" class="newsletter-btn">
                   Subscribe <i class="fa-solid fa-arrow-up-right-from-square" style="font-size:10px;"></i>
@@ -4922,16 +5842,14 @@
               </div>
             </div>
           </div>
-
         </div>
 
-        <!-- FOOTER BOTTOM -->
         <div class="footer-bottom">
           <div>${footerData.copyright || "© 2026 Veku Collections. All rights reserved."}</div>
           <div class="payment-badges-row">
             <span class="pay-badge-item visa">VISA</span>
             <span class="pay-badge-item paypal"><i class="fa-brands fa-paypal"></i> PayPal</span>
-            <span class="pay-badge-item mastercard">●● mastercard</span>
+            <span class="pay-badge-item mastercard">🔴🟠 mastercard</span>
             <span class="pay-badge-item amex">AMEX</span>
             <span class="pay-badge-item">UPI / RuPay</span>
           </div>
@@ -4984,13 +5902,11 @@
         address: document.getElementById('footAddress').value.trim(),
         copyright: document.getElementById('footCopyright').value.trim(),
 
-        // Social Media Links
         facebookUrl: document.getElementById('footFacebook') ? document.getElementById('footFacebook').value.trim() : (footerData.facebookUrl || ''),
         instagramUrl: document.getElementById('footInstagram') ? document.getElementById('footInstagram').value.trim() : (footerData.instagramUrl || ''),
         youtubeUrl: document.getElementById('footYouTube') ? document.getElementById('footYouTube').value.trim() : (footerData.youtubeUrl || ''),
         whatsappUrl: document.getElementById('footWhatsApp') ? document.getElementById('footWhatsApp').value.trim() : (footerData.whatsappUrl || ''),
         
-        // Quick Links Content
         aboutText: document.getElementById('footAbout').value.trim(),
         blogText: document.getElementById('footBlog') ? document.getElementById('footBlog').value.trim() : (footerData.blogText || ''),
         privacyPolicy: document.getElementById('footPrivacyPolicy') ? document.getElementById('footPrivacyPolicy').value.trim() : (footerData.privacyPolicy || ''),
@@ -5052,7 +5968,12 @@
         uid: user.uid,
         name: user.displayName || user.email.split('@')[0],
         email: user.email,
-        phone: user.phoneNumber || ''
+        phone: user.phoneNumber || '',
+        walletBalance: 50,
+        rewardPoints: 50,
+        referralCode: 'VEKU' + Math.floor(1000 + Math.random() * 9000),
+        addresses: [],
+        refundDetails: { upiId: '', accName: '', accNumber: '', ifsc: '' }
       };
 
       if (userDocSnap.exists()) {
@@ -5084,11 +6005,10 @@
       await sendPasswordResetEmail(window.auth, email);
     };
 
-    // CUSTOMER LOGIN (EMAIL OR PHONE WITH PASSWORD)
+    // CUSTOMER LOGIN
     window.loginCustomerWithFirebase = async (ident, password) => {
       let email = ident;
       if (!ident.includes('@')) {
-        // If phone entered, find corresponding email
         const userByPhone = await window.findCustomerByPhone(ident);
         if (userByPhone && userByPhone.email) {
           email = userByPhone.email;
@@ -5105,7 +6025,12 @@
         uid: user.uid,
         email: user.email,
         name: user.email.split('@')[0],
-        phone: ''
+        phone: '',
+        walletBalance: 50,
+        rewardPoints: 50,
+        referralCode: 'VEKU' + Math.floor(1000 + Math.random() * 9000),
+        addresses: [],
+        refundDetails: { upiId: '', accName: '', accNumber: '', ifsc: '' }
       };
 
       if (userDocSnap.exists()) {
@@ -5115,7 +6040,7 @@
       return custData;
     };
 
-    // SIGN UP CUSTOMER WITH PROFILE & ADDRESS
+    // SIGN UP CUSTOMER
     window.registerCustomerWithFirebase = async (email, password, profileData) => {
       const userCredential = await createUserWithEmailAndPassword(window.auth, email, password);
       const user = userCredential.user;
@@ -5150,7 +6075,6 @@
     onAuthStateChanged(window.auth, async (user) => {
       if (user) {
         if (user.email === 'vekucollections@gmail.com') {
-          // Admin logged in
           unsubscribeOrders = onSnapshot(collection(window.db, "orders"), (snapshot) => {
             let ordersList = [];
             snapshot.forEach(d => ordersList.push({ ...d.data(), docId: d.id }));
@@ -5161,7 +6085,6 @@
             console.warn("Orders sync permission restricted:", error.message);
           });
         } else {
-          // Customer logged in
           try {
             const userDocSnap = await getDoc(doc(window.db, "customers", user.uid));
             if (userDocSnap.exists()) {
@@ -5201,7 +6124,7 @@
       }
     });
 
-    // Sync Settings, Footer, Social Links & All Quick Links
+    // Sync Settings, Footer, Social Links & Policies
     onSnapshot(doc(window.db, "settings", "footer_config"), (docSnap) => {
       if (docSnap.exists() && docSnap.data().footerData) {
         footerData = { ...defaultFooterData, ...docSnap.data().footerData };
