@@ -397,7 +397,7 @@
       .products-grid { grid-template-columns: repeat(4, 1fr); gap: 26px; }
     }
 
-    /* SIDEBAR DRAWER - LIBAS STYLED */
+    /* SIDEBAR DRAWER */
     .sidebar-overlay {
       position: fixed; top: 0; left: 0; width: 100%; height: 100%;
       background-color: rgba(15, 23, 42, 0.65); backdrop-filter: blur(3px);
@@ -927,6 +927,11 @@
       box-shadow: 0 4px 14px rgba(0,0,0,0.2);
       flex-shrink: 0;
       border: 2px solid rgba(255,255,255,0.4);
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .cust-avatar-circle:hover {
+      transform: scale(1.05);
     }
     .cust-info-col h3 {
       font-size: 19px;
@@ -963,6 +968,7 @@
       overflow-x: auto;
       flex-shrink: 0;
       scrollbar-width: thin;
+      scroll-behavior: smooth;
     }
     .cust-dash-tab {
       padding: 12px 16px;
@@ -993,17 +999,28 @@
       overflow-y: auto;
       flex: 1;
       background-color: #f8fafc;
+      touch-action: pan-y;
+      position: relative;
     }
     .dash-pane {
       display: none;
     }
     .dash-pane.active {
       display: block;
-      animation: fadeInPane 0.2s ease-out;
     }
-    @keyframes fadeInPane {
-      from { opacity: 0; transform: translateY(4px); }
-      to { opacity: 1; transform: translateY(0); }
+    .dash-pane.slide-right {
+      animation: slideInRight 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    .dash-pane.slide-left {
+      animation: slideInLeft 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    }
+    @keyframes slideInRight {
+      from { opacity: 0; transform: translateX(25px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-25px); }
+      to { opacity: 1; transform: translateX(0); }
     }
 
     /* STATS ROW (WALLET, REWARDS, ORDERS) */
@@ -1122,7 +1139,7 @@
       margin-bottom: 10px;
     }
 
-    /* SUPPORT TICKET & FAQ ACCORDION */
+    /* FAQ ACCORDION */
     .faq-item-dash {
       background: #ffffff;
       border: 1px solid #e2e8f0;
@@ -1261,7 +1278,6 @@
       margin-bottom: 20px;
     }
     
-    .footer-col .footer-social-icons .social-icon-circle,
     .social-icon-circle {
       width: 40px;
       height: 40px;
@@ -1281,19 +1297,7 @@
       padding: 0 !important;
       margin: 0 !important;
     }
-    
-    .footer-col .footer-social-icons .social-icon-circle i,
-    .social-icon-circle i {
-      display: inline-block !important;
-      line-height: 1 !important;
-      font-size: 16.5px !important;
-      color: inherit !important;
-      margin: 0 !important;
-      padding: 0 !important;
-      text-align: center;
-    }
 
-    .footer-col .footer-social-icons .social-icon-circle:hover,
     .social-icon-circle:hover {
       background: #000000 !important;
       color: #ffffff !important;
@@ -1608,14 +1612,13 @@
       <h3><i class="fa-solid fa-fire"></i> FESTIVE OFFER!</h3>
       <p>Code: <strong>FLAT10</strong> or <strong>OFF10</strong> for instant discounts.</p>
     </div>
-    <div class="hero-pill">  100% Premium Fabric</div>
+    <div class="hero-pill">🌿 100% Premium Fabric</div>
   </div>
 
-  <!-- SIDEBAR NAVIGATION DRAWER (LIBAS STYLE LOG IN HEADER) -->
+  <!-- SIDEBAR NAVIGATION DRAWER -->
   <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
 
   <div class="sidebar-drawer" id="sidebarDrawer">
-    <!-- TOP DRAWER HEADER WITH LIBAS LOGIN BUTTON -->
     <div class="sidebar-header">
       <div class="libas-drawer-login-btn" onclick="closeSidebar(); openCustomerAuthOrProfile();" id="sidebarDrawerLoginBtn">
         <i class="fa-solid fa-circle-user libas-user-icon"></i>
@@ -1818,10 +1821,10 @@
         <form onsubmit="handleRequestOtpSubmit(event)">
           <label class="auth-field-label">MOBILE NUMBER</label>
           <div style="display:flex; align-items:center; border:1.5px solid #cbd5e1; border-radius:8px; padding:4px 10px; margin-bottom:12px; background:#ffffff;">
-            <span style="font-weight:700; font-size:13.5px; color:#0f172a; padding-right:8px; border-right:1px solid #e2e8f0;">   +91</span>
+            <span style="font-weight:700; font-size:13.5px; color:#0f172a; padding-right:8px; border-right:1px solid #e2e8f0;">🇮🇳 +91</span>
             <input type="tel" id="quickOtpPhoneInput" maxlength="10" pattern="[0-9]{10}" placeholder="Enter 10 digit number" required style="flex:1; border:none; outline:none; padding:8px; font-size:14px; font-weight:600;">
           </div>
-          <button type="submit" class="auth-orange-btn">Request OTP  </button>
+          <button type="submit" class="auth-orange-btn">Request OTP 🚀</button>
         </form>
 
         <div id="otpInputArea" style="display:none; margin-top:14px; padding-top:14px; border-top:1px dashed #cbd5e1;">
@@ -1840,8 +1843,82 @@
         </div>
 
         <div style="text-align:center; margin-top:14px;">
-          <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color:#0284c7; font-weight:700; font-size:12.5px;">  Back to Email / Password Login</a>
+          <a href="javascript:void(0)" onclick="switchAuthTab('login')" style="color:#0284c7; font-weight:700; font-size:12.5px;">← Back to Email / Password Login</a>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK EDIT CUSTOMER PROFILE & ADDRESS MODAL -->
+  <div class="admin-modal-overlay" id="editCustomerProfileModalOverlay" style="z-index: 3100;">
+    <div class="admin-modal" style="max-width: 520px;">
+      <div class="admin-header">
+        <h3><i class="fa-solid fa-user-pen"></i> Edit Profile & Address</h3>
+        <button class="close-cart-btn" onclick="closeEditProfileQuickModal()"><i class="fa-solid fa-xmark"></i></button>
+      </div>
+      <div class="admin-body">
+        <form onsubmit="handleSaveQuickProfileModal(event)">
+          <div style="font-size:12px; font-weight:800; color:#0284c7; text-transform:uppercase; margin-bottom:8px; display:flex; align-items:center; gap:6px;">
+            <i class="fa-solid fa-id-card"></i> Personal Details
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label>Full Name *</label>
+              <input type="text" id="quickEditName" placeholder="Full Name" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>Mobile Number *</label>
+              <input type="tel" id="quickEditPhone" pattern="[0-9]{10}" maxlength="10" placeholder="10 Digit Phone" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email Address</label>
+            <input type="email" id="quickEditEmail" placeholder="example@gmail.com">
+          </div>
+
+          <div style="font-size:12px; font-weight:800; color:#0284c7; text-transform:uppercase; margin:16px 0 8px 0; display:flex; align-items:center; gap:6px; border-top:1px dashed #cbd5e1; padding-top:12px;">
+            <i class="fa-solid fa-location-dot"></i> Delivery Address Details
+          </div>
+          <div class="form-group">
+            <label>Street Address / House No *</label>
+            <textarea id="quickEditAddress" rows="2" placeholder="House/Flat No, Landmark, Area" required></textarea>
+          </div>
+          <div class="form-row">
+            <div class="form-group" style="flex:1;">
+              <label>City *</label>
+              <input type="text" id="quickEditCity" placeholder="City" required>
+            </div>
+            <div class="form-group" style="flex:1;">
+              <label>PIN Code *</label>
+              <input type="text" id="quickEditPincode" pattern="[0-9]{6}" maxlength="6" placeholder="PIN" required>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>State *</label>
+            <select id="quickEditState" required>
+              <option value="">Select State</option>
+              <option value="Uttar Pradesh">Uttar Pradesh</option>
+              <option value="Delhi">Delhi (NCT)</option>
+              <option value="Haryana">Haryana</option>
+              <option value="Punjab">Punjab</option>
+              <option value="Rajasthan">Rajasthan</option>
+              <option value="Madhya Pradesh">Madhya Pradesh</option>
+              <option value="Bihar">Bihar</option>
+              <option value="Gujarat">Gujarat</option>
+              <option value="Maharashtra">Maharashtra</option>
+              <option value="West Bengal">West Bengal</option>
+              <option value="Andhra Pradesh">Andhra Pradesh</option>
+              <option value="Karnataka">Karnataka</option>
+              <option value="Tamil Nadu">Tamil Nadu</option>
+              <option value="Telangana">Telangana</option>
+              <option value="Uttarakhand">Uttarakhand</option>
+              <option value="Other">Other State / UT</option>
+            </select>
+          </div>
+          <button type="submit" class="submit-product-btn" style="background:#0284c7; margin-top:8px;">
+            <i class="fa-solid fa-floppy-disk"></i> Save & Update Everywhere
+          </button>
+        </form>
       </div>
     </div>
   </div>
@@ -1852,11 +1929,16 @@
   <div class="admin-modal-overlay" id="customerDashboardOverlay" style="z-index: 2900;">
     <div class="customer-dashboard-modal">
       
-      <!-- TOP PROFILE HERO CARD -->
+      <!-- TOP PROFILE HERO CARD (Clickable Name & Avatar for Edit Profile) -->
       <div class="cust-profile-card">
-        <div class="cust-avatar-circle" id="dashAvatarLetter">U</div>
+        <div class="cust-avatar-circle" id="dashAvatarLetter" onclick="openEditProfileQuickModal()" title="Click to edit profile">U</div>
         <div class="cust-info-col" style="flex:1;">
-          <h3 id="dashUserName">Customer Name</h3>
+          <div style="display:inline-flex; align-items:center; gap:8px; cursor:pointer;" onclick="openEditProfileQuickModal()" title="Click to edit personal & address details">
+            <h3 id="dashUserName" style="text-decoration: underline; text-underline-offset: 3px;">Customer Name</h3>
+            <span style="background:rgba(255,255,255,0.22); padding:3px 7px; border-radius:6px; font-size:11px; display:inline-flex; align-items:center; gap:4px; font-weight:700;">
+              <i class="fa-solid fa-pen-to-square"></i> Edit
+            </span>
+          </div>
           <p id="dashUserEmail">customer@example.com</p>
           <div class="account-quick-badges">
             <span class="account-quick-badge"><i class="fa-solid fa-crown" style="color:#f59e0b;"></i> Veku Club Member</span>
@@ -1868,7 +1950,7 @@
       </div>
 
       <!-- DASHBOARD TAB NAVIGATION -->
-      <div class="cust-dash-nav">
+      <div class="cust-dash-nav" id="custDashTabBar">
         <button class="cust-dash-tab active" onclick="switchCustomerDashTab('dashOverviewPane', this)">
           <i class="fa-solid fa-gauge-high"></i> Overview
         </button>
@@ -1892,8 +1974,8 @@
         </button>
       </div>
 
-      <!-- DASHBOARD CONTENT PANES -->
-      <div class="cust-dash-body">
+      <!-- DASHBOARD CONTENT PANES (TOUCH SWIPEABLE BODY) -->
+      <div class="cust-dash-body" id="customerDashBody">
         
         <!-- PANE 1: OVERVIEW -->
         <div class="dash-pane active" id="dashOverviewPane">
@@ -1903,7 +1985,7 @@
                 <i class="fa-solid fa-wallet"></i>
               </div>
               <div>
-                <div class="stat-val" id="dashStatWallet"> 50</div>
+                <div class="stat-val" id="dashStatWallet">₹50</div>
                 <div class="stat-lbl">Store Wallet</div>
               </div>
             </div>
@@ -1946,17 +2028,17 @@
           </div>
 
           <!-- Recent Order Snippet -->
-          <div class="dash-section-title">
-            <span><i class="fa-solid fa-clock-rotate-left" style="color:#0284c7;"></i> Most Recent Order</span>
-            <a href="javascript:void(0)" onclick="switchCustomerDashTabByName('dashOrdersPane')" style="font-size:12px; color:#0284c7; text-decoration:none; font-weight:700;">View All  </a>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-weight:800; font-size:14px; color:#0f172a;"><i class="fa-solid fa-clock-rotate-left" style="color:#0284c7;"></i> Most Recent Order</span>
+            <a href="javascript:void(0)" onclick="switchCustomerDashTabByName('dashOrdersPane')" style="font-size:12px; color:#0284c7; text-decoration:none; font-weight:700;">View All →</a>
           </div>
           <div id="dashRecentOrderContainer"></div>
         </div>
 
         <!-- PANE 2: MY ORDERS & ORDER HISTORY -->
         <div class="dash-pane" id="dashOrdersPane">
-          <div class="dash-section-title">
-            <span><i class="fa-solid fa-box" style="color:#0284c7;"></i> Order History & Tracking</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-weight:800; font-size:14px; color:#0f172a;"><i class="fa-solid fa-box" style="color:#0284c7;"></i> Order History & Tracking</span>
             <span style="font-size:12px; color:#64748b; font-weight:600;" id="userOrdersTotalCount">0 Orders</span>
           </div>
 
@@ -1965,8 +2047,8 @@
 
         <!-- PANE 3: SAVED ADDRESSES -->
         <div class="dash-pane" id="dashAddressesPane">
-          <div class="dash-section-title">
-            <span><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> Manage Delivery Addresses</span>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+            <span style="font-weight:800; font-size:14px; color:#0f172a;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> Manage Delivery Addresses</span>
             <button type="button" onclick="toggleAddAddressForm()" class="dash-order-action-btn primary" style="font-size:11px;">
               <i class="fa-solid fa-plus"></i> Add New Address
             </button>
@@ -2029,7 +2111,7 @@
                 <i class="fa-solid fa-wallet"></i>
               </div>
               <div>
-                <div class="stat-val" id="dashWalletBalDisplay"> 50.00</div>
+                <div class="stat-val" id="dashWalletBalDisplay">₹50.00</div>
                 <div class="stat-lbl">Usable Wallet Balance</div>
               </div>
             </div>
@@ -2039,7 +2121,7 @@
               </div>
               <div>
                 <div class="stat-val" id="dashLoyaltyPointsDisplay">50 Coins</div>
-                <div class="stat-lbl">Worth  50 on next order</div>
+                <div class="stat-lbl">Worth ₹50 on next order</div>
               </div>
             </div>
           </div>
@@ -2048,8 +2130,8 @@
           <div style="background:linear-gradient(135deg, #0284c7 0%, #0f172a 100%); color:white; border-radius:12px; padding:18px 20px; margin-bottom:18px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
               <div>
-                <h4 style="font-size:16px; font-weight:800;"><i class="fa-solid fa-gift" style="color:#facc15;"></i> Refer & Earn  100!</h4>
-                <p style="font-size:12px; opacity:0.9; margin-top:3px;">Invite your friends. When they place their first order, you both get  100 in wallet!</p>
+                <h4 style="font-size:16px; font-weight:800;"><i class="fa-solid fa-gift" style="color:#facc15;"></i> Refer & Earn ₹100!</h4>
+                <p style="font-size:12px; opacity:0.9; margin-top:3px;">Invite your friends. When they place their first order, you both get ₹100 in wallet!</p>
               </div>
               <button onclick="shareReferralWhatsApp()" style="background:#22c55e; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12.5px; display:inline-flex; align-items:center; gap:6px;">
                 <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Invite on WhatsApp
@@ -2061,8 +2143,7 @@
             </div>
           </div>
 
-          <!-- ACTIVE STORE COUPONS -->
-          <div class="dash-section-title">
+          <div style="font-weight:800; font-size:14px; color:#0f172a; margin-bottom:10px;">
             <span><i class="fa-solid fa-tags" style="color:#0284c7;"></i> Available Coupons For You</span>
           </div>
           <div id="dashCouponsList"></div>
@@ -2071,22 +2152,43 @@
         <!-- PANE 5: PROFILE & SECURITY SETTINGS -->
         <div class="dash-pane" id="dashProfilePane">
           <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; margin-bottom:16px;">
-            <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px;"><i class="fa-solid fa-id-badge" style="color:#0284c7;"></i> Personal Details</h4>
+            <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px;"><i class="fa-solid fa-id-badge" style="color:#0284c7;"></i> Personal Details & Address</h4>
             <form onsubmit="handleUpdateCustomerProfile(event)">
               <div class="form-row">
-                <div class="form-group">
+                <div class="form-group" style="flex:1;">
                   <label>Full Name *</label>
                   <input type="text" id="dashEditName" required>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="flex:1;">
                   <label>Mobile Number *</label>
                   <input type="tel" id="dashEditPhone" pattern="[0-9]{10}" maxlength="10" required>
                 </div>
               </div>
               <div class="form-group">
                 <label>Email Address</label>
-                <input type="email" id="dashEditEmail" readonly style="background:#f1f5f9; color:#64748b;">
+                <input type="email" id="dashEditEmail">
               </div>
+
+              <div class="form-group">
+                <label>Delivery Address *</label>
+                <textarea id="dashEditAddress" rows="2" placeholder="House No, Landmark, Area" required></textarea>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group" style="flex:1;">
+                  <label>City *</label>
+                  <input type="text" id="dashEditCity" placeholder="City" required>
+                </div>
+                <div class="form-group" style="flex:1;">
+                  <label>PIN Code *</label>
+                  <input type="text" id="dashEditPincode" pattern="[0-9]{6}" maxlength="6" placeholder="PIN" required>
+                </div>
+                <div class="form-group" style="flex:1;">
+                  <label>State *</label>
+                  <input type="text" id="dashEditState" placeholder="State" required>
+                </div>
+              </div>
+
               <button type="submit" class="dash-order-action-btn primary" style="padding:10px 18px; font-size:13px;">Save Profile Changes</button>
             </form>
           </div>
@@ -2163,7 +2265,6 @@
 
         <!-- PANE 7: HELP & CUSTOMER SUPPORT -->
         <div class="dash-pane" id="dashSupportPane">
-          <!-- 24x7 Direct Buttons -->
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:12px; margin-bottom:18px;">
             <a href="https://wa.me/917088484025" target="_blank" style="text-decoration:none; background:#22c55e; color:white; padding:14px; border-radius:10px; display:flex; align-items:center; gap:12px; font-weight:800; font-size:13px;">
               <i class="fa-brands fa-whatsapp fa-2x"></i>
@@ -2181,8 +2282,7 @@
             </a>
           </div>
 
-          <!-- FAQs -->
-          <div class="dash-section-title">
+          <div style="font-weight:800; font-size:14px; color:#0f172a; margin-bottom:10px;">
             <span><i class="fa-solid fa-circle-question" style="color:#0284c7;"></i> Frequently Asked Questions</span>
           </div>
 
@@ -2290,13 +2390,13 @@
             <h3 class="detail-title" id="detailModalName">Product Name</h3>
             <div id="detailModalRatingBadge" style="font-size: 13px; color: #eab308; margin-bottom: 8px;"></div>
             
-            <div class="detail-price-box" id="detailModalPrice"> 0</div>
+            <div class="detail-price-box" id="detailModalPrice">₹0</div>
             
             <p id="detailModalDesc" style="font-size: 13px; color: #475569; margin-bottom: 14px; line-height: 1.6;"></p>
 
             <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
               <span style="font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase;">Select Size:</span>
-              <a href="#" class="size-guide-link" onclick="openSizeGuide(event)">  Size Guide</a>
+              <a href="#" class="size-guide-link" onclick="openSizeGuide(event)">📏 Size Guide</a>
             </div>
             <div class="size-options" id="detailModalSizes"></div>
 
@@ -2400,13 +2500,13 @@
         </div>
 
         <div class="cart-summary-row">
-          <span>Subtotal:</span><span id="cartSubtotal"> 0</span>
+          <span>Subtotal:</span><span id="cartSubtotal">₹0</span>
         </div>
         <div class="cart-summary-row" id="discountRow" style="display: none; color: #16a34a;">
-          <span>Discount:</span><span id="cartDiscount">- 0</span>
+          <span>Discount:</span><span id="cartDiscount">- ₹0</span>
         </div>
         <div class="cart-total">
-          <span>Total:</span><span id="cartTotal"> 0</span>
+          <span>Total:</span><span id="cartTotal">₹0</span>
         </div>
         <button class="whatsapp-btn" onclick="openCustomerDetailsModal()">
           <i class="fa-solid fa-shield-halved" style="font-size: 16px;"></i> Proceed to Checkout
@@ -2479,16 +2579,16 @@
               <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
                 <span style="display:flex; align-items:center; gap:8px;">
                   <input type="checkbox" id="useWalletCheckbox" onchange="handlePaymentMethodChange()" style="width:16px; height:16px; accent-color:#0284c7; cursor:pointer;">
-                  <span>Use Store Wallet (<strong id="checkoutWalletBal" style="color:#0284c7;"> 50</strong>)</span>
+                  <span>Use Store Wallet (<strong id="checkoutWalletBal" style="color:#0284c7;">₹50</strong>)</span>
                 </span>
-                <span id="walletDeductionText" style="color:#16a34a; font-weight:800; display:none;">-  0</span>
+                <span id="walletDeductionText" style="color:#16a34a; font-weight:800; display:none;">- ₹0</span>
               </label>
               <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer;">
                 <span style="display:flex; align-items:center; gap:8px;">
                   <input type="checkbox" id="useCoinsCheckbox" onchange="handlePaymentMethodChange()" style="width:16px; height:16px; accent-color:#d97706; cursor:pointer;">
                   <span>Use Veku Coins (<strong id="checkoutCoinsBal" style="color:#d97706;">50 Coins</strong>)</span>
                 </span>
-                <span id="coinsDeductionText" style="color:#16a34a; font-weight:800; display:none;">-  0</span>
+                <span id="coinsDeductionText" style="color:#16a34a; font-weight:800; display:none;">- ₹0</span>
               </label>
             </div>
           </div>
@@ -2512,7 +2612,7 @@
 
           <div style="display:flex; justify-content:space-between; align-items:center; margin-top:14px; padding-top:10px; border-top:1px dashed #cbd5e1; font-size:15px; font-weight:800; color:#0f172a;">
             <span>Total Payable:</span>
-            <span id="checkoutTotalDisplay" style="font-size: 18px; color: #0284c7;"> 0</span>
+            <span id="checkoutTotalDisplay" style="font-size: 18px; color: #0284c7;">₹0</span>
           </div>
 
           <button type="submit" id="checkoutSubmitBtn" class="whatsapp-btn" style="margin-top: 12px; background-color: #0284c7;">
@@ -2636,11 +2736,11 @@
           <div class="form-group">
             <label>Rating (1 to 5 Stars)</label>
             <select id="editReviewRating" style="width:100%; padding:10px; border:1px solid #cbd5e1; border-radius:6px; font-size:13px; font-weight:600;">
-              <option value="5">      (5 Star)</option>
-              <option value="4">     (4 Star)</option>
-              <option value="3">    (3 Star)</option>
-              <option value="2">   (2 Star)</option>
-              <option value="1">  (1 Star)</option>
+              <option value="5">⭐⭐⭐⭐⭐ (5 Star)</option>
+              <option value="4">⭐⭐⭐⭐ (4 Star)</option>
+              <option value="3">⭐⭐⭐ (3 Star)</option>
+              <option value="2">⭐⭐ (2 Star)</option>
+              <option value="1">⭐ (1 Star)</option>
             </select>
           </div>
           <div class="form-group">
@@ -2726,8 +2826,8 @@
               <div id="variantsContainer">
                 <div class="variant-row" style="display: flex; gap: 8px; margin-bottom: 8px;">
                   <input type="text" placeholder="Size (e.g. M, L)" class="variant-size" style="flex:1;" required>
-                  <input type="number" placeholder="Selling Price ( )" class="variant-price" style="flex:1;" required>
-                  <input type="number" placeholder="MRP ( )" class="variant-mrp" style="flex:1;">
+                  <input type="number" placeholder="Selling Price (₹)" class="variant-price" style="flex:1;" required>
+                  <input type="number" placeholder="MRP (₹)" class="variant-mrp" style="flex:1;">
                 </div>
               </div>
               <button type="button" class="add-variant-btn" onclick="addVariantRow('variantsContainer')">+ Add Another Size</button>
@@ -2807,7 +2907,7 @@
               <div class="form-group">
                 <label>Type</label>
                 <select id="couponTypeSelect">
-                  <option value="flat">Flat  </option>
+                  <option value="flat">Flat ₹</option>
                   <option value="percent">Percentage %</option>
                 </select>
               </div>
@@ -2875,7 +2975,7 @@
 
             <div class="form-group">
               <label>Copyright Text *</label>
-              <input type="text" id="footCopyright" placeholder="  2026 Veku Collections. All rights reserved." required>
+              <input type="text" id="footCopyright" placeholder="© 2026 Veku Collections. All rights reserved." required>
             </div>
 
             <div style="margin-top: 20px; margin-bottom: 14px; border-top: 2px dashed #cbd5e1; padding-top: 16px;">
@@ -2979,7 +3079,6 @@
       <span class="bottom-badge" id="bottomCartCount">0</span>
       <span>Cart</span>
     </button>
-    <!-- CUSTOMER PROFILE / LOGIN TRIGGER -->
     <button class="bottom-nav-item" onclick="openCustomerAuthOrProfile()" aria-label="Account" id="bottomAccountBtn">
       <span style="position:relative; display:inline-block; line-height:1;">
         <i class="fa-regular fa-user" id="bottomAccountIcon"></i>
@@ -3089,7 +3188,7 @@
       phone: "+91 7088484025",
       email: "support@vekucollections.com",
       address: "Main Market, Aligarh, Uttar Pradesh, 202001",
-      copyright: "  2026 Veku Collections. All rights reserved.",
+      copyright: "© 2026 Veku Collections. All rights reserved.",
       blogText: "Stay tuned for the latest ethnic fashion guides, styling tips, artisan weaves, and festive collections!",
       privacyPolicy: "We value your privacy. We only collect basic shipping and payment information to deliver your order safely and never share your data with third parties.",
       shippingPolicy: "All orders are safely packed and dispatched within 24 to 48 hours. Standard delivery across India takes 3 to 7 business days with real-time tracking.",
@@ -3174,7 +3273,7 @@
       const loginBtn = document.getElementById('loginSubmitBtn');
 
       loginBtn.disabled = true;
-      loginBtn.innerText = "AUTHENTICATING...  ";
+      loginBtn.innerText = "AUTHENTICATING... ⏳";
 
       try {
         let authUser = null;
@@ -3212,7 +3311,7 @@
       try {
         if (window.resetCustomerPassword) {
           await window.resetCustomerPassword(email.trim());
-          showToast("Password reset link sent to your email!   ");
+          showToast("Password reset link sent to your email! 📧");
         } else {
           showToast("Reset link sent to " + email);
         }
@@ -3262,7 +3361,7 @@
 
       const submitBtn = document.getElementById('signUpFinalSubmitBtn');
       submitBtn.disabled = true;
-      submitBtn.innerText = "CREATING ACCOUNT...  ";
+      submitBtn.innerText = "CREATING ACCOUNT... ⏳";
 
       const initialAddress = {
         id: 'addr_' + Date.now(),
@@ -3321,11 +3420,11 @@
 
       const submitBtn = e.target.querySelector('button[type="submit"]');
       submitBtn.disabled = true;
-      submitBtn.innerText = "WhatsApp OTP Sending...  ";
+      submitBtn.innerText = "WhatsApp OTP Sending... ⏳";
 
       quickGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
       const chatId = `91${phoneInput}@c.us`;
-      const messageText = `   *VEKU COLLECTIONS*\n\nAapka login verification code hai: *${quickGeneratedOtp}*\n\nYeh code kisi ke sath share na karein. Valid for 10 minutes.`;
+      const messageText = `✨ *VEKU COLLECTIONS*\n\nAapka login verification code hai: *${quickGeneratedOtp}*\n\nYeh code kisi ke sath share na karein. Valid for 10 minutes.`;
       const apiUrl = `${GREEN_API_URL}/waInstance${GREEN_API_ID_INSTANCE}/sendMessage/${GREEN_API_TOKEN}`;
 
       try {
@@ -3343,7 +3442,7 @@
             if (input) input.value = '';
           });
           document.getElementById('otpInputArea').style.display = 'block';
-          showToast(`WhatsApp par OTP bhej diya gaya hai!  `, "success");
+          showToast(`WhatsApp par OTP bhej diya gaya hai! 📱`, "success");
           setTimeout(() => {
             const first = document.getElementById('qOtp1');
             if (first) first.focus();
@@ -3356,7 +3455,7 @@
         showToast("WhatsApp OTP send fail! WhatsApp check karein.", "error");
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerText = "Request OTP  ";
+        submitBtn.innerText = "Request OTP 🚀";
       }
     }
 
@@ -3457,7 +3556,8 @@
       localStorage.setItem('veku_current_user', JSON.stringify(currentCustomer));
       closeCustomerAuthModal();
       updateCustomerHeaderUI();
-      showToast(`Welcome back, ${currentCustomer.name || 'Customer'}!  `);
+      syncCustomerProfileToAllUI();
+      showToast(`Welcome back, ${currentCustomer.name || 'Customer'}! 🎉`);
       autoFillCheckoutForCustomer();
     }
 
@@ -3479,31 +3579,166 @@
     }
 
     /* ========================================================
+       UNIFIED PROFILE & ADDRESS SYNCHRONIZER (TWO-WAY SYNC)
+       ======================================================== */
+    function syncCustomerProfileToAllUI() {
+      if (!currentCustomer) return;
+
+      const name = currentCustomer.name || 'Customer';
+      const email = currentCustomer.email || (currentCustomer.phone ? `${currentCustomer.phone}@mobile` : '');
+      const phone = currentCustomer.phone || '';
+      
+      // Default address or first address
+      let defAddr = (currentCustomer.addresses || []).find(a => a.isDefault) || (currentCustomer.addresses && currentCustomer.addresses[0]) || null;
+      if (!defAddr && currentCustomer.address) {
+        defAddr = {
+          address: currentCustomer.address,
+          city: currentCustomer.city || '',
+          pincode: currentCustomer.pincode || '',
+          state: currentCustomer.state || ''
+        };
+      }
+
+      const address = defAddr ? (defAddr.address || '') : (currentCustomer.address || '');
+      const city = defAddr ? (defAddr.city || '') : (currentCustomer.city || '');
+      const pincode = defAddr ? (defAddr.pincode || '') : (currentCustomer.pincode || '');
+      const state = defAddr ? (defAddr.state || '') : (currentCustomer.state || '');
+
+      // 1. Dashboard Top Card
+      const dashNameEl = document.getElementById('dashUserName');
+      const dashEmailEl = document.getElementById('dashUserEmail');
+      const dashAvatarEl = document.getElementById('dashAvatarLetter');
+      if (dashNameEl) dashNameEl.innerText = name;
+      if (dashEmailEl) dashEmailEl.innerText = email || phone;
+      if (dashAvatarEl) dashAvatarEl.innerText = name.charAt(0).toUpperCase();
+
+      // 2. Settings Tab Inputs
+      const sName = document.getElementById('dashEditName');
+      const sPhone = document.getElementById('dashEditPhone');
+      const sEmail = document.getElementById('dashEditEmail');
+      const sAddr = document.getElementById('dashEditAddress');
+      const sCity = document.getElementById('dashEditCity');
+      const sPin = document.getElementById('dashEditPincode');
+      const sState = document.getElementById('dashEditState');
+
+      if (sName) sName.value = name;
+      if (sPhone) sPhone.value = phone;
+      if (sEmail) sEmail.value = email;
+      if (sAddr) sAddr.value = address;
+      if (sCity) sCity.value = city;
+      if (sPin) sPin.value = pincode;
+      if (sState) sState.value = state;
+
+      // 3. Quick Edit Profile Modal Inputs
+      const qName = document.getElementById('quickEditName');
+      const qPhone = document.getElementById('quickEditPhone');
+      const qEmail = document.getElementById('quickEditEmail');
+      const qAddr = document.getElementById('quickEditAddress');
+      const qCity = document.getElementById('quickEditCity');
+      const qPin = document.getElementById('quickEditPincode');
+      const qState = document.getElementById('quickEditState');
+
+      if (qName) qName.value = name;
+      if (qPhone) qPhone.value = phone;
+      if (qEmail) qEmail.value = email;
+      if (qAddr) qAddr.value = address;
+      if (qCity) qCity.value = city;
+      if (qPin) qPin.value = pincode;
+      if (qState) qState.value = state;
+
+      // 4. Update Header Buttons
+      updateCustomerHeaderUI();
+
+      // 5. Update Checkout AutoFill
+      autoFillCheckoutForCustomer();
+    }
+
+    // OPEN / CLOSE QUICK EDIT PROFILE MODAL
+    function openEditProfileQuickModal() {
+      if (!currentCustomer) {
+        openCustomerAuthModal();
+        return;
+      }
+      syncCustomerProfileToAllUI();
+      document.getElementById('editCustomerProfileModalOverlay').classList.add('open');
+    }
+
+    function closeEditProfileQuickModal() {
+      document.getElementById('editCustomerProfileModalOverlay').classList.remove('open');
+    }
+
+    function handleSaveQuickProfileModal(e) {
+      e.preventDefault();
+      const name = document.getElementById('quickEditName').value.trim();
+      const phone = document.getElementById('quickEditPhone').value.trim();
+      const email = document.getElementById('quickEditEmail').value.trim();
+      const address = document.getElementById('quickEditAddress').value.trim();
+      const city = document.getElementById('quickEditCity').value.trim();
+      const pincode = document.getElementById('quickEditPincode').value.trim();
+      const state = document.getElementById('quickEditState').value;
+
+      currentCustomer.name = name;
+      currentCustomer.phone = phone;
+      currentCustomer.email = email;
+      currentCustomer.address = address;
+      currentCustomer.city = city;
+      currentCustomer.pincode = pincode;
+      currentCustomer.state = state;
+
+      if (!currentCustomer.addresses) currentCustomer.addresses = [];
+      if (currentCustomer.addresses.length === 0) {
+        currentCustomer.addresses.push({
+          id: 'addr_' + Date.now(),
+          type: 'Home',
+          address, city, pincode, state, phone,
+          isDefault: true
+        });
+      } else {
+        const defIdx = currentCustomer.addresses.findIndex(a => a.isDefault);
+        const targetIdx = defIdx >= 0 ? defIdx : 0;
+        currentCustomer.addresses[targetIdx].address = address;
+        currentCustomer.addresses[targetIdx].city = city;
+        currentCustomer.addresses[targetIdx].pincode = pincode;
+        currentCustomer.addresses[targetIdx].state = state;
+        currentCustomer.addresses[targetIdx].phone = phone;
+      }
+
+      saveCustomerState();
+      syncCustomerProfileToAllUI();
+      renderDashboardAddresses();
+      closeEditProfileQuickModal();
+      showToast("Profile and address updated everywhere! 🎉");
+    }
+
+    /* ========================================================
        ENHANCED CUSTOMER DASHBOARD CONTROLLER & FEATURES
        ======================================================== */
+    const dashTabsOrder = [
+      'dashOverviewPane',
+      'dashOrdersPane',
+      'dashAddressesPane',
+      'dashWalletPane',
+      'dashProfilePane',
+      'dashRefundBankPane',
+      'dashSupportPane'
+    ];
+
     function openCustomerDashboard() {
       if (!currentCustomer) {
         openCustomerAuthModal();
         return;
       }
 
-      document.getElementById('dashUserName').innerText = currentCustomer.name || 'Customer';
-      document.getElementById('dashUserEmail').innerText = currentCustomer.email || currentCustomer.phone || '';
-      document.getElementById('dashAvatarLetter').innerText = (currentCustomer.name || currentCustomer.phone || 'U').charAt(0).toUpperCase();
+      syncCustomerProfileToAllUI();
 
       // Wallet & stats
       const walletBal = currentCustomer.walletBalance ?? 50;
       const rewardPts = currentCustomer.rewardPoints ?? 50;
-      document.getElementById('dashStatWallet').innerText = ` ${walletBal}`;
+      document.getElementById('dashStatWallet').innerText = `₹${walletBal}`;
       document.getElementById('dashStatCoins').innerText = rewardPts;
-      document.getElementById('dashWalletBalDisplay').innerText = ` ${walletBal}.00`;
+      document.getElementById('dashWalletBalDisplay').innerText = `₹${walletBal}.00`;
       document.getElementById('dashLoyaltyPointsDisplay').innerText = `${rewardPts} Coins`;
       document.getElementById('dashReferralCode').innerText = currentCustomer.referralCode || 'VEKU2026';
-
-      // Settings inputs
-      document.getElementById('dashEditName').value = currentCustomer.name || '';
-      document.getElementById('dashEditPhone').value = currentCustomer.phone || '';
-      document.getElementById('dashEditEmail').value = currentCustomer.email || (currentCustomer.phone ? `${currentCustomer.phone}@mobile` : '');
 
       // Refund bank inputs
       const ref = currentCustomer.refundDetails || {};
@@ -3517,6 +3752,8 @@
       renderDashboardCoupons();
       document.getElementById('customerDashboardOverlay').classList.add('open');
       switchCustomerDashTabByName('dashOverviewPane');
+
+      setupDashboardTouchSwipe();
     }
 
     function closeCustomerDashboard() {
@@ -3524,17 +3761,92 @@
     }
 
     function switchCustomerDashTab(paneId, btn) {
+      const currentActivePane = document.querySelector('.dash-pane.active');
+      const prevPaneId = currentActivePane ? currentActivePane.id : '';
+      const prevIdx = dashTabsOrder.indexOf(prevPaneId);
+      const nextIdx = dashTabsOrder.indexOf(paneId);
+
       document.querySelectorAll('.cust-dash-tab').forEach(b => b.classList.remove('active'));
-      document.querySelectorAll('.dash-pane').forEach(p => p.classList.remove('active'));
-      if (btn) btn.classList.add('active');
+      document.querySelectorAll('.dash-pane').forEach(p => {
+        p.classList.remove('active');
+        p.classList.remove('slide-right');
+        p.classList.remove('slide-left');
+      });
+
+      if (btn) {
+        btn.classList.add('active');
+        btn.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+      }
+
       const pane = document.getElementById(paneId);
-      if (pane) pane.classList.add('active');
+      if (pane) {
+        pane.classList.add('active');
+        if (nextIdx > prevIdx) {
+          pane.classList.add('slide-right');
+        } else if (nextIdx < prevIdx) {
+          pane.classList.add('slide-left');
+        }
+      }
     }
 
     function switchCustomerDashTabByName(paneId) {
       const tabs = Array.from(document.querySelectorAll('.cust-dash-tab'));
       const targetBtn = tabs.find(t => t.getAttribute('onclick') && t.getAttribute('onclick').includes(paneId));
       switchCustomerDashTab(paneId, targetBtn || tabs[0]);
+    }
+
+    /* ========================================================
+       TOUCH SWIPE GESTURE HANDLER FOR MOBILE TABS (SLIDE)
+       ======================================================== */
+    let dashSwipeStartX = 0;
+    let dashSwipeStartY = 0;
+    let dashSwipeEndX = 0;
+    let dashSwipeEndY = 0;
+    let dashSwipeListenerAdded = false;
+
+    function setupDashboardTouchSwipe() {
+      const dashBody = document.getElementById('customerDashBody');
+      if (!dashBody || dashSwipeListenerAdded) return;
+
+      dashBody.addEventListener('touchstart', (e) => {
+        dashSwipeStartX = e.changedTouches[0].screenX;
+        dashSwipeStartY = e.changedTouches[0].screenY;
+      }, { passive: true });
+
+      dashBody.addEventListener('touchend', (e) => {
+        dashSwipeEndX = e.changedTouches[0].screenX;
+        dashSwipeEndY = e.changedTouches[0].screenY;
+        handleDashboardSwipeAction();
+      }, { passive: true });
+
+      dashSwipeListenerAdded = true;
+    }
+
+    function handleDashboardSwipeAction() {
+      const diffX = dashSwipeStartX - dashSwipeEndX;
+      const diffY = dashSwipeStartY - dashSwipeEndY;
+
+      // Minimum swipe distance of 40px and must be predominantly horizontal
+      if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.3) {
+        const activePane = document.querySelector('.dash-pane.active');
+        if (!activePane) return;
+        const currentPaneId = activePane.id;
+        const currentIdx = dashTabsOrder.indexOf(currentPaneId);
+
+        if (currentIdx === -1) return;
+
+        if (diffX > 0) {
+          // Swiped Left ➔ Move to Next Tab
+          if (currentIdx < dashTabsOrder.length - 1) {
+            switchCustomerDashTabByName(dashTabsOrder[currentIdx + 1]);
+          }
+        } else {
+          // Swiped Right ➔ Move to Previous Tab
+          if (currentIdx > 0) {
+            switchCustomerDashTabByName(dashTabsOrder[currentIdx - 1]);
+          }
+        }
+      }
     }
 
     function renderCustomerOrdersInDashboard() {
@@ -3571,10 +3883,8 @@
         return;
       }
 
-      // Render All Orders in Tab
       container.innerHTML = matchedOrders.map(ord => renderSingleOrderCardHTML(ord)).join('');
 
-      // Render Recent Order in Overview
       if (recentContainer) {
         recentContainer.innerHTML = renderSingleOrderCardHTML(matchedOrders[0]);
       }
@@ -3599,7 +3909,6 @@
             </div>
           </div>
 
-          <!-- Items row -->
           <div style="display:flex; align-items:center; gap:12px; margin-bottom:12px;">
             <img src="${firstItem.image || ''}" style="width:48px; height:58px; object-fit:cover; border-radius:6px; border:1px solid #e2e8f0;">
             <div style="flex:1; min-width:0;">
@@ -3607,7 +3916,7 @@
                 ${firstItem.name || 'Order Item'}
               </div>
               <div style="font-size:12px; color:#64748b; margin-top:2px;">
-                ${ord.items?.length || 1} item(s)   Size: <b>${firstItem.size || 'M'}</b>   Total: <strong style="color:#0f172a;"> ${Number(ord.total || 0).toLocaleString()}</strong>
+                ${ord.items?.length || 1} item(s) • Size: <b>${firstItem.size || 'M'}</b> • Total: <strong style="color:#0f172a;">₹${Number(ord.total || 0).toLocaleString()}</strong>
               </div>
               <div style="font-size:11px; color:#15803d; font-weight:600; margin-top:2px;">
                 Mode: ${ord.paymentMethod || ord.payment || 'COD'}
@@ -3615,7 +3924,6 @@
             </div>
           </div>
 
-          <!-- Action buttons (Track, Invoice, Re-order, Return) -->
           <div style="display:flex; flex-wrap:wrap; gap:8px; border-top:1px dashed #e2e8f0; padding-top:10px;">
             <button onclick="closeCustomerDashboard(); openTrackOrderModal('${ord.orderId}');" class="dash-order-action-btn primary">
               <i class="fa-solid fa-truck-fast"></i> Track
@@ -3634,7 +3942,6 @@
       `;
     }
 
-    // BUY AGAIN (1-CLICK REORDER)
     function handleBuyAgain(orderId) {
       const ord = customerOrders.find(o => o.orderId === orderId);
       if (!ord || !ord.items) return;
@@ -3654,7 +3961,6 @@
       showToast("Order items added back to your cart!");
     }
 
-    // RETURN & EXCHANGE REQUEST VIA WHATSAPP
     function handleReturnExchangeRequest(orderId) {
       const ord = customerOrders.find(o => o.orderId === orderId);
       const itemsText = ord?.items?.map(i => `${i.name} (Size: ${i.size})`).join(', ') || 'Ordered Items';
@@ -3663,7 +3969,6 @@
       window.open(url, '_blank');
     }
 
-    // INVOICE PRINT / DOWNLOAD
     function downloadOrderInvoice(orderId) {
       const ord = customerOrders.find(o => o.orderId === orderId);
       if (!ord) {
@@ -3723,24 +4028,24 @@
                   <td><b>${it.name}</b></td>
                   <td>${it.size}</td>
                   <td>${it.qty}</td>
-                  <td> ${it.price.toLocaleString()}</td>
-                  <td> ${(it.price * it.qty).toLocaleString()}</td>
+                  <td>₹${it.price.toLocaleString()}</td>
+                  <td>₹${(it.price * it.qty).toLocaleString()}</td>
                 </tr>
               `).join('')}
             </tbody>
           </table>
 
           <div class="totals">
-            Subtotal:  ${Number(ord.subtotal || ord.total).toLocaleString()}<br>
-            ${ord.discount ? `Discount: - ${Number(ord.discount).toLocaleString()}<br>` : ''}
-            Grand Total:  ${Number(ord.total).toLocaleString()}
+            Subtotal: ₹${Number(ord.subtotal || ord.total).toLocaleString()}<br>
+            ${ord.discount ? `Discount: -₹${Number(ord.discount).toLocaleString()}<br>` : ''}
+            Grand Total: ₹${Number(ord.total).toLocaleString()}
           </div>
           <div style="font-size: 12px; color: #15803d; font-weight: 700; margin-top: 5px; text-align: right;">
             Payment: ${ord.paymentMethod || ord.payment || 'COD'}
           </div>
 
           <div style="text-align: center; margin-top: 40px;">
-            <button class="btn-print" onclick="window.print()">   Print / Save as PDF</button>
+            <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
             <div style="font-size: 11px; color: #94a3b8; margin-top: 15px;">Thank you for shopping with Veku Collections!</div>
           </div>
         </body>
@@ -3749,7 +4054,6 @@
       invoiceWindow.document.close();
     }
 
-    // SAVED ADDRESSES MANAGER
     function toggleAddAddressForm() {
       const box = document.getElementById('dashNewAddressBox');
       box.style.display = box.style.display === 'none' ? 'block' : 'none';
@@ -3768,7 +4072,7 @@
         `;
         return;
       }
- container.innerHTML = addresses.map((addr, idx) => `
+   container.innerHTML = addresses.map((addr, idx) => `
         <div class="address-card-item ${addr.isDefault ? 'default' : ''}">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <div style="display:flex; align-items:center; gap:8px;">
@@ -3806,11 +4110,21 @@
       };
 
       if (!currentCustomer.addresses) currentCustomer.addresses = [];
+      
+      // Agar pehla address hai ya default hai to profile address ko bhi sync karo
+      if (newAddr.isDefault) {
+        currentCustomer.address = address;
+        currentCustomer.city = city;
+        currentCustomer.pincode = pincode;
+        currentCustomer.state = state;
+      }
+      
       currentCustomer.addresses.push(newAddr);
       saveCustomerState();
+      syncCustomerProfileToAllUI();
       toggleAddAddressForm();
       renderDashboardAddresses();
-      showToast("New address saved!");
+      showToast("New address saved & synced!");
     }
 
     function handleSetDefaultAddress(idx) {
@@ -3822,14 +4136,31 @@
       currentCustomer.pincode = def.pincode;
       currentCustomer.state = def.state;
       saveCustomerState();
+      syncCustomerProfileToAllUI();
       renderDashboardAddresses();
-      showToast("Default address updated!");
+      showToast("Default address updated & synced everywhere!");
     }
 
     function handleDeleteAddress(idx) {
       if (confirm("Delete this address?")) {
+        const deletedWasDefault = currentCustomer.addresses[idx]?.isDefault;
         currentCustomer.addresses.splice(idx, 1);
+
+        if (deletedWasDefault && currentCustomer.addresses.length > 0) {
+          currentCustomer.addresses[0].isDefault = true;
+          currentCustomer.address = currentCustomer.addresses[0].address;
+          currentCustomer.city = currentCustomer.addresses[0].city;
+          currentCustomer.pincode = currentCustomer.addresses[0].pincode;
+          currentCustomer.state = currentCustomer.addresses[0].state;
+        } else if (currentCustomer.addresses.length === 0) {
+          currentCustomer.address = '';
+          currentCustomer.city = '';
+          currentCustomer.pincode = '';
+          currentCustomer.state = '';
+        }
+
         saveCustomerState();
+        syncCustomerProfileToAllUI();
         renderDashboardAddresses();
         showToast("Address deleted.");
       }
@@ -3873,15 +4204,47 @@
       window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    // PROFILE SETTINGS & PASSWORD UPDATE
+    // PROFILE SETTINGS & PASSWORD UPDATE (AUTO-SYNC EVERYWHERE)
     async function handleUpdateCustomerProfile(e) {
       e.preventDefault();
-      currentCustomer.name = document.getElementById('dashEditName').value.trim();
-      currentCustomer.phone = document.getElementById('dashEditPhone').value.trim();
+      const name = document.getElementById('dashEditName').value.trim();
+      const phone = document.getElementById('dashEditPhone').value.trim();
+      const email = document.getElementById('dashEditEmail').value.trim();
+      const address = document.getElementById('dashEditAddress').value.trim();
+      const city = document.getElementById('dashEditCity').value.trim();
+      const pincode = document.getElementById('dashEditPincode').value.trim();
+      const state = document.getElementById('dashEditState').value;
+
+      currentCustomer.name = name;
+      currentCustomer.phone = phone;
+      currentCustomer.email = email;
+      currentCustomer.address = address;
+      currentCustomer.city = city;
+      currentCustomer.pincode = pincode;
+      currentCustomer.state = state;
+
+      if (!currentCustomer.addresses) currentCustomer.addresses = [];
+      if (currentCustomer.addresses.length === 0) {
+        currentCustomer.addresses.push({
+          id: 'addr_' + Date.now(),
+          type: 'Home',
+          address, city, pincode, state, phone,
+          isDefault: true
+        });
+      } else {
+        const defIdx = currentCustomer.addresses.findIndex(a => a.isDefault);
+        const targetIdx = defIdx >= 0 ? defIdx : 0;
+        currentCustomer.addresses[targetIdx].address = address;
+        currentCustomer.addresses[targetIdx].city = city;
+        currentCustomer.addresses[targetIdx].pincode = pincode;
+        currentCustomer.addresses[targetIdx].state = state;
+        currentCustomer.addresses[targetIdx].phone = phone;
+      }
+
       saveCustomerState();
-      updateCustomerHeaderUI();
-      document.getElementById('dashUserName').innerText = currentCustomer.name;
-      showToast("Personal details updated successfully!");
+      syncCustomerProfileToAllUI();
+      renderDashboardAddresses();
+      showToast("Personal details and address updated everywhere!");
     }
 
     async function handleSendPasswordResetFromProfile() {
@@ -3947,14 +4310,13 @@
       const pinInput = document.getElementById('custPincode');
       const stateInput = document.getElementById('custState');
 
-      if (nameInput && !nameInput.value && currentCustomer.name) nameInput.value = currentCustomer.name;
-      if (phoneInput && !phoneInput.value && currentCustomer.phone) phoneInput.value = currentCustomer.phone;
-      if (addrInput && !addrInput.value && currentCustomer.address) addrInput.value = currentCustomer.address;
-      if (cityInput && !cityInput.value && currentCustomer.city) cityInput.value = currentCustomer.city;
-      if (pinInput && !pinInput.value && currentCustomer.pincode) pinInput.value = currentCustomer.pincode;
+      if (nameInput && currentCustomer.name) nameInput.value = currentCustomer.name;
+      if (phoneInput && currentCustomer.phone) phoneInput.value = currentCustomer.phone;
+      if (addrInput && currentCustomer.address) addrInput.value = currentCustomer.address;
+      if (cityInput && currentCustomer.city) cityInput.value = currentCustomer.city;
+      if (pinInput && currentCustomer.pincode) pinInput.value = currentCustomer.pincode;
       if (stateInput && currentCustomer.state) stateInput.value = currentCustomer.state;
 
-      // Update available wallet & coins labels in checkout
       const walletBalEl = document.getElementById('checkoutWalletBal');
       const coinsBalEl = document.getElementById('checkoutCoinsBal');
       if (walletBalEl) walletBalEl.innerText = `₹${currentCustomer.walletBalance ?? 50}`;
@@ -4587,7 +4949,6 @@
       document.getElementById('customerModalOverlay').classList.remove('open');
     }
     
-    // UPDATED PAYMENT METHOD CHANGE WITH WALLET & COIN CALCULATION
     function handlePaymentMethodChange() {
       const isOnline = document.getElementById('custPayment').value.includes("Razorpay");
       const rzpCard = document.getElementById('razorpayInfoCard');
@@ -4603,7 +4964,6 @@
       const deliveryCharge = isOnline ? 0 : 50;
       let runningTotal = Math.max(0, (subtotal - discount) + deliveryCharge);
 
-      // Wallet & Coins calculations
       const useWallet = document.getElementById('useWalletCheckbox')?.checked || false;
       const useCoins = document.getElementById('useCoinsCheckbox')?.checked || false;
       
@@ -4892,7 +5252,6 @@
       const autoCharge = isOnline ? 0 : 50; 
       let runningTotal = Math.max(0, (subtotal - discount) + autoCharge);
 
-      // Check wallet & coin selections
       const useWallet = document.getElementById('useWalletCheckbox')?.checked || false;
       const useCoins = document.getElementById('useCoinsCheckbox')?.checked || false;
 
@@ -4997,7 +5356,6 @@
         status: orderDetails.status || 'Pending'
       };
 
-      // Deduct used wallet & coins from customer balance
       if (currentCustomer) {
         if (orderDetails.walletUsed > 0) {
           currentCustomer.walletBalance = Math.max(0, (currentCustomer.walletBalance ?? 50) - orderDetails.walletUsed);
@@ -5930,6 +6288,9 @@
     renderFooter();
     populateFooterManagerUI();
     updateCustomerHeaderUI();
+    if (currentCustomer) {
+      syncCustomerProfileToAllUI();
+    }
   </script>
 
   <!-- FIREBASE REALTIME SYNC & CUSTOMER AUTH MODULE -->
@@ -6092,6 +6453,7 @@
               currentCustomer = custData;
               localStorage.setItem('veku_current_user', JSON.stringify(custData));
               updateCustomerHeaderUI();
+              syncCustomerProfileToAllUI();
             }
           } catch(e) {
             console.warn("User profile fetch err:", e);
@@ -6210,3 +6572,5 @@
   </script>
 </body>
 </html>
+
+      
