@@ -1849,7 +1849,7 @@
     </div>
   </div>
 
-  <!-- QUICK EDIT CUSTOMER PROFILE & ADDRESS MODAL -->
+  <!-- QUICK EDIT CUSTOMER PROFILE & ADDRESS MODAL (PROBLEM 2 FIXED: PHONE READONLY) -->
   <div class="admin-modal-overlay" id="editCustomerProfileModalOverlay" style="z-index: 3100;">
     <div class="admin-modal" style="max-width: 520px;">
       <div class="admin-header">
@@ -1867,8 +1867,8 @@
               <input type="text" id="quickEditName" placeholder="Full Name" required>
             </div>
             <div class="form-group" style="flex:1;">
-              <label>Mobile Number *</label>
-              <input type="tel" id="quickEditPhone" pattern="[0-9]{10}" maxlength="10" placeholder="10 Digit Phone" required>
+              <label>Mobile Number <i class="fa-solid fa-lock" style="font-size:11px; color:#64748b;" title="Mobile Number change nahi kiya ja sakta"></i></label>
+              <input type="tel" id="quickEditPhone" pattern="[0-9]{10}" maxlength="10" placeholder="10 Digit Phone" readonly style="background-color: #f1f5f9; cursor: not-allowed; color: #64748b;" required>
             </div>
           </div>
           <div class="form-group">
@@ -1923,13 +1923,11 @@
     </div>
   </div>
 
-  <!-- ========================================================
-       FEATURE-RICH CUSTOMER ACCOUNT DASHBOARD MODAL
-       ======================================================== -->
+  <!-- CUSTOMER ACCOUNT DASHBOARD MODAL -->
   <div class="admin-modal-overlay" id="customerDashboardOverlay" style="z-index: 2900;">
     <div class="customer-dashboard-modal">
       
-      <!-- TOP PROFILE HERO CARD (Clickable Name & Avatar for Edit Profile) -->
+      <!-- TOP PROFILE HERO CARD -->
       <div class="cust-profile-card">
         <div class="cust-avatar-circle" id="dashAvatarLetter" onclick="openEditProfileQuickModal()" title="Click to edit profile">U</div>
         <div class="cust-info-col" style="flex:1;">
@@ -1974,7 +1972,7 @@
         </button>
       </div>
 
-      <!-- DASHBOARD CONTENT PANES (TOUCH SWIPEABLE BODY) -->
+      <!-- DASHBOARD CONTENT PANES -->
       <div class="cust-dash-body" id="customerDashBody">
         
         <!-- PANE 1: OVERVIEW -->
@@ -2009,7 +2007,6 @@
             </div>
           </div>
 
-          <!-- Quick Action Buttons -->
           <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:10px; margin-bottom:18px;">
             <div onclick="switchCustomerDashTabByName('dashOrdersPane')" style="background:#ffffff; border:1px solid #e2e8f0; border-radius:10px; padding:12px 14px; display:flex; align-items:center; gap:12px; cursor:pointer;">
               <i class="fa-solid fa-truck-fast" style="color:#0284c7; font-size:20px;"></i>
@@ -2027,7 +2024,6 @@
             </div>
           </div>
 
-          <!-- Recent Order Snippet -->
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
             <span style="font-weight:800; font-size:14px; color:#0f172a;"><i class="fa-solid fa-clock-rotate-left" style="color:#0284c7;"></i> Most Recent Order</span>
             <a href="javascript:void(0)" onclick="switchCustomerDashTabByName('dashOrdersPane')" style="font-size:12px; color:#0284c7; text-decoration:none; font-weight:700;">View All →</a>
@@ -2041,7 +2037,6 @@
             <span style="font-weight:800; font-size:14px; color:#0f172a;"><i class="fa-solid fa-box" style="color:#0284c7;"></i> Order History & Tracking</span>
             <span style="font-size:12px; color:#64748b; font-weight:600;" id="userOrdersTotalCount">0 Orders</span>
           </div>
-
           <div class="cust-orders-list" id="customerMyOrdersList"></div>
         </div>
 
@@ -2054,7 +2049,6 @@
             </button>
           </div>
 
-          <!-- New Address Form (Hidden by default) -->
           <div id="dashNewAddressBox" style="display:none; background:#ffffff; border:1px solid #cbd5e1; border-radius:12px; padding:16px; margin-bottom:16px;">
             <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px;">Add New Delivery Address</h4>
             <form onsubmit="handleSaveNewAddress(event)">
@@ -2126,7 +2120,6 @@
             </div>
           </div>
 
-          <!-- REFER & EARN CARD -->
           <div style="background:linear-gradient(135deg, #0284c7 0%, #0f172a 100%); color:white; border-radius:12px; padding:18px 20px; margin-bottom:18px;">
             <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
               <div>
@@ -2149,7 +2142,7 @@
           <div id="dashCouponsList"></div>
         </div>
 
-        <!-- PANE 5: PROFILE & SECURITY SETTINGS -->
+        <!-- PANE 5: PROFILE & SECURITY SETTINGS (PROBLEM 2 FIXED: PHONE READONLY) -->
         <div class="dash-pane" id="dashProfilePane">
           <div style="background:#ffffff; border:1px solid #e2e8f0; border-radius:12px; padding:18px; margin-bottom:16px;">
             <h4 style="font-size:14px; font-weight:800; color:#0f172a; margin-bottom:12px;"><i class="fa-solid fa-id-badge" style="color:#0284c7;"></i> Personal Details & Address</h4>
@@ -2160,8 +2153,8 @@
                   <input type="text" id="dashEditName" required>
                 </div>
                 <div class="form-group" style="flex:1;">
-                  <label>Mobile Number *</label>
-                  <input type="tel" id="dashEditPhone" pattern="[0-9]{10}" maxlength="10" required>
+                  <label>Mobile Number <i class="fa-solid fa-lock" style="font-size:11px; color:#64748b;" title="Mobile Number change nahi kiya ja sakta"></i></label>
+                  <input type="tel" id="dashEditPhone" pattern="[0-9]{10}" maxlength="10" readonly style="background-color: #f1f5f9; cursor: not-allowed; color: #64748b;" required>
                 </div>
               </div>
               <div class="form-group">
@@ -2316,7 +2309,7 @@
 
       </div>
 
-      <!-- DASHBOARD FOOTER (LOGOUT & ADMIN) -->
+      <!-- DASHBOARD FOOTER -->
       <div style="padding:12px 24px; background:#ffffff; border-top:1px solid #e2e8f0; display:flex; justify-content:space-between; align-items:center;">
         <button class="dash-order-action-btn" onclick="handleCustomerLogout()" style="color:#dc2626; border-color:#fecdd3; background:#fee2e2;">
           <i class="fa-solid fa-arrow-right-from-bracket"></i> Logout Account
@@ -3280,8 +3273,9 @@
         if (window.loginCustomerWithFirebase) {
           authUser = await window.loginCustomerWithFirebase(userIdent, password);
         } else {
-          const localKey = `cust_${userIdent.replace(/\D/g, '')}`;
-          const savedData = localStorage.getItem(localKey) || localStorage.getItem('veku_current_user');
+          const cleanPhone = userIdent.replace(/\D/g, '');
+          const localKey = `cust_${cleanPhone}`;
+          const savedData = (cleanPhone.length >= 10 ? localStorage.getItem(localKey) : null) || localStorage.getItem(`cust_${userIdent.toLowerCase()}`) || localStorage.getItem('veku_current_user');
           if (savedData) {
             authUser = JSON.parse(savedData);
           } else {
@@ -3459,7 +3453,8 @@
       }
     }
 
-    function verifyQuickOtp() {
+    // VERIFY OTP (PROBLEM 1 FIXED: LOADS SAVED PROFILE ALWAYS)
+    async function verifyQuickOtp() {
       const code = [
         document.getElementById('qOtp1').value,
         document.getElementById('qOtp2').value,
@@ -3469,18 +3464,40 @@
 
       if (code === quickGeneratedOtp || code === "1234") {
         const phone = document.getElementById('quickOtpPhoneInput').value.trim();
-        const saved = localStorage.getItem(`cust_${phone}`);
-        let userData = saved ? JSON.parse(saved) : {
-          uid: 'otp_' + phone,
-          name: 'Customer ' + phone.slice(-4),
-          phone: phone,
-          email: '',
-          walletBalance: 50,
-          rewardPoints: 50,
-          referralCode: 'VEKU' + Math.floor(1000 + Math.random() * 9000),
-          addresses: [],
-          refundDetails: { upiId: '', accName: '', accNumber: '', ifsc: '' }
-        };
+        const cleanPhone = phone.replace(/\D/g, '');
+
+        let saved = localStorage.getItem(`cust_${cleanPhone}`);
+        let userData = saved ? JSON.parse(saved) : null;
+
+        // Firestore se check karein agar local storage khali hai ya data update hona hai
+        if (window.findCustomerByPhone) {
+          try {
+            const remoteUser = await window.findCustomerByPhone(cleanPhone);
+            if (remoteUser) {
+              userData = { ...(userData || {}), ...remoteUser };
+            }
+          } catch (e) {
+            console.warn("Firestore lookup failed:", e);
+          }
+        }
+
+        // Agar bilkul pehli baar koi login kar raha hai
+        if (!userData) {
+          userData = {
+            uid: 'otp_' + cleanPhone,
+            name: 'Customer ' + cleanPhone.slice(-4),
+            phone: cleanPhone,
+            email: '',
+            walletBalance: 50,
+            rewardPoints: 50,
+            referralCode: 'VEKU' + Math.floor(1000 + Math.random() * 9000),
+            addresses: [],
+            refundDetails: { upiId: '', accName: '', accNumber: '', ifsc: '' }
+          };
+        }
+
+        // Hamesha local storage me permanent save karein
+        localStorage.setItem(`cust_${cleanPhone}`, JSON.stringify(userData));
         onCustomerLoggedIn(userData);
       } else {
         showToast("Incorrect OTP! Please check again.", "error");
@@ -3553,7 +3570,7 @@
       if (!currentCustomer.addresses) currentCustomer.addresses = [];
       if (!currentCustomer.refundDetails) currentCustomer.refundDetails = { upiId: '', accName: '', accNumber: '', ifsc: '' };
 
-      localStorage.setItem('veku_current_user', JSON.stringify(currentCustomer));
+      saveCustomerState();
       closeCustomerAuthModal();
       updateCustomerHeaderUI();
       syncCustomerProfileToAllUI();
@@ -3588,7 +3605,6 @@
       const email = currentCustomer.email || (currentCustomer.phone ? `${currentCustomer.phone}@mobile` : '');
       const phone = currentCustomer.phone || '';
       
-      // Default address or first address
       let defAddr = (currentCustomer.addresses || []).find(a => a.isDefault) || (currentCustomer.addresses && currentCustomer.addresses[0]) || null;
       if (!defAddr && currentCustomer.address) {
         defAddr = {
@@ -3622,7 +3638,10 @@
       const sState = document.getElementById('dashEditState');
 
       if (sName) sName.value = name;
-      if (sPhone) sPhone.value = phone;
+      if (sPhone) {
+        sPhone.value = phone;
+        sPhone.setAttribute('readonly', 'true');
+      }
       if (sEmail) sEmail.value = email;
       if (sAddr) sAddr.value = address;
       if (sCity) sCity.value = city;
@@ -3639,7 +3658,10 @@
       const qState = document.getElementById('quickEditState');
 
       if (qName) qName.value = name;
-      if (qPhone) qPhone.value = phone;
+      if (qPhone) {
+        qPhone.value = phone;
+        qPhone.setAttribute('readonly', 'true');
+      }
       if (qEmail) qEmail.value = email;
       if (qAddr) qAddr.value = address;
       if (qCity) qCity.value = city;
@@ -3667,10 +3689,12 @@
       document.getElementById('editCustomerProfileModalOverlay').classList.remove('open');
     }
 
+    // SAVE PROFILE QUICK MODAL (PROBLEM 1 & 2 FIXED)
     function handleSaveQuickProfileModal(e) {
       e.preventDefault();
       const name = document.getElementById('quickEditName').value.trim();
-      const phone = document.getElementById('quickEditPhone').value.trim();
+      // Registered mobile number locked rahega taaki koi change na kar sake
+      const phone = currentCustomer.phone || document.getElementById('quickEditPhone').value.trim();
       const email = document.getElementById('quickEditEmail').value.trim();
       const address = document.getElementById('quickEditAddress').value.trim();
       const city = document.getElementById('quickEditCity').value.trim();
@@ -3707,7 +3731,7 @@
       syncCustomerProfileToAllUI();
       renderDashboardAddresses();
       closeEditProfileQuickModal();
-      showToast("Profile and address updated everywhere! 🎉");
+      showToast("Profile and address updated permanently! 🎉");
     }
 
     /* ========================================================
@@ -3795,9 +3819,6 @@
       switchCustomerDashTab(paneId, targetBtn || tabs[0]);
     }
 
-    /* ========================================================
-       TOUCH SWIPE GESTURE HANDLER FOR MOBILE TABS (SLIDE)
-       ======================================================== */
     let dashSwipeStartX = 0;
     let dashSwipeStartY = 0;
     let dashSwipeEndX = 0;
@@ -3826,7 +3847,6 @@
       const diffX = dashSwipeStartX - dashSwipeEndX;
       const diffY = dashSwipeStartY - dashSwipeEndY;
 
-      // Minimum swipe distance of 40px and must be predominantly horizontal
       if (Math.abs(diffX) > 40 && Math.abs(diffX) > Math.abs(diffY) * 1.3) {
         const activePane = document.querySelector('.dash-pane.active');
         if (!activePane) return;
@@ -3836,12 +3856,10 @@
         if (currentIdx === -1) return;
 
         if (diffX > 0) {
-          // Swiped Left ➔ Move to Next Tab
           if (currentIdx < dashTabsOrder.length - 1) {
             switchCustomerDashTabByName(dashTabsOrder[currentIdx + 1]);
           }
         } else {
-          // Swiped Right ➔ Move to Previous Tab
           if (currentIdx > 0) {
             switchCustomerDashTabByName(dashTabsOrder[currentIdx - 1]);
           }
@@ -3929,7 +3947,7 @@
               <i class="fa-solid fa-truck-fast"></i> Track
             </button>
             <button onclick="downloadOrderInvoice('${ord.orderId}')" class="dash-order-action-btn">
-              <i class="fa-solid fa-file-invoice"></i> Bill / Invoice
+          <i class="fa-solid fa-file-invoice"></i> Bill / Invoice
             </button>
             <button onclick="handleBuyAgain('${ord.orderId}')" class="dash-order-action-btn">
               <i class="fa-solid fa-rotate-right"></i> Buy Again
@@ -4072,7 +4090,7 @@
         `;
         return;
       }
-   container.innerHTML = addresses.map((addr, idx) => `
+      container.innerHTML = addresses.map((addr, idx) => `
         <div class="address-card-item ${addr.isDefault ? 'default' : ''}">
           <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
             <div style="display:flex; align-items:center; gap:8px;">
@@ -4111,7 +4129,6 @@
 
       if (!currentCustomer.addresses) currentCustomer.addresses = [];
       
-      // Agar pehla address hai ya default hai to profile address ko bhi sync karo
       if (newAddr.isDefault) {
         currentCustomer.address = address;
         currentCustomer.city = city;
@@ -4166,7 +4183,6 @@
       }
     }
 
-    // COUPONS LIST IN DASHBOARD
     function renderDashboardCoupons() {
       const container = document.getElementById('dashCouponsList');
       if (!container) return;
@@ -4204,11 +4220,10 @@
       window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
     }
 
-    // PROFILE SETTINGS & PASSWORD UPDATE (AUTO-SYNC EVERYWHERE)
     async function handleUpdateCustomerProfile(e) {
       e.preventDefault();
       const name = document.getElementById('dashEditName').value.trim();
-      const phone = document.getElementById('dashEditPhone').value.trim();
+      const phone = currentCustomer.phone || document.getElementById('dashEditPhone').value.trim();
       const email = document.getElementById('dashEditEmail').value.trim();
       const address = document.getElementById('dashEditAddress').value.trim();
       const city = document.getElementById('dashEditCity').value.trim();
@@ -4264,7 +4279,6 @@
       }
     }
 
-    // REFUND BANK & UPI SAVE
     function handleSaveRefundDetails(e) {
       e.preventDefault();
       currentCustomer.refundDetails = {
@@ -4277,8 +4291,19 @@
       showToast("Refund Bank / UPI details saved!");
     }
 
+    // PERMANENT LOCAL STORAGE & FIRESTORE SAVING (PROBLEM 1 FIX)
     function saveCustomerState() {
+      if (!currentCustomer) return;
       localStorage.setItem('veku_current_user', JSON.stringify(currentCustomer));
+
+      if (currentCustomer.phone) {
+        const cleanPhone = currentCustomer.phone.replace(/\D/g, '');
+        localStorage.setItem(`cust_${cleanPhone}`, JSON.stringify(currentCustomer));
+      }
+      if (currentCustomer.email && currentCustomer.email.includes('@')) {
+        localStorage.setItem(`cust_${currentCustomer.email.toLowerCase()}`, JSON.stringify(currentCustomer));
+      }
+
       if (window.saveCustomerProfile) {
         window.saveCustomerProfile(currentCustomer);
       }
@@ -5153,7 +5178,6 @@
             </div>
           </div>
 
-          <!-- STEPPER -->
           <div class="track-stepper">
             <div class="track-step ${step1Class}">
               <div class="step-circle"><i class="fa-solid fa-clipboard-check"></i></div>
@@ -5173,13 +5197,11 @@
             </div>
           </div>
 
-          <!-- CUSTOMER & DELIVERY ADDRESS -->
           <div style="background:#f8fafc; padding:10px 12px; border-radius:8px; font-size:12px; color:#334155; margin-bottom:12px; border:1px solid #e2e8f0; line-height:1.5;">
             <div><strong style="color:#0f172a;"><i class="fa-solid fa-user"></i> ${cust.name || 'Customer'}</strong> (${cust.phone || '-'})</div>
             <div style="margin-top:3px;"><i class="fa-solid fa-location-dot" style="color:#0284c7;"></i> ${cust.address || ''}, <b>${cust.city || ''}</b> - ${cust.pincode || ''}, ${cust.state || ''}</div>
           </div>
 
-          <!-- ITEMS -->
           <div style="font-size:12px; font-weight:700; color:#0f172a; margin-bottom:8px;">Items Ordered (${items.length}):</div>
           <div style="max-height:180px; overflow-y:auto; display:flex; flex-direction:column; gap:8px; margin-bottom:12px;">
             ${items.map(it => `
@@ -5194,7 +5216,6 @@
             `).join('')}
           </div>
 
-          <!-- PAYMENT & TOTAL -->
           <div style="border-top:1px solid #e2e8f0; padding-top:10px; display:flex; justify-content:space-between; align-items:center;">
             <div>
               <span style="font-size:11px; color:#64748b;">Payment Mode:</span>
@@ -5236,10 +5257,7 @@
         currentCustomer.city = city;
         currentCustomer.pincode = pincode;
         currentCustomer.state = state;
-        localStorage.setItem('veku_current_user', JSON.stringify(currentCustomer));
-        if (window.saveCustomerProfile) {
-          window.saveCustomerProfile(currentCustomer);
-        }
+        saveCustomerState();
       }
 
       const subtotal = cart.reduce((s, i) => s + (i.price * i.qty), 0);
@@ -6346,11 +6364,16 @@
       return custData;
     };
 
-    // LOOKUP CUSTOMER BY PHONE
+    // LOOKUP CUSTOMER BY PHONE IN FIRESTORE (PROBLEM 1 FIX)
     window.findCustomerByPhone = async (phone) => {
       try {
+        const cleanPhone = phone.replace(/\D/g, '');
+        const directDoc = await getDoc(doc(window.db, "customers", `otp_${cleanPhone}`));
+        if (directDoc.exists()) {
+          return { uid: directDoc.id, ...directDoc.data() };
+        }
         const custRef = collection(window.db, "customers");
-        const q = query(custRef, where("phone", "==", phone));
+        const q = query(custRef, where("phone", "==", cleanPhone));
         const snap = await getDocs(q);
         if (!snap.empty) {
           return { uid: snap.docs[0].id, ...snap.docs[0].data() };
@@ -6418,10 +6441,13 @@
       return fullCustData;
     };
 
+    // SAVE PROFILE TO FIRESTORE (PROBLEM 1 FIX)
     window.saveCustomerProfile = async (customerData) => {
-      if (!customerData?.uid) return;
+      if (!customerData) return;
+      const docId = customerData.uid || (customerData.phone ? `otp_${customerData.phone.replace(/\D/g, '')}` : null);
+      if (!docId) return;
       try {
-        await setDoc(doc(window.db, "customers", customerData.uid), customerData, { merge: true });
+        await setDoc(doc(window.db, "customers", docId), customerData, { merge: true });
       } catch (err) {
         console.warn("Could not save profile to Firestore:", err);
       }
@@ -6452,6 +6478,9 @@
               const custData = { uid: user.uid, ...userDocSnap.data() };
               currentCustomer = custData;
               localStorage.setItem('veku_current_user', JSON.stringify(custData));
+              if (custData.phone) {
+                localStorage.setItem(`cust_${custData.phone.replace(/\D/g, '')}`, JSON.stringify(custData));
+              }
               updateCustomerHeaderUI();
               syncCustomerProfileToAllUI();
             }
@@ -6572,5 +6601,3 @@
   </script>
 </body>
 </html>
-
-      
