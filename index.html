@@ -3977,12 +3977,37 @@
       const url = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
     }
-function downloadOrderInvoice(orderId) {
+// संख्या (₹) को शब्दों (Words) में बदलने वाला फंक्शन
+    function numberToWordsINR(num) {
+      const a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+      const b = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+      const n = Math.floor(Number(num) || 0);
+      if (n === 0) return 'Zero Rupees Only';
+
+      function inWords(val) {
+        const strVal = ('000000000' + val).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
+        if (!strVal) return '';
+        let str = '';
+        str += (Number(strVal[1]) !== 0) ? (a[Number(strVal[1])] || b[strVal[1][0]] + ' ' + a[strVal[1][1]]) + 'Crore ' : '';
+        str += (Number(strVal[2]) !== 0) ? (a[Number(strVal[2])] || b[strVal[2][0]] + ' ' + a[strVal[2][1]]) + 'Lakh ' : '';
+        str += (Number(strVal[3]) !== 0) ? (a[Number(strVal[3])] || b[strVal[3][0]] + ' ' + a[strVal[3][1]]) + 'Thousand ' : '';
+        str += (Number(strVal[4]) !== 0) ? (a[Number(strVal[4])] || b[strVal[4][0]] + ' ' + a[strVal[4][1]]) + 'Hundred ' : '';
+        str += (Number(strVal[5]) !== 0) ? ((str !== '') ? 'and ' : '') + (a[Number(strVal[5])] || b[strVal[5][0]] + ' ' + a[strVal[5][1]]) : '';
+        return str;
+      }
+
+      return inWords(n).trim() + ' Rupees Only';
+    }
+
+    function downloadOrderInvoice(orderId) {
       const ord = customerOrders.find(o => o.orderId === orderId);
       if (!ord) {
         showToast("Invoice not found", "error");
         return;
       }
+
+      const amountInWords = numberToWordsINR(ord.total);
 
       const invoiceWindow = window.open('', '_blank');
       invoiceWindow.document.write(`
@@ -3997,6 +4022,7 @@ function downloadOrderInvoice(orderId) {
             .table th, .table td { border: 1px solid #e2e8f0; padding: 10px; text-align: left; font-size: 13px; }
             .table th { background: #f8fafc; font-weight: 700; }
             .totals { text-align: right; margin-top: 15px; font-size: 15px; font-weight: 800; }
+            .words-row { font-size: 12.5px; color: #475569; font-weight: 700; margin-top: 6px; }
             .btn-print { background: #0284c7; color: white; padding: 10px 18px; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; margin-top: 20px; }
             @media print { .btn-print { display: none; } }
           </style>
@@ -4047,8 +4073,11 @@ function downloadOrderInvoice(orderId) {
             Subtotal: ₹${Number(ord.subtotal || ord.total).toLocaleString()}<br>
             ${ord.discount ? `Discount: -₹${Number(ord.discount).toLocaleString()}<br>` : ''}
             Grand Total: ₹${Number(ord.total).toLocaleString()}
+            <div class="words-row">
+              Amount in Words: <em>${amountInWords}</em>
+            </div>
           </div>
-          <div style="font-size: 12px; color: #15803d; font-weight: 700; margin-top: 5px; text-align: right;">
+          <div style="font-size: 12px; color: #15803d; font-weight: 700; margin-top: 8px; text-align: right;">
             Payment: ${ord.paymentMethod || ord.payment || 'COD'}
           </div>
 
@@ -4061,8 +4090,7 @@ function downloadOrderInvoice(orderId) {
       `);
       invoiceWindow.document.close();
     }
-
-    function toggleAddAddressForm() {
+ function toggleAddAddressForm() {
       const box = document.getElementById('dashNewAddressBox');
       box.style.display = box.style.display === 'none' ? 'block' : 'none';
     }
