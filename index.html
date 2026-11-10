@@ -2126,7 +2126,7 @@
                 <h4 style="font-size:16px; font-weight:800;"><i class="fa-solid fa-gift" style="color:#facc15;"></i> Refer & Earn ₹100!</h4>
                 <p style="font-size:12px; opacity:0.9; margin-top:3px;">Invite your friends. When they place their first order, you both get ₹100 in wallet!</p>
               </div>
-              <button onclick="shareReferralWhatsApp()" style="background:#22c55e; color:white; border:none; padding:10px 16px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12.5px; display:inline-flex; align-items:center; gap:6px;">
+              <button onclick="shareReferralWhatsApp()" style="background:#22c55e; colorwhite; border:none; padding:10px 16px; border-radius:8px; font-weight:800; cursor:pointer; font-size:12.5px; display:inline-flex; align-items:center; gap:6px;">
                 <i class="fa-brands fa-whatsapp" style="font-size:16px;"></i> Invite on WhatsApp
               </button>
             </div>
@@ -3140,11 +3140,6 @@
     let tempCustomerSignupData = null;
     let quickGeneratedOtp = "";
 
-    // GREEN API CONFIGURATION
-    const GREEN_API_URL = "https://7107.api.greenapi.com";
-    const GREEN_API_ID_INSTANCE = "710722786238";
-    const GREEN_API_TOKEN = "81f7af56de7549818460196437d115e02889b67db25d425fa8";
-
     const defaultMenuData = [
       {
         id: "m1",
@@ -3416,20 +3411,16 @@
       submitBtn.disabled = true;
       submitBtn.innerText = "WhatsApp OTP Sending... ⏳";
 
-      quickGeneratedOtp = Math.floor(1000 + Math.random() * 9000).toString();
-      const chatId = `91${phoneInput}@c.us`;
-      const messageText = `✨ *VEKU COLLECTIONS*\n\nAapka login verification code hai: *${quickGeneratedOtp}*\n\nYeh code kisi ke sath share na karein. Valid for 10 minutes.`;
-      const apiUrl = `${GREEN_API_URL}/waInstance${GREEN_API_ID_INSTANCE}/sendMessage/${GREEN_API_TOKEN}`;
-
       try {
-        const response = await fetch(apiUrl, {
+        const response = await fetch('/api/send-otp', {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ chatId, message: messageText })
+          body: JSON.stringify({ phone: phoneInput })
         });
         const result = await response.json();
 
-        if (result.idMessage) {
+        if (result.success) {
+          quickGeneratedOtp = result.generatedOtp;
           document.getElementById('quickOtpTargetPhone').innerText = `+91 ${phoneInput}`;
           ['qOtp1', 'qOtp2', 'qOtp3', 'qOtp4'].forEach(id => {
             const input = document.getElementById(id);
@@ -3445,8 +3436,8 @@
           throw new Error(result.message || "Message nahi ja saka");
         }
       } catch (err) {
-        console.error("Green API Error:", err);
-        showToast("WhatsApp OTP send fail! WhatsApp check karein.", "error");
+        console.error("OTP Error:", err);
+        showToast(err.message || "WhatsApp OTP send fail! WhatsApp check karein.", "error");
       } finally {
         submitBtn.disabled = false;
         submitBtn.innerText = "Request OTP 🚀";
@@ -3462,7 +3453,7 @@
         document.getElementById('qOtp4').value
       ].join('');
 
-      if (code === quickGeneratedOtp || code === "1234") {
+      if (code === quickGeneratedOtp) {
         const phone = document.getElementById('quickOtpPhoneInput').value.trim();
         const cleanPhone = phone.replace(/\D/g, '');
 
@@ -3986,8 +3977,7 @@
       const url = `https://wa.me/${YOUR_WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       window.open(url, '_blank');
     }
-
-    function downloadOrderInvoice(orderId) {
+function downloadOrderInvoice(orderId) {
       const ord = customerOrders.find(o => o.orderId === orderId);
       if (!ord) {
         showToast("Invoice not found", "error");
@@ -6601,3 +6591,4 @@
   </script>
 </body>
 </html>
+
